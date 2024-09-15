@@ -1,9 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # pylint: disable=missing-module-docstring
 
-from pathlib import Path
-
-import os
+from os.path import dirname, join, abspath
 from unittest.mock import patch
 
 from searx.exceptions import SearxSettingsException
@@ -11,8 +9,7 @@ from searx import settings_loader
 from tests import SearxTestCase
 
 
-def _settings(f_name):
-    return str(Path(__file__).parent.absolute() / "settings" / f_name)
+test_dir = abspath(dirname(__file__))
 
 
 class TestLoad(SearxTestCase):  # pylint: disable=missing-class-docstring
@@ -21,9 +18,16 @@ class TestLoad(SearxTestCase):  # pylint: disable=missing-class-docstring
             settings_loader.load_yaml('/dev/zero')
 
         with self.assertRaises(SearxSettingsException):
-            settings_loader.load_yaml(_settings("syntaxerror_settings.yml"))
+            settings_loader.load_yaml(join(test_dir, '/settings/syntaxerror_settings.yml'))
 
-        self.assertEqual(settings_loader.load_yaml(_settings("empty_settings.yml")), {})
+        with self.assertRaises(SearxSettingsException):
+            settings_loader.load_yaml(join(test_dir, '/settings/empty_settings.yml'))
+
+    def test_existing_filename_or_none(self):
+        self.assertIsNone(settings_loader.existing_filename_or_none('/dev/zero'))
+
+        bad_settings_path = join(test_dir, 'settings/syntaxerror_settings.yml')
+        self.assertEqual(settings_loader.existing_filename_or_none(bad_settings_path), bad_settings_path)
 
 
 class TestDefaultSettings(SearxTestCase):  # pylint: disable=missing-class-docstring
@@ -51,22 +55,24 @@ class TestUserSettings(SearxTestCase):  # pylint: disable=missing-class-docstrin
             self.assertFalse(settings_loader.is_use_default_settings({'use_default_settings': 0}))
 
     def test_user_settings_not_found(self):
-        with patch.dict(os.environ, {'SEARXNG_SETTINGS_PATH': _settings("not_exists.yml")}):
-            with self.assertRaises(EnvironmentError):
-                _s, _m = settings_loader.load_settings()
-        with patch.dict(os.environ, {'SEARXNG_SETTINGS_PATH': "/folder/not/exists"}):
-            with self.assertRaises(EnvironmentError):
-                _s, _m = settings_loader.load_settings()
+        with patch.dict(settings_loader.environ, {'SEARXNG_SETTINGS_PATH': '/dev/null'}):
+            settings, msg = settings_loader.load_settings()
+            self.assertTrue(msg.startswith('load the default settings from'))
+            self.assertEqual(settings['server']['secret_key'], "ultrasecretkey")
 
     def test_user_settings(self):
-        with patch.dict(os.environ, {'SEARXNG_SETTINGS_PATH': _settings("user_settings_simple.yml")}):
+        with patch.dict(
+            settings_loader.environ, {'SEARXNG_SETTINGS_PATH': join(test_dir, 'settings/user_settings_simple.yml')}
+        ):
             settings, msg = settings_loader.load_settings()
             self.assertTrue(msg.startswith('merge the default settings'))
             self.assertEqual(settings['server']['secret_key'], "user_secret_key")
             self.assertEqual(settings['server']['default_http_headers']['Custom-Header'], "Custom-Value")
 
     def test_user_settings_remove(self):
-        with patch.dict(os.environ, {'SEARXNG_SETTINGS_PATH': _settings("user_settings_remove.yml")}):
+        with patch.dict(
+            settings_loader.environ, {'SEARXNG_SETTINGS_PATH': join(test_dir, 'settings/user_settings_remove.yml')}
+        ):
             settings, msg = settings_loader.load_settings()
             self.assertTrue(msg.startswith('merge the default settings'))
             self.assertEqual(settings['server']['secret_key'], "user_secret_key")
@@ -77,7 +83,9 @@ class TestUserSettings(SearxTestCase):  # pylint: disable=missing-class-docstrin
             self.assertIn('wikipedia', engine_names)
 
     def test_user_settings_remove2(self):
-        with patch.dict(os.environ, {'SEARXNG_SETTINGS_PATH': _settings("user_settings_remove2.yml")}):
+        with patch.dict(
+            settings_loader.environ, {'SEARXNG_SETTINGS_PATH': join(test_dir, 'settings/user_settings_remove2.yml')}
+        ):
             settings, msg = settings_loader.load_settings()
             self.assertTrue(msg.startswith('merge the default settings'))
             self.assertEqual(settings['server']['secret_key'], "user_secret_key")
@@ -93,7 +101,9 @@ class TestUserSettings(SearxTestCase):  # pylint: disable=missing-class-docstrin
             self.assertEqual(newengine[0]['engine'], 'dummy')
 
     def test_user_settings_keep_only(self):
-        with patch.dict(os.environ, {'SEARXNG_SETTINGS_PATH': _settings("user_settings_keep_only.yml")}):
+        with patch.dict(
+            settings_loader.environ, {'SEARXNG_SETTINGS_PATH': join(test_dir, 'settings/user_settings_keep_only.yml')}
+        ):
             settings, msg = settings_loader.load_settings()
             self.assertTrue(msg.startswith('merge the default settings'))
             engine_names = [engine['name'] for engine in settings['engines']]
@@ -102,7 +112,9 @@ class TestUserSettings(SearxTestCase):  # pylint: disable=missing-class-docstrin
             self.assertEqual(len(settings['engines'][2]), 1)
 
     def test_custom_settings(self):
-        with patch.dict(os.environ, {'SEARXNG_SETTINGS_PATH': _settings("user_settings.yml")}):
+        with patch.dict(
+            settings_loader.environ, {'SEARXNG_SETTINGS_PATH': join(test_dir, 'settings/user_settings.yml')}
+        ):
             settings, msg = settings_loader.load_settings()
             self.assertTrue(msg.startswith('load the user settings from'))
             self.assertEqual(settings['server']['port'], 9000)

@@ -10,7 +10,6 @@ class TestEnginesInit(SearxTestCase):  # pylint: disable=missing-class-docstring
     def tearDownClass(cls):
         settings['outgoing']['using_tor_proxy'] = False
         settings['outgoing']['extra_proxy_timeout'] = 0
-        engines.load_engines([])
 
     def test_initialize_engines_default(self):
         engine_list = [

@@ -9,8 +9,6 @@ import string
 from urllib.parse import urlencode
 from datetime import datetime, timedelta
 
-from searx import utils
-
 # Engine metadata
 about = {
     "website": "https://www.bilibili.com",
@@ -58,8 +56,6 @@ def request(query, params):
 
 # Format the video duration
 def format_duration(duration):
-    if not ":" in duration:
-        return None
     minutes, seconds = map(int, duration.split(":"))
     total_seconds = minutes * 60 + seconds
 
@@ -74,7 +70,7 @@ def response(resp):
     results = []
 
     for item in search_res.get("data", {}).get("result", []):
-        title = utils.html_to_text(item["title"])
+        title = item["title"]
         url = item["arcurl"]
         thumbnail = item["pic"]
         description = item["description"]

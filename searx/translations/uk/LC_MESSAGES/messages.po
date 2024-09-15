@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-09-03 15:52+0000\n"
-"PO-Revision-Date: 2024-09-04 04:14+0000\n"
+"POT-Creation-Date: 2024-06-17 12:15+0000\n"
+"PO-Revision-Date: 2024-06-18 21:18+0000\n"
 "Last-Translator: SomeTr <SomeTr@users.noreply.translate.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/searxng/"
 "searxng/uk/>\n"
@@ -28,8 +28,8 @@ msgstr ""
 "? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
 "14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
 "100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 5.7\n"
-"Generated-By: Babel 2.16.0\n"
+"X-Generator: Weblate 5.5.5\n"
+"Generated-By: Babel 2.15.0\n"
 
 #. CONSTANT_NAMES['NO_SUBGROUPING']
 #: searx/searxng.msg
@@ -317,17 +317,17 @@ msgid "author"
 msgstr "автор"
 
 #. SOCIAL_MEDIA_TERMS['THREAD OPEN']
-#: searx/engines/discourse.py:149 searx/searxng.msg
+#: searx/engines/discourse.py:121 searx/searxng.msg
 msgid "open"
 msgstr "відкрито"
 
 #. SOCIAL_MEDIA_TERMS['THREAD CLOSED']
-#: searx/engines/discourse.py:149 searx/searxng.msg
+#: searx/engines/discourse.py:121 searx/searxng.msg
 msgid "closed"
 msgstr "закрито"
 
 #. SOCIAL_MEDIA_TERMS['THREAD ANSWERED']
-#: searx/engines/discourse.py:160 searx/searxng.msg
+#: searx/engines/discourse.py:132 searx/searxng.msg
 msgid "answered"
 msgstr "є відповідь"
 
@@ -344,7 +344,7 @@ msgstr "Джерело"
 msgid "Error loading the next page"
 msgstr "Не вдалося завантажити наступну сторінку"
 
-#: searx/webapp.py:491 searx/webapp.py:894
+#: searx/webapp.py:491 searx/webapp.py:887
 msgid "Invalid settings, please edit your preferences"
 msgstr "Неправильні налаштування, будь ласка, зробіть зміни в налаштуваннях"
 
@@ -374,7 +374,7 @@ msgstr "помилка мережі"
 
 #: searx/webutils.py:40
 msgid "SSL error: certificate validation has failed"
-msgstr "Помилка SSL: не вдалося перевірити сертифікат"
+msgstr "помилка SSL: не вдалося перевірити сертифікат"
 
 #: searx/webutils.py:42
 msgid "unexpected crash"
@@ -420,19 +420,19 @@ msgstr "{minutes} хвилин тому"
 msgid "{hours} hour(s), {minutes} minute(s) ago"
 msgstr "{hours} годин, {minutes} хвилин тому"
 
-#: searx/answerers/random/answerer.py:76
+#: searx/answerers/random/answerer.py:75
 msgid "Random value generator"
 msgstr "Генератор випадкових значень"
 
-#: searx/answerers/random/answerer.py:77
+#: searx/answerers/random/answerer.py:76
 msgid "Generate different random values"
 msgstr "Створити різні випадкові значення"
 
-#: searx/answerers/statistics/answerer.py:50
+#: searx/answerers/statistics/answerer.py:48
 msgid "Statistics functions"
 msgstr "Функції статистики"
 
-#: searx/answerers/statistics/answerer.py:51
+#: searx/answerers/statistics/answerer.py:49
 msgid "Compute {functions} of the arguments"
 msgstr "Розрахувати {functions} аргументів"
 
@@ -465,7 +465,7 @@ msgid "clicks"
 msgstr "кліки"
 
 #: searx/engines/seekr.py:193 searx/engines/yummly.py:71
-#: searx/engines/zlibrary.py:137
+#: searx/engines/zlibrary.py:128
 msgid "Language"
 msgstr "Мова"
 
@@ -477,7 +477,7 @@ msgstr ""
 "{numCitations} цитувань з {firstCitationVelocityYear} по "
 "{lastCitationVelocityYear} рік"
 
-#: searx/engines/tineye.py:45
+#: searx/engines/tineye.py:39
 msgid ""
 "Could not read that image url. This may be due to an unsupported file "
 "format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
@@ -487,7 +487,7 @@ msgstr ""
 "цього зображення не підтримується. TinEye підтримує зображення у форматах"
 " JPEG, PNG, GIF, BMP, TIFF та WebP."
 
-#: searx/engines/tineye.py:51
+#: searx/engines/tineye.py:45
 msgid ""
 "The image is too simple to find matches. TinEye requires a basic level of"
 " visual detail to successfully identify matches."
@@ -495,15 +495,15 @@ msgstr ""
 "Зображення занадто просте, щоб знайти збіги. TinEye вимагає базового "
 "рівня візуальної деталізації для успішного визначення збігів."
 
-#: searx/engines/tineye.py:57
+#: searx/engines/tineye.py:51
 msgid "The image could not be downloaded."
 msgstr "Зображення неможливо завантажити."
 
-#: searx/engines/zlibrary.py:138
+#: searx/engines/zlibrary.py:129
 msgid "Book rating"
 msgstr "Рейтинг книги"
 
-#: searx/engines/zlibrary.py:139
+#: searx/engines/zlibrary.py:130
 msgid "File quality"
 msgstr "Якість файлу"
 
@@ -519,11 +519,15 @@ msgstr "Конвертує рядки в різні геш-послідовно�
 msgid "hash digest"
 msgstr "геш-послідовність"
 
-#: searx/plugins/hostnames.py:103
+#: searx/plugins/hostname_replace.py:7
+msgid "Hostname replace"
+msgstr "Зміна імені сайту"
+
+#: searx/plugins/hostnames.py:68
 msgid "Hostnames plugin"
 msgstr "Плагін Hostnames"
 
-#: searx/plugins/hostnames.py:104
+#: searx/plugins/hostnames.py:69
 msgid "Rewrite hostnames, remove results or prioritize them based on the hostname"
 msgstr ""
 "Переписування імен хостів, видалення результатів або визначення їх "
@@ -667,21 +671,17 @@ msgid "Length"
 msgstr "Довжина"
 
 #: searx/templates/simple/macros.html:36
-msgid "Views"
-msgstr "Перегляди"
-
-#: searx/templates/simple/macros.html:37
 #: searx/templates/simple/result_templates/files.html:34
 #: searx/templates/simple/result_templates/images.html:19
 #: searx/templates/simple/result_templates/paper.html:6
 msgid "Author"
 msgstr "Автор"
 
-#: searx/templates/simple/macros.html:45
+#: searx/templates/simple/macros.html:44
 msgid "cached"
 msgstr "кеш"
 
-#: searx/templates/simple/macros.html:45
+#: searx/templates/simple/macros.html:44
 msgid "proxied"
 msgstr "проксовано"
 
@@ -713,7 +713,7 @@ msgstr ""
 msgid "No HTTPS"
 msgstr "Без HTTPS"
 
-#: searx/templates/simple/elements/engines_msg.html:14
+#: searx/templates/simple/elements/engines_msg.html:18
 #: searx/templates/simple/preferences.html:69
 #: searx/templates/simple/preferences.html:70
 msgid "View error logs and submit a bug report"
@@ -794,19 +794,19 @@ msgstr "Число результатів"
 msgid "Info"
 msgstr "Інфо"
 
-#: searx/templates/simple/results.html:75
+#: searx/templates/simple/results.html:77
 msgid "Try searching for:"
 msgstr "Спробуйте шукати:"
 
-#: searx/templates/simple/results.html:107
+#: searx/templates/simple/results.html:109
 msgid "Back to top"
 msgstr "Доверху"
 
-#: searx/templates/simple/results.html:125
+#: searx/templates/simple/results.html:127
 msgid "Previous page"
 msgstr "Попередня сторінка"
 
-#: searx/templates/simple/results.html:143
+#: searx/templates/simple/results.html:145
 msgid "Next page"
 msgstr "Наступна сторінка"
 
@@ -816,8 +816,8 @@ msgstr "Показати головну сторінку"
 
 #: searx/templates/simple/search.html:9
 #: searx/templates/simple/simple_search.html:5
-msgid "Search for..."
-msgstr "Шукати..."
+msgid "What's on your mind?"
+msgstr "Про що ти думаєш?"
 
 #: searx/templates/simple/search.html:10
 #: searx/templates/simple/simple_search.html:6
@@ -846,7 +846,6 @@ msgstr "Влучань"
 msgid "Result count"
 msgstr "Кількість результатів"
 
-#: searx/templates/simple/elements/engines_msg.html:7
 #: searx/templates/simple/preferences/engines.html:31
 #: searx/templates/simple/stats.html:28
 msgid "Response time"
@@ -922,13 +921,17 @@ msgstr "Коментар(і)"
 msgid "Download results"
 msgstr "Завантажити результати"
 
-#: searx/templates/simple/elements/engines_msg.html:4
+#: searx/templates/simple/elements/engines_msg.html:7
 msgid "Messages from the search engines"
 msgstr "Повідомлення від пошукових систем"
 
-#: searx/templates/simple/elements/engines_msg.html:7
-msgid "seconds"
-msgstr "секунд"
+#: searx/templates/simple/elements/engines_msg.html:12
+msgid "Error!"
+msgstr "Помилка!"
+
+#: searx/templates/simple/elements/engines_msg.html:13
+msgid "Engines cannot retrieve results"
+msgstr "Пошукові системи не можуть отримати результати"
 
 #: searx/templates/simple/elements/search_url.html:3
 msgid "Search URL"
@@ -953,12 +956,12 @@ msgstr "Пропозиції"
 msgid "Search language"
 msgstr "Мова пошуку"
 
-#: searx/templates/simple/filters/languages.html:4
+#: searx/templates/simple/filters/languages.html:2
 #: searx/templates/simple/preferences/language.html:7
 msgid "Default language"
 msgstr "Стандартна мова"
 
-#: searx/templates/simple/filters/languages.html:8
+#: searx/templates/simple/filters/languages.html:4
 #: searx/templates/simple/preferences/language.html:11
 msgid "Auto-detect"
 msgstr "Автовизначення"
@@ -975,7 +978,7 @@ msgstr "Безпечний пошук"
 #: searx/templates/simple/filters/safesearch.html:2
 #: searx/templates/simple/preferences/safesearch.html:7
 msgid "Strict"
-msgstr "Строгий"
+msgstr "Жорсткий"
 
 #: searx/templates/simple/filters/safesearch.html:3
 #: searx/templates/simple/preferences/safesearch.html:11
@@ -1271,7 +1274,7 @@ msgstr "Виберіть автовизначення, щоб SearXNG сам в�
 
 #: searx/templates/simple/preferences/method.html:2
 msgid "HTTP Method"
-msgstr "Метод HTTP"
+msgstr "HTTP Метод"
 
 #: searx/templates/simple/preferences/method.html:14
 msgid "Change how forms are submitted"
@@ -1919,12 +1922,3 @@ msgstr "приховати відео"
 
 #~ msgid "TiB"
 #~ msgstr "ТіБ"
-
-#~ msgid "Hostname replace"
-#~ msgstr "Зміна імені сайту"
-
-#~ msgid "Error!"
-#~ msgstr "Помилка!"
-
-#~ msgid "Engines cannot retrieve results"
-#~ msgstr "Пошукові системи не можуть отримати результати"

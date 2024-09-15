@@ -61,7 +61,7 @@ from searx.botdetection import link_token
 from searx.data import ENGINE_DESCRIPTIONS
 from searx.results import Timing
 from searx.settings_defaults import OUTPUT_FORMATS
-from searx.settings_loader import DEFAULT_SETTINGS_FILE
+from searx.settings_loader import get_default_settings_path
 from searx.exceptions import SearxParameterException
 from searx.engines import (
     DEFAULT_CATEGORY,
@@ -761,11 +761,6 @@ def search():
         )
     )
 
-    # engine_timings: get engine response times sorted from slowest to fastest
-    engine_timings = sorted(result_container.get_timings(), reverse=True, key=lambda e: e.total)
-    max_response_time = engine_timings[0].total if engine_timings else None
-    engine_timings_pairs = [(timing.engine, timing.total) for timing in engine_timings]
-
     # search_query.lang contains the user choice (all, auto, en, ...)
     # when the user choice is "auto", search.search_query.lang contains the detected language
     # otherwise it is equals to search_query.lang
@@ -794,9 +789,7 @@ def search():
             settings['search']['languages'],
             fallback=request.preferences.get_value("language")
         ),
-        timeout_limit = request.form.get('timeout_limit', None),
-        timings = engine_timings_pairs,
-        max_response_time = max_response_time
+        timeout_limit = request.form.get('timeout_limit', None)
         # fmt: on
     )
 
@@ -1354,7 +1347,7 @@ def run():
         port=settings['server']['port'],
         host=settings['server']['bind_address'],
         threaded=True,
-        extra_files=[DEFAULT_SETTINGS_FILE],
+        extra_files=[get_default_settings_path()],
     )
 
 

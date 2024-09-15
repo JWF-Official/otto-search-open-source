@@ -7,8 +7,6 @@ import random
 from urllib.parse import quote_plus, urlparse
 from dateutil import parser
 
-from searx.utils import humanize_number
-
 # about
 about = {
     "website": 'https://api.invidious.io/',
@@ -93,8 +91,7 @@ def response(resp):
                     "url": url,
                     "title": result.get("title", ""),
                     "content": result.get("description", ""),
-                    "length": length,
-                    "views": humanize_number(result['viewCount']),
+                    'length': length,
                     "template": "videos.html",
                     "author": result.get("author"),
                     "publishedDate": publishedDate,

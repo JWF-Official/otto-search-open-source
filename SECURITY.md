@@ -1,8 +1,8 @@
 # Security Policy
 
-We love responsible reports of (potential) security issues in Otto Search.
+We love responsible reports of (potential) security issues in SearXNG.
 
-You can contact us at realitysoftofficial@gmail.com.
+You can contact us at security@searxng.org.
 
 Be sure to provide as much information as possible and if found
 also reproduction steps of the identified vulnerability. Also

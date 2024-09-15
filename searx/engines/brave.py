@@ -426,14 +426,14 @@ def fetch_traits(engine_traits: EngineTraits):
         print("ERROR: response from Brave is not OK.")
     dom = html.fromstring(resp.text)  # type: ignore
 
-    for option in dom.xpath('//section//option[@value="en-us"]/../option'):
+    for option in dom.xpath('//div[@id="language-select"]//option'):
 
         ui_lang = option.get('value')
         try:
-            if '-' in ui_lang and not ui_lang.startswith("zh-"):
+            if '-' in ui_lang:
                 sxng_tag = region_tag(babel.Locale.parse(ui_lang, sep='-'))
             else:
-                sxng_tag = language_tag(babel.Locale.parse(ui_lang, sep='-'))
+                sxng_tag = language_tag(babel.Locale.parse(ui_lang))
 
         except babel.UnknownLocaleError:
             print("ERROR: can't determine babel locale of Brave's (UI) language %s" % ui_lang)

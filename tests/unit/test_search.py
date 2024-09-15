@@ -2,7 +2,6 @@
 # pylint: disable=missing-module-docstring, invalid-name
 
 from copy import copy
-import logging
 
 import searx.search
 from searx.search import SearchQuery, EngineRef
@@ -47,12 +46,7 @@ class SearchQueryTestCase(SearxTestCase):  # pylint: disable=missing-class-docst
 class SearchTestCase(SearxTestCase):  # pylint: disable=missing-class-docstring
     def setUp(self):
 
-        log = logging.getLogger("searx")
-        log_lev = log.level
-        log.setLevel(logging.ERROR)
         from searx import webapp  # pylint: disable=import-outside-toplevel
-
-        log.setLevel(log_lev)
 
         self.app = webapp.app
 

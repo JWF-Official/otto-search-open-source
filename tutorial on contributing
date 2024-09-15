@@ -1,0 +1,21 @@
+ok so first of all:
+sudo su
+git clone (otto repository)
+cd (otto repository) 
+
+also u have to stop docker before making ur changes: 
+docker rm -f $(docker ps -a -q)
+
+then what ur gunna wanna do is:
+docker build -t searxng .
+
+and once thats done do this:
+docker run -d --name (your name here) -p 8890:8080 searxng
+
+(ur gunna want to change the name at the end every time you want to see your changes
+
+if ur having any problems with setting the thing up, use Chatgpt or something and copy the error lol
+
+also heres where u can test it: http://localhost:8890/
+
+

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-09-03 15:52+0000\n"
+"POT-Creation-Date: 2024-06-17 12:15+0000\n"
 "PO-Revision-Date: 2023-06-02 07:07+0000\n"
 "Last-Translator: return42 <markus.heiser@darmarit.de>\n"
 "Language: bo\n"
@@ -20,7 +20,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.16.0\n"
+"Generated-By: Babel 2.15.0\n"
 
 #. CONSTANT_NAMES['NO_SUBGROUPING']
 #: searx/searxng.msg
@@ -308,17 +308,17 @@ msgid "author"
 msgstr ""
 
 #. SOCIAL_MEDIA_TERMS['THREAD OPEN']
-#: searx/engines/discourse.py:149 searx/searxng.msg
+#: searx/engines/discourse.py:121 searx/searxng.msg
 msgid "open"
 msgstr ""
 
 #. SOCIAL_MEDIA_TERMS['THREAD CLOSED']
-#: searx/engines/discourse.py:149 searx/searxng.msg
+#: searx/engines/discourse.py:121 searx/searxng.msg
 msgid "closed"
 msgstr ""
 
 #. SOCIAL_MEDIA_TERMS['THREAD ANSWERED']
-#: searx/engines/discourse.py:160 searx/searxng.msg
+#: searx/engines/discourse.py:132 searx/searxng.msg
 msgid "answered"
 msgstr ""
 
@@ -335,7 +335,7 @@ msgstr ""
 msgid "Error loading the next page"
 msgstr ""
 
-#: searx/webapp.py:491 searx/webapp.py:894
+#: searx/webapp.py:491 searx/webapp.py:887
 msgid "Invalid settings, please edit your preferences"
 msgstr "ནུས་མེད་ཀྱི་སྒྲིག་འགོད།ཁྱེད་ཀྱིས་གདམ་ཀ་ལ་བཅོས་སྒྲིག་གཏོང་རོགས།"
 
@@ -411,19 +411,19 @@ msgstr "སྐར་མ་ {minutes} སྔོན་ལ།"
 msgid "{hours} hour(s), {minutes} minute(s) ago"
 msgstr "ཆུ་ཚོད་ {hours} དང་སྐར་མ {minutes} སྔོན་ལ།"
 
-#: searx/answerers/random/answerer.py:76
+#: searx/answerers/random/answerer.py:75
 msgid "Random value generator"
 msgstr "ངེས་མེད་གྲངས་ཀ་མཁོ་སྤྲོད།"
 
-#: searx/answerers/random/answerer.py:77
+#: searx/answerers/random/answerer.py:76
 msgid "Generate different random values"
 msgstr "ངེས་མེད་གྲངས་ཀ་ཁ་ཤས་ཐོབ་པར་བྱེད།"
 
-#: searx/answerers/statistics/answerer.py:50
+#: searx/answerers/statistics/answerer.py:48
 msgid "Statistics functions"
 msgstr "སྡོམ་བརྩིས་ཀྱི་བྱེད་ནུས།"
 
-#: searx/answerers/statistics/answerer.py:51
+#: searx/answerers/statistics/answerer.py:49
 msgid "Compute {functions} of the arguments"
 msgstr "{functions} གཞི་གྲངས་གྲངས་རྩིས།"
 
@@ -456,7 +456,7 @@ msgid "clicks"
 msgstr ""
 
 #: searx/engines/seekr.py:193 searx/engines/yummly.py:71
-#: searx/engines/zlibrary.py:137
+#: searx/engines/zlibrary.py:128
 msgid "Language"
 msgstr ""
 
@@ -466,28 +466,28 @@ msgid ""
 "{lastCitationVelocityYear}"
 msgstr ""
 
-#: searx/engines/tineye.py:45
+#: searx/engines/tineye.py:39
 msgid ""
 "Could not read that image url. This may be due to an unsupported file "
 "format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
 " WebP."
 msgstr ""
 
-#: searx/engines/tineye.py:51
+#: searx/engines/tineye.py:45
 msgid ""
 "The image is too simple to find matches. TinEye requires a basic level of"
 " visual detail to successfully identify matches."
 msgstr ""
 
-#: searx/engines/tineye.py:57
+#: searx/engines/tineye.py:51
 msgid "The image could not be downloaded."
 msgstr ""
 
-#: searx/engines/zlibrary.py:138
+#: searx/engines/zlibrary.py:129
 msgid "Book rating"
 msgstr ""
 
-#: searx/engines/zlibrary.py:139
+#: searx/engines/zlibrary.py:130
 msgid "File quality"
 msgstr ""
 
@@ -503,11 +503,15 @@ msgstr ""
 msgid "hash digest"
 msgstr ""
 
-#: searx/plugins/hostnames.py:103
+#: searx/plugins/hostname_replace.py:7
+msgid "Hostname replace"
+msgstr ""
+
+#: searx/plugins/hostnames.py:68
 msgid "Hostnames plugin"
 msgstr ""
 
-#: searx/plugins/hostnames.py:104
+#: searx/plugins/hostnames.py:69
 msgid "Rewrite hostnames, remove results or prioritize them based on the hostname"
 msgstr ""
 
@@ -641,21 +645,17 @@ msgid "Length"
 msgstr ""
 
 #: searx/templates/simple/macros.html:36
-msgid "Views"
-msgstr ""
-
-#: searx/templates/simple/macros.html:37
 #: searx/templates/simple/result_templates/files.html:34
 #: searx/templates/simple/result_templates/images.html:19
 #: searx/templates/simple/result_templates/paper.html:6
 msgid "Author"
 msgstr ""
 
-#: searx/templates/simple/macros.html:45
+#: searx/templates/simple/macros.html:44
 msgid "cached"
 msgstr "འདྲ་བཤུས་རྒྱབ་ཚར།"
 
-#: searx/templates/simple/macros.html:45
+#: searx/templates/simple/macros.html:44
 msgid "proxied"
 msgstr "མངག་བཅོལ་བྱེད་ཟིན།"
 
@@ -683,7 +683,7 @@ msgstr ""
 msgid "No HTTPS"
 msgstr ""
 
-#: searx/templates/simple/elements/engines_msg.html:14
+#: searx/templates/simple/elements/engines_msg.html:18
 #: searx/templates/simple/preferences.html:69
 #: searx/templates/simple/preferences.html:70
 msgid "View error logs and submit a bug report"
@@ -764,19 +764,19 @@ msgstr "འཚོལ་འབྲས་ཀྱི་ཁ་གྲངས།"
 msgid "Info"
 msgstr ""
 
-#: searx/templates/simple/results.html:75
+#: searx/templates/simple/results.html:77
 msgid "Try searching for:"
 msgstr "འཚོལ་བཤེར་ནང་དོན་ནི།"
 
-#: searx/templates/simple/results.html:107
+#: searx/templates/simple/results.html:109
 msgid "Back to top"
 msgstr ""
 
-#: searx/templates/simple/results.html:125
+#: searx/templates/simple/results.html:127
 msgid "Previous page"
 msgstr ""
 
-#: searx/templates/simple/results.html:143
+#: searx/templates/simple/results.html:145
 msgid "Next page"
 msgstr ""
 
@@ -786,8 +786,8 @@ msgstr ""
 
 #: searx/templates/simple/search.html:9
 #: searx/templates/simple/simple_search.html:5
-msgid "Search for..."
-msgstr "འཚོལ་བཤེར་ནང་དོན།"
+msgid "What's on your mind?"
+msgstr "ཁྱེད་ཀྱི་བསམ་བློ་ནང་ག་རེ་ཡོད་རེད།"
 
 #: searx/templates/simple/search.html:10
 #: searx/templates/simple/simple_search.html:6
@@ -816,7 +816,6 @@ msgstr "ཐོབ་སྐར།"
 msgid "Result count"
 msgstr ""
 
-#: searx/templates/simple/elements/engines_msg.html:7
 #: searx/templates/simple/preferences/engines.html:31
 #: searx/templates/simple/stats.html:28
 msgid "Response time"
@@ -892,13 +891,17 @@ msgstr ""
 msgid "Download results"
 msgstr "འཚོལ་འབྲས་ཕབ་ལེན།"
 
-#: searx/templates/simple/elements/engines_msg.html:4
+#: searx/templates/simple/elements/engines_msg.html:7
 msgid "Messages from the search engines"
 msgstr ""
 
-#: searx/templates/simple/elements/engines_msg.html:7
-msgid "seconds"
-msgstr ""
+#: searx/templates/simple/elements/engines_msg.html:12
+msgid "Error!"
+msgstr "ནོར་འཁྲུལ་བྱུང་ཟིན།"
+
+#: searx/templates/simple/elements/engines_msg.html:13
+msgid "Engines cannot retrieve results"
+msgstr "འཚོལ་བཤེར་སྒུལ་བྱེད་ལ་ནོར་འཁྲུལ་ཅུང་ཟད་བྱུང་།"
 
 #: searx/templates/simple/elements/search_url.html:3
 msgid "Search URL"
@@ -923,12 +926,12 @@ msgstr "འོས་སྦྱོས།"
 msgid "Search language"
 msgstr "འཚོལ་བཤེར་ནང་དོན་མཚོན་བྱེད་ཀྱི་སྐད་རིགས།"
 
-#: searx/templates/simple/filters/languages.html:4
+#: searx/templates/simple/filters/languages.html:2
 #: searx/templates/simple/preferences/language.html:7
 msgid "Default language"
 msgstr "གཞི་བཞག་སྐད་རིགས།"
 
-#: searx/templates/simple/filters/languages.html:8
+#: searx/templates/simple/filters/languages.html:4
 #: searx/templates/simple/preferences/language.html:11
 msgid "Auto-detect"
 msgstr ""
@@ -1855,13 +1858,4 @@ msgstr "རྙན་ཟློས་སྦས།"
 
 #~ msgid "TiB"
 #~ msgstr "TB"
-
-#~ msgid "Hostname replace"
-#~ msgstr ""
-
-#~ msgid "Error!"
-#~ msgstr "ནོར་འཁྲུལ་བྱུང་ཟིན།"
-
-#~ msgid "Engines cannot retrieve results"
-#~ msgstr "འཚོལ་བཤེར་སྒུལ་བྱེད་ལ་ནོར་འཁྲུལ་ཅུང་ཟད་བྱུང་།"
 

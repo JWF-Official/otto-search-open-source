@@ -31,9 +31,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-09-03 15:52+0000\n"
-"PO-Revision-Date: 2024-09-05 06:18+0000\n"
-"Last-Translator: return42 <return42@users.noreply.translate.codeberg.org>\n"
+"POT-Creation-Date: 2024-06-17 12:15+0000\n"
+"PO-Revision-Date: 2024-06-18 21:18+0000\n"
+"Last-Translator: tiziodcaio <tiziodcaio@users.noreply.translate.codeberg.org>"
+"\n"
 "Language-Team: Italian <https://translate.codeberg.org/projects/searxng/"
 "searxng/it/>\n"
 "Language: it\n"
@@ -41,8 +42,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7\n"
-"Generated-By: Babel 2.16.0\n"
+"X-Generator: Weblate 5.5.5\n"
+"Generated-By: Babel 2.15.0\n"
 
 #. CONSTANT_NAMES['NO_SUBGROUPING']
 #: searx/searxng.msg
@@ -227,7 +228,7 @@ msgstr "Umidità"
 #. WEATHER_TERMS['MAX TEMP.']
 #: searx/searxng.msg
 msgid "Max temp."
-msgstr "Temp. massima"
+msgstr "Temp. max"
 
 #. WEATHER_TERMS['MIN TEMP.']
 #: searx/searxng.msg
@@ -330,17 +331,17 @@ msgid "author"
 msgstr "autore"
 
 #. SOCIAL_MEDIA_TERMS['THREAD OPEN']
-#: searx/engines/discourse.py:149 searx/searxng.msg
+#: searx/engines/discourse.py:121 searx/searxng.msg
 msgid "open"
 msgstr "aperto"
 
 #. SOCIAL_MEDIA_TERMS['THREAD CLOSED']
-#: searx/engines/discourse.py:149 searx/searxng.msg
+#: searx/engines/discourse.py:121 searx/searxng.msg
 msgid "closed"
 msgstr "chiuso"
 
 #. SOCIAL_MEDIA_TERMS['THREAD ANSWERED']
-#: searx/engines/discourse.py:160 searx/searxng.msg
+#: searx/engines/discourse.py:132 searx/searxng.msg
 msgid "answered"
 msgstr "risposto"
 
@@ -357,7 +358,7 @@ msgstr "Sorgente"
 msgid "Error loading the next page"
 msgstr "Errore di caricamento della pagina successiva"
 
-#: searx/webapp.py:491 searx/webapp.py:894
+#: searx/webapp.py:491 searx/webapp.py:887
 msgid "Invalid settings, please edit your preferences"
 msgstr "Impostazioni non valide, modifica le tue preferenze"
 
@@ -433,19 +434,19 @@ msgstr "di {minutes} minuto(i) fa"
 msgid "{hours} hour(s), {minutes} minute(s) ago"
 msgstr "di {hours} ora(e) e {minutes} minuto(i) fa"
 
-#: searx/answerers/random/answerer.py:76
+#: searx/answerers/random/answerer.py:75
 msgid "Random value generator"
 msgstr "Generatore di numeri casuali"
 
-#: searx/answerers/random/answerer.py:77
+#: searx/answerers/random/answerer.py:76
 msgid "Generate different random values"
 msgstr "Genera più numeri casuali"
 
-#: searx/answerers/statistics/answerer.py:50
+#: searx/answerers/statistics/answerer.py:48
 msgid "Statistics functions"
 msgstr "Funzioni statistiche"
 
-#: searx/answerers/statistics/answerer.py:51
+#: searx/answerers/statistics/answerer.py:49
 msgid "Compute {functions} of the arguments"
 msgstr "Calcola {functions} degli argomenti"
 
@@ -478,7 +479,7 @@ msgid "clicks"
 msgstr "clic"
 
 #: searx/engines/seekr.py:193 searx/engines/yummly.py:71
-#: searx/engines/zlibrary.py:137
+#: searx/engines/zlibrary.py:128
 msgid "Language"
 msgstr "Lingua"
 
@@ -490,7 +491,7 @@ msgstr ""
 "{numCitations} citazioni dall anno {firstCitationVelocityYear} fino al "
 "{lastCitationVelocityYear}"
 
-#: searx/engines/tineye.py:45
+#: searx/engines/tineye.py:39
 msgid ""
 "Could not read that image url. This may be due to an unsupported file "
 "format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
@@ -500,7 +501,7 @@ msgstr ""
 "formato del file non supportato. TinEye supporta solo immagini JPEG, PNG,"
 " GIF, BMP, TIFF o Web."
 
-#: searx/engines/tineye.py:51
+#: searx/engines/tineye.py:45
 msgid ""
 "The image is too simple to find matches. TinEye requires a basic level of"
 " visual detail to successfully identify matches."
@@ -509,15 +510,15 @@ msgstr ""
 "un maggiore livello di dettagli visivi per identificare corrispondenze "
 "con successo."
 
-#: searx/engines/tineye.py:57
+#: searx/engines/tineye.py:51
 msgid "The image could not be downloaded."
 msgstr "L'immagine non può essere scaricata."
 
-#: searx/engines/zlibrary.py:138
+#: searx/engines/zlibrary.py:129
 msgid "Book rating"
 msgstr "Valutazione del libro"
 
-#: searx/engines/zlibrary.py:139
+#: searx/engines/zlibrary.py:130
 msgid "File quality"
 msgstr "Qualità del file"
 
@@ -533,11 +534,15 @@ msgstr "Converte le stringhe in diversi digest di hash."
 msgid "hash digest"
 msgstr "digest dell'hash"
 
-#: searx/plugins/hostnames.py:103
+#: searx/plugins/hostname_replace.py:7
+msgid "Hostname replace"
+msgstr "Sostituzione del nome host"
+
+#: searx/plugins/hostnames.py:68
 msgid "Hostnames plugin"
 msgstr "Plugin dell'hostname"
 
-#: searx/plugins/hostnames.py:104
+#: searx/plugins/hostnames.py:69
 msgid "Rewrite hostnames, remove results or prioritize them based on the hostname"
 msgstr ""
 "Riscrive gli hostname, rimuove i risultati o gli da priorità in base "
@@ -569,11 +574,11 @@ msgstr ""
 
 #: searx/plugins/self_info.py:28
 msgid "Your IP is: "
-msgstr "Il tuo IP è: "
+msgstr ""
 
 #: searx/plugins/self_info.py:31
 msgid "Your user-agent is: "
-msgstr "Il tuo interprete è: "
+msgstr ""
 
 #: searx/plugins/tor_check.py:24
 msgid "Tor check plugin"
@@ -683,21 +688,17 @@ msgid "Length"
 msgstr "Lunghezza"
 
 #: searx/templates/simple/macros.html:36
-msgid "Views"
-msgstr "Visualizzazioni"
-
-#: searx/templates/simple/macros.html:37
 #: searx/templates/simple/result_templates/files.html:34
 #: searx/templates/simple/result_templates/images.html:19
 #: searx/templates/simple/result_templates/paper.html:6
 msgid "Author"
 msgstr "Autore"
 
-#: searx/templates/simple/macros.html:45
+#: searx/templates/simple/macros.html:44
 msgid "cached"
 msgstr "in cache"
 
-#: searx/templates/simple/macros.html:45
+#: searx/templates/simple/macros.html:44
 msgid "proxied"
 msgstr "proxy"
 
@@ -731,7 +732,7 @@ msgstr ""
 msgid "No HTTPS"
 msgstr "Nessun HTTPS"
 
-#: searx/templates/simple/elements/engines_msg.html:14
+#: searx/templates/simple/elements/engines_msg.html:18
 #: searx/templates/simple/preferences.html:69
 #: searx/templates/simple/preferences.html:70
 msgid "View error logs and submit a bug report"
@@ -812,19 +813,19 @@ msgstr "Numero di risultati"
 msgid "Info"
 msgstr "Informazioni"
 
-#: searx/templates/simple/results.html:75
+#: searx/templates/simple/results.html:77
 msgid "Try searching for:"
 msgstr "Prova a cercare:"
 
-#: searx/templates/simple/results.html:107
+#: searx/templates/simple/results.html:109
 msgid "Back to top"
 msgstr "Torna in cima"
 
-#: searx/templates/simple/results.html:125
+#: searx/templates/simple/results.html:127
 msgid "Previous page"
 msgstr "Pagina precedente"
 
-#: searx/templates/simple/results.html:143
+#: searx/templates/simple/results.html:145
 msgid "Next page"
 msgstr "Pagina successiva"
 
@@ -834,7 +835,7 @@ msgstr "Visualizza la pagina principale"
 
 #: searx/templates/simple/search.html:9
 #: searx/templates/simple/simple_search.html:5
-msgid "Search for..."
+msgid "What's on your mind?"
 msgstr "Cerca..."
 
 #: searx/templates/simple/search.html:10
@@ -864,7 +865,6 @@ msgstr "Punteggi"
 msgid "Result count"
 msgstr "Conteggio dei risultati"
 
-#: searx/templates/simple/elements/engines_msg.html:7
 #: searx/templates/simple/preferences/engines.html:31
 #: searx/templates/simple/stats.html:28
 msgid "Response time"
@@ -940,13 +940,17 @@ msgstr "Commento(i)"
 msgid "Download results"
 msgstr "Scarica i risultati"
 
-#: searx/templates/simple/elements/engines_msg.html:4
+#: searx/templates/simple/elements/engines_msg.html:7
 msgid "Messages from the search engines"
 msgstr "Messaggi dai motori di ricerca"
 
-#: searx/templates/simple/elements/engines_msg.html:7
-msgid "seconds"
-msgstr "s"
+#: searx/templates/simple/elements/engines_msg.html:12
+msgid "Error!"
+msgstr "Errore!"
+
+#: searx/templates/simple/elements/engines_msg.html:13
+msgid "Engines cannot retrieve results"
+msgstr "I motori di ricerca non riescono a recuperare risultati"
 
 #: searx/templates/simple/elements/search_url.html:3
 msgid "Search URL"
@@ -971,12 +975,12 @@ msgstr "Suggerimenti"
 msgid "Search language"
 msgstr "Lingua di ricerca"
 
-#: searx/templates/simple/filters/languages.html:4
+#: searx/templates/simple/filters/languages.html:2
 #: searx/templates/simple/preferences/language.html:7
 msgid "Default language"
 msgstr "Lingua predefinita"
 
-#: searx/templates/simple/filters/languages.html:8
+#: searx/templates/simple/filters/languages.html:4
 #: searx/templates/simple/preferences/language.html:11
 msgid "Auto-detect"
 msgstr "Rilevamento automatico"
@@ -1972,12 +1976,3 @@ msgstr "nascondi video"
 
 #~ msgid "TiB"
 #~ msgstr "TiB"
-
-#~ msgid "Hostname replace"
-#~ msgstr "Sostituzione del nome host"
-
-#~ msgid "Error!"
-#~ msgstr "Errore!"
-
-#~ msgid "Engines cannot retrieve results"
-#~ msgstr "I motori di ricerca non riescono a recuperare risultati"

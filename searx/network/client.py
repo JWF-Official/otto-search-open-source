@@ -11,12 +11,16 @@ from typing import Any, Dict
 import httpx
 from httpx_socks import AsyncProxyTransport
 from python_socks import parse_proxy_url, ProxyConnectionError, ProxyTimeoutError, ProxyError
-import uvloop
 
 from searx import logger
 
-
-uvloop.install()
+# Optional uvloop (support Python 3.6)
+try:
+    import uvloop
+except ImportError:
+    pass
+else:
+    uvloop.install()
 
 
 logger = logger.getChild('searx.network.client')

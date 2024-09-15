@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-09-03 15:52+0000\n"
-"PO-Revision-Date: 2024-07-30 08:18+0000\n"
+"POT-Creation-Date: 2024-06-17 12:15+0000\n"
+"PO-Revision-Date: 2024-05-29 09:18+0000\n"
 "Last-Translator: return42 <return42@users.noreply.translate.codeberg.org>"
 "\n"
 "Language: lt\n"
@@ -26,7 +26,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.16.0\n"
+"Generated-By: Babel 2.15.0\n"
 
 #. CONSTANT_NAMES['NO_SUBGROUPING']
 #: searx/searxng.msg
@@ -186,12 +186,12 @@ msgstr ""
 #. WEATHER_TERMS['CONDITION']
 #: searx/searxng.msg
 msgid "Condition"
-msgstr "Sąlyga"
+msgstr ""
 
 #. WEATHER_TERMS['CURRENT CONDITION']
 #: searx/searxng.msg
 msgid "Current condition"
-msgstr "Esamos sąlygos"
+msgstr ""
 
 #. WEATHER_TERMS['EVENING']
 #: searx/engines/wttr.py:100 searx/searxng.msg
@@ -206,7 +206,7 @@ msgstr "Jaučiasi kaip"
 #. WEATHER_TERMS['HUMIDITY']
 #: searx/searxng.msg
 msgid "Humidity"
-msgstr "Dregmė"
+msgstr ""
 
 #. WEATHER_TERMS['MAX TEMP.']
 #: searx/searxng.msg
@@ -236,7 +236,7 @@ msgstr "Vidurdienis"
 #. WEATHER_TERMS['PRESSURE']
 #: searx/searxng.msg
 msgid "Pressure"
-msgstr "Slėgis"
+msgstr ""
 
 #. WEATHER_TERMS['SUNRISE']
 #: searx/searxng.msg
@@ -256,7 +256,7 @@ msgstr "Temperatura"
 #. WEATHER_TERMS['UV INDEX']
 #: searx/searxng.msg
 msgid "UV index"
-msgstr "UV indeksas"
+msgstr ""
 
 #. WEATHER_TERMS['VISIBILITY']
 #: searx/searxng.msg
@@ -314,17 +314,17 @@ msgid "author"
 msgstr "Autorius"
 
 #. SOCIAL_MEDIA_TERMS['THREAD OPEN']
-#: searx/engines/discourse.py:149 searx/searxng.msg
+#: searx/engines/discourse.py:121 searx/searxng.msg
 msgid "open"
 msgstr ""
 
 #. SOCIAL_MEDIA_TERMS['THREAD CLOSED']
-#: searx/engines/discourse.py:149 searx/searxng.msg
+#: searx/engines/discourse.py:121 searx/searxng.msg
 msgid "closed"
 msgstr ""
 
 #. SOCIAL_MEDIA_TERMS['THREAD ANSWERED']
-#: searx/engines/discourse.py:160 searx/searxng.msg
+#: searx/engines/discourse.py:132 searx/searxng.msg
 msgid "answered"
 msgstr ""
 
@@ -341,7 +341,7 @@ msgstr "Šaltinis"
 msgid "Error loading the next page"
 msgstr "Klaida keliant kitą puslapį"
 
-#: searx/webapp.py:491 searx/webapp.py:894
+#: searx/webapp.py:491 searx/webapp.py:887
 msgid "Invalid settings, please edit your preferences"
 msgstr "Neteisingi nustatymai, pakeiskite savo nuostatas"
 
@@ -417,19 +417,19 @@ msgstr "prieš {minutes} min"
 msgid "{hours} hour(s), {minutes} minute(s) ago"
 msgstr "prieš {hours} val., {minutes} min"
 
-#: searx/answerers/random/answerer.py:76
+#: searx/answerers/random/answerer.py:75
 msgid "Random value generator"
 msgstr "Atsitiktinių skaičiu generatorius"
 
-#: searx/answerers/random/answerer.py:77
+#: searx/answerers/random/answerer.py:76
 msgid "Generate different random values"
 msgstr "Generuoja įvairias atsitiktinius skaičius"
 
-#: searx/answerers/statistics/answerer.py:50
+#: searx/answerers/statistics/answerer.py:48
 msgid "Statistics functions"
 msgstr "Statistikos funkcijos"
 
-#: searx/answerers/statistics/answerer.py:51
+#: searx/answerers/statistics/answerer.py:49
 msgid "Compute {functions} of the arguments"
 msgstr "Skaičiuoti argumentų {functions} funkcijas"
 
@@ -462,7 +462,7 @@ msgid "clicks"
 msgstr "paspaudimai"
 
 #: searx/engines/seekr.py:193 searx/engines/yummly.py:71
-#: searx/engines/zlibrary.py:137
+#: searx/engines/zlibrary.py:128
 msgid "Language"
 msgstr "Kalba"
 
@@ -474,7 +474,7 @@ msgstr ""
 "{numCitations} citatos iš metų{firstCitationVelocityYear} to "
 "{lastCitationVelocityYear}"
 
-#: searx/engines/tineye.py:45
+#: searx/engines/tineye.py:39
 msgid ""
 "Could not read that image url. This may be due to an unsupported file "
 "format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
@@ -483,7 +483,7 @@ msgstr ""
 "Nepavyko perskaityti šio vaizdo URL. Taip gali būti dėl nepalaikomo failo"
 " formato. TinEye palaiko tik JPEG, PNG, GIF, BMP, TIFF arba WebP vaizdus."
 
-#: searx/engines/tineye.py:51
+#: searx/engines/tineye.py:45
 msgid ""
 "The image is too simple to find matches. TinEye requires a basic level of"
 " visual detail to successfully identify matches."
@@ -492,15 +492,15 @@ msgstr ""
 " nustatyti atitikmenis, „TinEye“ reikalingas pagrindinis vizualinių "
 "detalių lygis."
 
-#: searx/engines/tineye.py:57
+#: searx/engines/tineye.py:51
 msgid "The image could not be downloaded."
 msgstr "Nepavyko atsisiųsti vaizdo."
 
-#: searx/engines/zlibrary.py:138
+#: searx/engines/zlibrary.py:129
 msgid "Book rating"
 msgstr "Knygos įvertinimas"
 
-#: searx/engines/zlibrary.py:139
+#: searx/engines/zlibrary.py:130
 msgid "File quality"
 msgstr "Failo kokybė"
 
@@ -516,11 +516,15 @@ msgstr "Konvertuoja eilutes į skirtingas maišos santraukas."
 msgid "hash digest"
 msgstr "maišos santrauka"
 
-#: searx/plugins/hostnames.py:103
+#: searx/plugins/hostname_replace.py:7
+msgid "Hostname replace"
+msgstr "Kompiuterio pavadinimo pakeitimas"
+
+#: searx/plugins/hostnames.py:68
 msgid "Hostnames plugin"
 msgstr ""
 
-#: searx/plugins/hostnames.py:104
+#: searx/plugins/hostnames.py:69
 msgid "Rewrite hostnames, remove results or prioritize them based on the hostname"
 msgstr ""
 
@@ -550,7 +554,7 @@ msgstr ""
 
 #: searx/plugins/self_info.py:28
 msgid "Your IP is: "
-msgstr "Jūsų IP adresas: "
+msgstr ""
 
 #: searx/plugins/self_info.py:31
 msgid "Your user-agent is: "
@@ -663,21 +667,17 @@ msgid "Length"
 msgstr "Trukmė"
 
 #: searx/templates/simple/macros.html:36
-msgid "Views"
-msgstr "Peržiūros"
-
-#: searx/templates/simple/macros.html:37
 #: searx/templates/simple/result_templates/files.html:34
 #: searx/templates/simple/result_templates/images.html:19
 #: searx/templates/simple/result_templates/paper.html:6
 msgid "Author"
 msgstr "Autorius"
 
-#: searx/templates/simple/macros.html:45
+#: searx/templates/simple/macros.html:44
 msgid "cached"
 msgstr "patalpinta"
 
-#: searx/templates/simple/macros.html:45
+#: searx/templates/simple/macros.html:44
 msgid "proxied"
 msgstr "persiustas"
 
@@ -705,7 +705,7 @@ msgstr "Pateikite nauja klaidą Github, įvedant informaciją viršuje."
 msgid "No HTTPS"
 msgstr "Nėra HTTPS"
 
-#: searx/templates/simple/elements/engines_msg.html:14
+#: searx/templates/simple/elements/engines_msg.html:18
 #: searx/templates/simple/preferences.html:69
 #: searx/templates/simple/preferences.html:70
 msgid "View error logs and submit a bug report"
@@ -786,19 +786,19 @@ msgstr "Rezultatų skaičius"
 msgid "Info"
 msgstr "Informacija"
 
-#: searx/templates/simple/results.html:75
+#: searx/templates/simple/results.html:77
 msgid "Try searching for:"
 msgstr "Bandykite ieškoti:"
 
-#: searx/templates/simple/results.html:107
+#: searx/templates/simple/results.html:109
 msgid "Back to top"
 msgstr "Atgal į viršų"
 
-#: searx/templates/simple/results.html:125
+#: searx/templates/simple/results.html:127
 msgid "Previous page"
 msgstr "Praitas puslapis"
 
-#: searx/templates/simple/results.html:143
+#: searx/templates/simple/results.html:145
 msgid "Next page"
 msgstr "Kitas puslapis"
 
@@ -808,7 +808,7 @@ msgstr "Rodyti pagrindinį puslapį"
 
 #: searx/templates/simple/search.html:9
 #: searx/templates/simple/simple_search.html:5
-msgid "Search for..."
+msgid "What's on your mind?"
 msgstr "Ko ieškoti..."
 
 #: searx/templates/simple/search.html:10
@@ -838,7 +838,6 @@ msgstr "Įvertinimas"
 msgid "Result count"
 msgstr "Rezultatų skaičius"
 
-#: searx/templates/simple/elements/engines_msg.html:7
 #: searx/templates/simple/preferences/engines.html:31
 #: searx/templates/simple/stats.html:28
 msgid "Response time"
@@ -914,13 +913,17 @@ msgstr "Komentaras(-ai)"
 msgid "Download results"
 msgstr "Atsisiųsti rezultatus"
 
-#: searx/templates/simple/elements/engines_msg.html:4
+#: searx/templates/simple/elements/engines_msg.html:7
 msgid "Messages from the search engines"
 msgstr "Pranešimai iš paieškos sistemų"
 
-#: searx/templates/simple/elements/engines_msg.html:7
-msgid "seconds"
-msgstr ""
+#: searx/templates/simple/elements/engines_msg.html:12
+msgid "Error!"
+msgstr "Klaida!"
+
+#: searx/templates/simple/elements/engines_msg.html:13
+msgid "Engines cannot retrieve results"
+msgstr "Sistemos negali gauti rezultatų"
 
 #: searx/templates/simple/elements/search_url.html:3
 msgid "Search URL"
@@ -945,12 +948,12 @@ msgstr "Pasiūlymai"
 msgid "Search language"
 msgstr "Paieškos kalba"
 
-#: searx/templates/simple/filters/languages.html:4
+#: searx/templates/simple/filters/languages.html:2
 #: searx/templates/simple/preferences/language.html:7
 msgid "Default language"
 msgstr "Numatytoji kalba"
 
-#: searx/templates/simple/filters/languages.html:8
+#: searx/templates/simple/filters/languages.html:4
 #: searx/templates/simple/preferences/language.html:11
 msgid "Auto-detect"
 msgstr "Automatiškai aptikti"
@@ -1914,13 +1917,4 @@ msgstr "slėpti vaizdo įrašą"
 
 #~ msgid "TiB"
 #~ msgstr "TiB"
-
-#~ msgid "Hostname replace"
-#~ msgstr "Kompiuterio pavadinimo pakeitimas"
-
-#~ msgid "Error!"
-#~ msgstr "Klaida!"
-
-#~ msgid "Engines cannot retrieve results"
-#~ msgstr "Sistemos negali gauti rezultatų"
 

@@ -5,7 +5,6 @@
 # pylint: disable=use-dict-literal
 
 import json
-import html
 from urllib.parse import urlencode, quote_plus
 
 import lxml
@@ -163,7 +162,7 @@ def stract(query, _lang):
     if not resp.ok:
         return []
 
-    return [html.unescape(suggestion['raw']) for suggestion in resp.json()]
+    return [suggestion['raw'] for suggestion in resp.json()]
 
 
 def startpage(query, sxng_locale):

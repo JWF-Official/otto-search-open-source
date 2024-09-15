@@ -1,7 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # pylint: disable=missing-module-docstring
 
-import logging
 import json
 from urllib.parse import ParseResult
 from mock import Mock
@@ -21,12 +20,7 @@ class ViewsTestCase(SearxTestCase):  # pylint: disable=missing-class-docstring, 
 
         self.setattr4test(searx.search.processors, 'initialize_processor', dummy)
 
-        log = logging.getLogger("searx")
-        log_lev = log.level
-        log.setLevel(logging.ERROR)
         from searx import webapp  # pylint: disable=import-outside-toplevel
-
-        log.setLevel(log_lev)
 
         webapp.app.config['TESTING'] = True  # to get better error messages
         self.app = webapp.app.test_client()

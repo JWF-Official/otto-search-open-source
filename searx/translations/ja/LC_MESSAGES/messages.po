@@ -25,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-09-03 15:52+0000\n"
-"PO-Revision-Date: 2024-08-12 14:14+0000\n"
+"POT-Creation-Date: 2024-06-17 12:15+0000\n"
+"PO-Revision-Date: 2024-06-11 21:30+0000\n"
 "Last-Translator: tentsbet <tentsbet@users.noreply.translate.codeberg.org>"
 "\n"
 "Language: ja\n"
@@ -36,7 +36,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.16.0\n"
+"Generated-By: Babel 2.15.0\n"
 
 #. CONSTANT_NAMES['NO_SUBGROUPING']
 #: searx/searxng.msg
@@ -324,17 +324,17 @@ msgid "author"
 msgstr "作"
 
 #. SOCIAL_MEDIA_TERMS['THREAD OPEN']
-#: searx/engines/discourse.py:149 searx/searxng.msg
+#: searx/engines/discourse.py:121 searx/searxng.msg
 msgid "open"
 msgstr "オープン"
 
 #. SOCIAL_MEDIA_TERMS['THREAD CLOSED']
-#: searx/engines/discourse.py:149 searx/searxng.msg
+#: searx/engines/discourse.py:121 searx/searxng.msg
 msgid "closed"
 msgstr "クローズ"
 
 #. SOCIAL_MEDIA_TERMS['THREAD ANSWERED']
-#: searx/engines/discourse.py:160 searx/searxng.msg
+#: searx/engines/discourse.py:132 searx/searxng.msg
 msgid "answered"
 msgstr "回答"
 
@@ -351,7 +351,7 @@ msgstr "ソース"
 msgid "Error loading the next page"
 msgstr "次のページの読み込み中にエラーが発生しました"
 
-#: searx/webapp.py:491 searx/webapp.py:894
+#: searx/webapp.py:491 searx/webapp.py:887
 msgid "Invalid settings, please edit your preferences"
 msgstr "設定が無効です、設定を変更してください"
 
@@ -427,19 +427,19 @@ msgstr "{minutes} 分前"
 msgid "{hours} hour(s), {minutes} minute(s) ago"
 msgstr "{hours} 時間と{minutes} 分前"
 
-#: searx/answerers/random/answerer.py:76
+#: searx/answerers/random/answerer.py:75
 msgid "Random value generator"
 msgstr "ランダムな値を生成"
 
-#: searx/answerers/random/answerer.py:77
+#: searx/answerers/random/answerer.py:76
 msgid "Generate different random values"
 msgstr "異なるランダムな値を生成する"
 
-#: searx/answerers/statistics/answerer.py:50
+#: searx/answerers/statistics/answerer.py:48
 msgid "Statistics functions"
 msgstr "統計機能"
 
-#: searx/answerers/statistics/answerer.py:51
+#: searx/answerers/statistics/answerer.py:49
 msgid "Compute {functions} of the arguments"
 msgstr "変数の {functions} を計算する"
 
@@ -472,7 +472,7 @@ msgid "clicks"
 msgstr "クリック"
 
 #: searx/engines/seekr.py:193 searx/engines/yummly.py:71
-#: searx/engines/zlibrary.py:137
+#: searx/engines/zlibrary.py:128
 msgid "Language"
 msgstr "言語"
 
@@ -484,28 +484,28 @@ msgstr ""
 "{firstCitationVelocityYear} 年から "
 "{lastCitationVelocityYear}年まで{numCitations} が引用文献として"
 
-#: searx/engines/tineye.py:45
+#: searx/engines/tineye.py:39
 msgid ""
 "Could not read that image url. This may be due to an unsupported file "
 "format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
 " WebP."
 msgstr "この画像URLは読み取ることができません。サポートされていないフォーマットだと考えられます。TinEyeはJPEG、PNG、GIF、BMP、TIFF、WebPの画像のみサポートしています。"
 
-#: searx/engines/tineye.py:51
+#: searx/engines/tineye.py:45
 msgid ""
 "The image is too simple to find matches. TinEye requires a basic level of"
 " visual detail to successfully identify matches."
 msgstr "画像が単純すぎます。TinEyeが正しく照合を行うにはある程度詳細な視覚情報が必要です。"
 
-#: searx/engines/tineye.py:57
+#: searx/engines/tineye.py:51
 msgid "The image could not be downloaded."
 msgstr "この画像はダウンロードはできません。"
 
-#: searx/engines/zlibrary.py:138
+#: searx/engines/zlibrary.py:129
 msgid "Book rating"
 msgstr "書籍評価点数"
 
-#: searx/engines/zlibrary.py:139
+#: searx/engines/zlibrary.py:130
 msgid "File quality"
 msgstr "ファイル品質"
 
@@ -521,11 +521,15 @@ msgstr "文字列を異なるハッシュダイジェストに変換。"
 msgid "hash digest"
 msgstr "ハッシュダイジェスト"
 
-#: searx/plugins/hostnames.py:103
+#: searx/plugins/hostname_replace.py:7
+msgid "Hostname replace"
+msgstr "ホストネーム入れ替え"
+
+#: searx/plugins/hostnames.py:68
 msgid "Hostnames plugin"
 msgstr "ホスト名プラグイン"
 
-#: searx/plugins/hostnames.py:104
+#: searx/plugins/hostnames.py:69
 msgid "Rewrite hostnames, remove results or prioritize them based on the hostname"
 msgstr "検索結果からこのホスト名を基に削除もしくは優先的に書き換えを行う"
 
@@ -551,11 +555,11 @@ msgstr "クエリが \"ip\" の場合にあなたのIPを、クエリに \"user 
 
 #: searx/plugins/self_info.py:28
 msgid "Your IP is: "
-msgstr "あなたのIPは: "
+msgstr ""
 
 #: searx/plugins/self_info.py:31
 msgid "Your user-agent is: "
-msgstr "あなたのユーザーエージェントは: "
+msgstr ""
 
 #: searx/plugins/tor_check.py:24
 msgid "Tor check plugin"
@@ -659,21 +663,17 @@ msgid "Length"
 msgstr "長さ"
 
 #: searx/templates/simple/macros.html:36
-msgid "Views"
-msgstr "閲覧数"
-
-#: searx/templates/simple/macros.html:37
 #: searx/templates/simple/result_templates/files.html:34
 #: searx/templates/simple/result_templates/images.html:19
 #: searx/templates/simple/result_templates/paper.html:6
 msgid "Author"
 msgstr "作者"
 
-#: searx/templates/simple/macros.html:45
+#: searx/templates/simple/macros.html:44
 msgid "cached"
 msgstr "キャッシュ"
 
-#: searx/templates/simple/macros.html:45
+#: searx/templates/simple/macros.html:44
 msgid "proxied"
 msgstr "プロキシ"
 
@@ -701,7 +701,7 @@ msgstr "Githubで情報を含めて新たな問題を提起"
 msgid "No HTTPS"
 msgstr "No HTTPS"
 
-#: searx/templates/simple/elements/engines_msg.html:14
+#: searx/templates/simple/elements/engines_msg.html:18
 #: searx/templates/simple/preferences.html:69
 #: searx/templates/simple/preferences.html:70
 msgid "View error logs and submit a bug report"
@@ -782,19 +782,19 @@ msgstr "通知の数"
 msgid "Info"
 msgstr "インフォ"
 
-#: searx/templates/simple/results.html:75
+#: searx/templates/simple/results.html:77
 msgid "Try searching for:"
 msgstr "検索のオススメ:"
 
-#: searx/templates/simple/results.html:107
+#: searx/templates/simple/results.html:109
 msgid "Back to top"
 msgstr "トップに戻る"
 
-#: searx/templates/simple/results.html:125
+#: searx/templates/simple/results.html:127
 msgid "Previous page"
 msgstr "前のページ"
 
-#: searx/templates/simple/results.html:143
+#: searx/templates/simple/results.html:145
 msgid "Next page"
 msgstr "次のページ"
 
@@ -804,8 +804,8 @@ msgstr "フロントページを表示する"
 
 #: searx/templates/simple/search.html:9
 #: searx/templates/simple/simple_search.html:5
-msgid "Search for..."
-msgstr "検索する..."
+msgid "What's on your mind?"
+msgstr "何を考えているの？"
 
 #: searx/templates/simple/search.html:10
 #: searx/templates/simple/simple_search.html:6
@@ -834,7 +834,6 @@ msgstr "スコア"
 msgid "Result count"
 msgstr "結果カウント"
 
-#: searx/templates/simple/elements/engines_msg.html:7
 #: searx/templates/simple/preferences/engines.html:31
 #: searx/templates/simple/stats.html:28
 msgid "Response time"
@@ -910,13 +909,17 @@ msgstr "コメント"
 msgid "Download results"
 msgstr "ダウンロードするファイル形式"
 
-#: searx/templates/simple/elements/engines_msg.html:4
+#: searx/templates/simple/elements/engines_msg.html:7
 msgid "Messages from the search engines"
 msgstr "検索エンジンからのメッセージ"
 
-#: searx/templates/simple/elements/engines_msg.html:7
-msgid "seconds"
-msgstr ""
+#: searx/templates/simple/elements/engines_msg.html:12
+msgid "Error!"
+msgstr "エラー!"
+
+#: searx/templates/simple/elements/engines_msg.html:13
+msgid "Engines cannot retrieve results"
+msgstr "エンジンは結果を取得できません"
 
 #: searx/templates/simple/elements/search_url.html:3
 msgid "Search URL"
@@ -941,12 +944,12 @@ msgstr "提案"
 msgid "Search language"
 msgstr "検索の言語"
 
-#: searx/templates/simple/filters/languages.html:4
+#: searx/templates/simple/filters/languages.html:2
 #: searx/templates/simple/preferences/language.html:7
 msgid "Default language"
 msgstr "デフォルトの言語"
 
-#: searx/templates/simple/filters/languages.html:8
+#: searx/templates/simple/filters/languages.html:4
 #: searx/templates/simple/preferences/language.html:11
 msgid "Auto-detect"
 msgstr "自動検出"
@@ -1878,13 +1881,4 @@ msgstr "動画を隠す"
 
 #~ msgid "TiB"
 #~ msgstr "テラバイト"
-
-#~ msgid "Hostname replace"
-#~ msgstr "ホストネーム入れ替え"
-
-#~ msgid "Error!"
-#~ msgstr "エラー!"
-
-#~ msgid "Engines cannot retrieve results"
-#~ msgstr "エンジンは結果を取得できません"
 

@@ -32,7 +32,7 @@
       updateClearButton();
       ev.preventDefault();
     });
-    qinput.addEventListener('input', updateClearButton, false);
+    qinput.addEventListener('keyup', updateClearButton, false);
   }
 
   searxng.ready(function () {

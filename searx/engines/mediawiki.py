@@ -100,12 +100,6 @@ base_url: str = 'https://{language}.wikipedia.org/'
   ISO 639-1 language code (en, de, fr ..) of the search language.
 """
 
-api_path: str = 'w/api.php'
-"""The path the PHP api is listening on.
-
-The default path should work fine usually.
-"""
-
 timestamp_format = '%Y-%m-%dT%H:%M:%SZ'
 """The longhand version of MediaWiki time strings."""
 
@@ -119,7 +113,12 @@ def request(query, params):
     else:
         params['language'] = params['language'].split('-')[0]
 
-    api_url = f"{base_url.rstrip('/')}/{api_path}?".format(language=params['language'])
+    if base_url.endswith('/'):
+        api_url = base_url + 'w/api.php?'
+    else:
+        api_url = base_url + '/w/api.php?'
+    api_url = api_url.format(language=params['language'])
+
     offset = (params['pageno'] - 1) * number_of_results
 
     args = {

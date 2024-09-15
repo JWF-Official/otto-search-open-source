@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # pylint: disable=missing-module-docstring
 
+from searx import settings
 from searx.engines import load_engines
 from searx.query import RawTextQuery
 from tests import SearxTestCase
@@ -233,13 +234,8 @@ class TestBang(SearxTestCase):  # pylint:disable=missing-class-docstring
     SPECIFIC_BANGS = ['!dummy_engine', '!du', '!general']
     THE_QUERY = 'the query'
 
-    def setUp(self):
-        load_engines(TEST_ENGINES)
-
-    def tearDown(self):
-        load_engines([])
-
     def test_bang(self):
+        load_engines(TEST_ENGINES)
 
         for bang in TestBang.SPECIFIC_BANGS:
             with self.subTest(msg="Check bang", bang=bang):
@@ -251,6 +247,7 @@ class TestBang(SearxTestCase):  # pylint:disable=missing-class-docstring
                 self.assertEqual(query.user_query_parts, TestBang.THE_QUERY.split(' '))
 
     def test_specific(self):
+        load_engines(TEST_ENGINES)
         for bang in TestBang.SPECIFIC_BANGS:
             with self.subTest(msg="Check bang is specific", bang=bang):
                 query_text = TestBang.THE_QUERY + ' ' + bang
@@ -258,10 +255,12 @@ class TestBang(SearxTestCase):  # pylint:disable=missing-class-docstring
                 self.assertTrue(query.specific)
 
     def test_bang_not_found(self):
+        load_engines(TEST_ENGINES)
         query = RawTextQuery('the query !bang_not_found', [])
         self.assertEqual(query.getFullQuery(), 'the query !bang_not_found')
 
     def test_bang_autocomplete(self):
+        load_engines(TEST_ENGINES)
         query = RawTextQuery('the query !dum', [])
         self.assertEqual(query.autocomplete_list, ['!dummy_engine'])
 
@@ -270,6 +269,7 @@ class TestBang(SearxTestCase):  # pylint:disable=missing-class-docstring
         self.assertEqual(query.getQuery(), '!dum the query')
 
     def test_bang_autocomplete_empty(self):
+        load_engines(settings['engines'])
         query = RawTextQuery('the query !', [])
         self.assertEqual(query.autocomplete_list, ['!images', '!wikipedia', '!osm'])
 

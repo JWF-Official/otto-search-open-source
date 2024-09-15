@@ -123,9 +123,7 @@ def response(resp):
         thumbnail = None
         imagelink = eval_xpath_getindex(newsitem, './/a[@class="imagelink"]//img', 0, None)
         if imagelink is not None:
-            thumbnail = imagelink.attrib.get('src')
-            if not thumbnail.startswith("https://www.bing.com"):
-                thumbnail = 'https://www.bing.com/' + thumbnail
+            thumbnail = 'https://www.bing.com/' + imagelink.attrib.get('src')
 
         results.append(
             {

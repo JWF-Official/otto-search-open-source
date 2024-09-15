@@ -1,4 +1,4 @@
- # SPDX-License-Identifier: AGPL-3.0-or-later
+# SPDX-License-Identifier: AGPL-3.0-or-later
 """
  Gentoo Wiki
 """
@@ -25,6 +25,7 @@ base_url = 'https://wiki.gentoo.org'
 # xpath queries
 xpath_results = '//ul[@class="mw-search-results"]/li'
 xpath_link = './/div[@class="mw-search-result-heading"]/a'
+xpath_content = './/div[@class="searchresult"]'
 
 
 # cut 'en' from 'en-US', 'de' from 'de-CH', and so on
@@ -77,7 +78,6 @@ main_langs = {
     'uk': 'Українська',
     'zh': '简体中文',
 }
-supported_languages = dict(lang_urls, **main_langs)
 
 
 # do search-request
@@ -107,7 +107,7 @@ def request(query, params):
 def response(resp):
     # get the base URL for the language in which request was made
     language = locale_to_lang_code(resp.search_params['language'])
-    base_url = get_lang_urls(language)['base']
+    url = get_lang_urls(language)['base']
 
     results = []
 
@@ -116,9 +116,10 @@ def response(resp):
     # parse results
     for result in dom.xpath(xpath_results):
         link = result.xpath(xpath_link)[0]
-        href = urljoin(base_url, link.attrib.get('href'))
+        href = urljoin(url, link.attrib.get('href'))
         title = extract_text(link)
+        content = extract_text(result.xpath(xpath_content))
 
-        results.append({'url': href, 'title': title})
+        results.append({'url': href, 'title': title, 'content': content})
 
     return results

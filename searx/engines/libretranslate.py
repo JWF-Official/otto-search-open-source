@@ -31,7 +31,6 @@ def request(_query, params):
 
     params['method'] = 'POST'
     params['headers'] = {'Content-Type': 'application/json'}
-    params['req_url'] = request_url
 
     return params
 
@@ -41,13 +40,7 @@ def response(resp):
 
     json_resp = resp.json()
     text = json_resp.get('translatedText')
-
-    from_lang = resp.search_params["from_lang"][1]
-    to_lang = resp.search_params["to_lang"][1]
-    query = resp.search_params["query"]
-    req_url = resp.search_params["req_url"]
-
     if text:
-        results.append({"answer": text, "url": f"{req_url}/?source={from_lang}&target={to_lang}&q={query}"})
+        results.append({'answer': text})
 
     return results

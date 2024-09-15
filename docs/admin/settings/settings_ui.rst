@@ -13,7 +13,7 @@
      static_use_hash: false
      default_locale: ""
      query_in_title: false
-     infinite_scroll: false
+     infinite_scroll: true
      center_alignment: false
      cache_url: https://web.archive.org/web/
      default_theme: simple

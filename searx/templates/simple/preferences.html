@@ -38,7 +38,7 @@
 
 {%- macro plugin_preferences(section) -%}
 {%- for plugin in plugins -%}
-{%- if plugin.preference_section == section -%}
+{%- if plugin.preference_section == section and (plugin.is_allowed() if plugin.is_allowed else True) -%}
 <fieldset>{{- '' -}}
     <legend>{{ _(plugin.name) }}</legend>{{- '' -}}
     <div class="value">
@@ -161,18 +161,10 @@
 
     {{- tab_header('maintab', 'general', _('General'), True) -}}
     {%- if 'categories' not in locked_preferences -%}
-      <fieldset>
-        <legend>{{- _('Default categories') -}}</legend>
-        {% set display_tooltip = false %}
-        {% include 'simple/categories.html' %}
-      </fieldset>
     {%- endif -%}
     {%- if 'language' not in locked_preferences -%}
       {%- include 'simple/preferences/language.html' -%}
     {% endif %}
-    {%- if 'autocomplete' not in locked_preferences -%}
-      {%- include 'simple/preferences/autocomplete.html' -%}
-    {%- endif -%}
     {% if 'safesearch' not in locked_preferences %}
       {%- include 'simple/preferences/safesearch.html' -%}
     {%- endif -%}
@@ -180,63 +172,32 @@
     {%- if 'doi_resolver' not in locked_preferences %}
       {%- include 'simple/preferences/doi_resolver.html' -%}
     {%- endif -%}
-    {%- include 'simple/preferences/tokens.html' -%}
+    {%- if 'locale' not in locked_preferences -%}
+    {%- include 'simple/preferences/ui_locale.html' -%}
+    {%- endif -%}
+    {%- if 'theme' not in locked_preferences -%}
+    {%- include 'simple/preferences/theme.html' -%}
+    {%- endif -%}
+    {%- if 'results_on_new_tab' not in locked_preferences -%}
+    {%- include 'simple/preferences/results_on_new_tab.html' -%}
+    {%- endif -%}
+    {%- if 'infinite_scroll' not in locked_preferences -%}
+    {%- include 'simple/preferences/infinite_scroll.html' -%}
+    {%- endif -%}
+    {%- if 'search_on_category_select' not in locked_preferences -%}
+    {%- include 'simple/preferences/search_on_category_select.html' -%}
+    {%- endif -%}
     {{- tab_footer() -}}
 
 
-    {{- tab_header('maintab', 'ui', _('User interface')) -}}
-    {%- if 'locale' not in locked_preferences -%}
-      {%- include 'simple/preferences/ui_locale.html' -%}
-    {%- endif -%}
-    {%- if 'theme' not in locked_preferences -%}
-      {%- include 'simple/preferences/theme.html' -%}
-    {%- endif -%}
-    {%- if 'results_on_new_tab' not in locked_preferences -%}
-      {%- include 'simple/preferences/results_on_new_tab.html' -%}
-    {%- endif -%}
-    {%- if 'infinite_scroll' not in locked_preferences -%}
-      {%- include 'simple/preferences/infinite_scroll.html' -%}
-    {%- endif -%}
-    {%- if 'search_on_category_select' not in locked_preferences -%}
-      {%- include 'simple/preferences/search_on_category_select.html' -%}
-    {%- endif -%}
-    {%- include 'simple/preferences/hotkeys.html' -%}
+
+
     {{- plugin_preferences('ui') -}}
     {{- tab_footer() -}}
 
-
-    {{- tab_header('maintab', 'privacy', _('Privacy')) -}}
-    {%- if 'method' not in locked_preferences -%}
-      {%- include 'simple/preferences/method.html' -%}
-    {%- endif -%}
-    {%- if 'image_proxy' not in locked_preferences -%}
-      {%- include 'simple/preferences/image_proxy.html' -%}
-    {%- endif -%}
-    {%- if 'query_in_title' not in locked_preferences -%}
-      {%- include 'simple/preferences/query_in_title.html' -%}
-    {%- endif -%}
-    {{- plugin_preferences('privacy') -}}
-    {{- tab_footer() -}}
-
-    {{- tab_header('maintab', 'engines', _('Engines')) -}}
-    <p>
-      {{- _('Currently used search engines') -}}
-    </p>
-    {{- tabs_open() -}}
-    {%- include 'simple/preferences/engines.html' -%}
-    {{- tabs_close() -}}
-    {{- tab_footer() -}}
+   
 
 
-    {{- tab_header('maintab', 'query', _('Special Queries')) -}}
-    {%- if answerers -%}
-      {%- include 'simple/preferences/answerers.html' -%}
-    {%- endif -%}
-    {{- tab_footer() -}}
-
-    {{- tab_header('maintab', 'cookies', _('Cookies')) -}}
-    {%- include 'simple/preferences/cookies.html' -%}
-    {{- tab_footer() -}}
 
     {{- tabs_close() -}}
     {%- include 'simple/preferences/footer.html' -%}

@@ -14,15 +14,9 @@ billion images `[tineye.com] <https://tineye.com/how>`_.
 
 """
 
-from typing import TYPE_CHECKING
 from urllib.parse import urlencode
 from datetime import datetime
 from flask_babel import gettext
-
-if TYPE_CHECKING:
-    import logging
-
-    logger = logging.getLogger()
 
 about = {
     "website": 'https://tineye.com',
@@ -40,7 +34,7 @@ categories = ['general']
 paging = True
 safesearch = False
 base_url = 'https://tineye.com'
-search_string = '/api/v1/result_json/?page={page}&{query}'
+search_string = '/result_json/?page={page}&{query}'
 
 FORMAT_NOT_SUPPORTED = gettext(
     "Could not read that image url. This may be due to an unsupported file"
@@ -126,7 +120,7 @@ def parse_tineye_match(match_json):
 
             crawl_date = backlink_json.get("crawl_date")
             if crawl_date:
-                crawl_date = datetime.strptime(crawl_date, '%Y-%m-%d')
+                crawl_date = datetime.fromisoformat(crawl_date[:-3])
             else:
                 crawl_date = datetime.min
 
@@ -156,15 +150,29 @@ def parse_tineye_match(match_json):
 
 def response(resp):
     """Parse HTTP response from TinEye."""
+    results = []
 
-    # handle the 422 client side errors, and the possible 400 status code error
-    if resp.status_code in (400, 422):
+    try:
         json_data = resp.json()
-        suggestions = json_data.get('suggestions', {})
-        message = f'HTTP Status Code: {resp.status_code}'
+    except Exception as exc:  # pylint: disable=broad-except
+        msg = "can't parse JSON response // %s" % exc
+        logger.error(msg)
+        json_data = {'error': msg}
 
-        if resp.status_code == 422:
-            s_key = suggestions.get('key', '')
+    # handle error codes from Tineye
+
+    if resp.is_error:
+        if resp.status_code in (400, 422):
+
+            message = 'HTTP status: %s' % resp.status_code
+            error = json_data.get('error')
+            s_key = json_data.get('suggestions', {}).get('key', '')
+
+            if error and s_key:
+                message = "%s (%s)" % (error, s_key)
+            elif error:
+                message = error
+
             if s_key == "Invalid image URL":
                 # test https://docs.searxng.org/_static/searxng-wordmark.svg
                 message = FORMAT_NOT_SUPPORTED
@@ -174,23 +182,16 @@ def response(resp):
             elif s_key == 'Download Error':
                 # test https://notexists
                 message = DOWNLOAD_ERROR
-            else:
-                logger.warning("Unknown suggestion key encountered: %s", s_key)
-        else:  # 400
-            description = suggestions.get('description')
-            if isinstance(description, list):
-                message = ','.join(description)
 
-        # see https://github.com/searxng/searxng/pull/1456#issuecomment-1193105023
-        # results.append({'answer': message})
-        logger.error(message)
-        return []
+            # see https://github.com/searxng/searxng/pull/1456#issuecomment-1193105023
+            # results.append({'answer': message})
+            logger.error(message)
 
-    # Raise for all other responses
-    resp.raise_for_status()
+            return results
 
-    results = []
-    json_data = resp.json()
+        resp.raise_for_status()
+
+    # append results from matches
 
     for match_json in json_data['matches']:
 

@@ -138,7 +138,7 @@ def parse_argument(
                      query
     SystemExit: 2
     >>> sas.parse_argument(['rain'])
-    Namespace(category='general', lang='all', pageno=1, query='rain', safesearch='0', timerange=None)
+    Namespace(category='general', lang='all', pageno=1, query='rain', safesearch='1', timerange=None)
     """  # noqa: E501
     if not category_choices:
         category_choices = list(searx.engines.categories.keys())
@@ -154,7 +154,7 @@ def parse_argument(
         type=str,
         nargs='?',
         choices=['0', '1', '2'],
-        default='0',
+        default='1',
         help='Safe content filter from none to strict',
     )
     parser.add_argument(
