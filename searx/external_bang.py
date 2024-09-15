@@ -1,5 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# pylint: disable=missing-module-docstring
 
+from urllib.parse import quote_plus, urlparse
 from searx.data import EXTERNAL_BANGS
 
 LEAF_KEY = chr(16)
@@ -39,14 +41,20 @@ def get_bang_definition_and_ac(external_bangs_db, bang):
 
 def resolve_bang_definition(bang_definition, query):
     url, rank = bang_definition.split(chr(1))
-    url = url.replace(chr(2), query)
     if url.startswith('//'):
         url = 'https:' + url
+    if query:
+        url = url.replace(chr(2), quote_plus(query))
+    else:
+        # go to main instead of search page
+        o = urlparse(url)
+        url = o.scheme + '://' + o.netloc
+
     rank = int(rank) if len(rank) > 0 else 0
     return (url, rank)
 
 
-def get_bang_definition_and_autocomplete(bang, external_bangs_db=None):
+def get_bang_definition_and_autocomplete(bang, external_bangs_db=None):  # pylint: disable=invalid-name
     if external_bangs_db is None:
         external_bangs_db = EXTERNAL_BANGS
 

@@ -1,6 +1,5 @@
-Otto is a fork from `searx <https://github.com/searx/searx>`_ and is
-maintained by Alexandre Flament (`@dalf <https://github.com/dalf>`_) and Markus
-Heiser (`@return42 <https://github.com/return42>`_)
+searxng is a fork from `searx <https://github.com/searx/searx>`_ and is
+maintained by Markus Heiser (`@return42 <https://github.com/return42>`_)
 
 People who have submitted patches/translations, reported bugs, consulted
 features or generally made searx better:
@@ -164,3 +163,14 @@ features or generally made searx better:
 - @OliveiraHermogenes
 - Paul Alcock @Guilvareux
 - Sam A. `<https://samsapti.dev>`_
+- @XavierHorwood
+- Ahmad Alkadri `<https://github.com/ahmad-alkadri>`_
+- Milad Laly @Milad-Laly
+- @llmII
+- @blob42 `<https://blob42.xyz>`_
+- Paolo Basso `<https://github.com/paolobasso99>`
+- Bernie Huang `<https://github.com/BernieHuang2008>`
+- Austin Olacsi `<https://github.com/Austin-Olacsi>`
+- @micsthepick
+- Daniel Kukula `<https://github.com/dkuku>`
+- Patrick Evans `https://github.com/holysoles`

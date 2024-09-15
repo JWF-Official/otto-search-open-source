@@ -1,24 +1,30 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# lint: pylint
-"""Bing (News)
+"""Bing-News: description see :py:obj:`searx.engines.bing`.
+
+.. hint::
+
+   Bing News is *different* in some ways!
+
 """
 
-from urllib.parse import (
-    urlencode,
-    urlparse,
-    parse_qsl,
-    quote,
-)
-from datetime import datetime
-from dateutil import parser
-from lxml import etree
-from lxml.etree import XPath
-from searx.utils import match_language, eval_xpath_getindex
-from searx.engines.bing import (  # pylint: disable=unused-import
-    language_aliases,
-    _fetch_supported_languages,
-    supported_languages_url,
-)
+# pylint: disable=invalid-name
+
+from typing import TYPE_CHECKING
+from urllib.parse import urlencode
+
+from lxml import html
+
+from searx.utils import eval_xpath, extract_text, eval_xpath_list, eval_xpath_getindex
+from searx.enginelib.traits import EngineTraits
+from searx.engines.bing import set_bing_cookies
+
+if TYPE_CHECKING:
+    import logging
+
+    logger: logging.Logger
+
+traits: EngineTraits
+
 
 # about
 about = {
@@ -33,108 +39,120 @@ about = {
 # engine dependent config
 categories = ['news']
 paging = True
+"""If go through the pages and there are actually no new results for another
+page, then bing returns the results from the last page again."""
+
 time_range_support = True
+time_map = {
+    'day': 'interval="4"',
+    'week': 'interval="7"',
+    'month': 'interval="9"',
+}
+"""A string '4' means *last hour*.  We use *last hour* for ``day`` here since the
+difference of *last day* and *last week* in the result list is just marginally.
+Bing does not have news range ``year`` / we use ``month`` instead."""
 
-# search-url
-base_url = 'https://www.bing.com/'
-search_string = 'news/search?{query}&first={offset}&format=RSS'
-search_string_with_time = 'news/search?{query}&first={offset}&qft=interval%3d"{interval}"&format=RSS'
-time_range_dict = {'day': '7', 'week': '8', 'month': '9'}
-
-
-def url_cleanup(url_string):
-    """remove click"""
-
-    parsed_url = urlparse(url_string)
-    if parsed_url.netloc == 'www.bing.com' and parsed_url.path == '/news/apiclick.aspx':
-        query = dict(parse_qsl(parsed_url.query))
-        url_string = query.get('url', None)
-    return url_string
-
-
-def image_url_cleanup(url_string):
-    """replace the http://*bing.com/th?id=... by https://www.bing.com/th?id=..."""
-
-    parsed_url = urlparse(url_string)
-    if parsed_url.netloc.endswith('bing.com') and parsed_url.path == '/th':
-        query = dict(parse_qsl(parsed_url.query))
-        url_string = "https://www.bing.com/th?id=" + quote(query.get('id'))
-    return url_string
-
-
-def _get_url(query, language, offset, time_range):
-    if time_range in time_range_dict:
-        search_path = search_string_with_time.format(
-            # fmt: off
-            query = urlencode({
-                'q': query,
-                'setmkt': language
-            }),
-            offset = offset,
-            interval = time_range_dict[time_range]
-            # fmt: on
-        )
-    else:
-        # e.g. setmkt=de-de&setlang=de
-        search_path = search_string.format(
-            # fmt: off
-            query = urlencode({
-                'q': query,
-                'setmkt': language
-            }),
-            offset = offset
-            # fmt: on
-        )
-    return base_url + search_path
+base_url = 'https://www.bing.com/news/infinitescrollajax'
+"""Bing (News) search URL"""
 
 
 def request(query, params):
+    """Assemble a Bing-News request."""
 
-    if params['time_range'] and params['time_range'] not in time_range_dict:
-        return params
+    engine_region = traits.get_region(params['searxng_locale'], traits.all_locale)  # type: ignore
+    engine_language = traits.get_language(params['searxng_locale'], 'en')  # type: ignore
+    set_bing_cookies(params, engine_language, engine_region)
 
-    offset = (params['pageno'] - 1) * 10 + 1
-    if params['language'] == 'all':
-        language = 'en-US'
-    else:
-        language = match_language(params['language'], supported_languages, language_aliases)
-    params['url'] = _get_url(query, language, offset, params['time_range'])
+    # build URL query
+    #
+    # example: https://www.bing.com/news/infinitescrollajax?q=london&first=1
+
+    page = int(params.get('pageno', 1)) - 1
+    query_params = {
+        'q': query,
+        'InfiniteScroll': 1,
+        # to simplify the page count lets use the default of 10 images per page
+        'first': page * 10 + 1,
+        'SFX': page,
+        'form': 'PTFTNR',
+        'setlang': engine_region.split('-')[0],
+        'cc': engine_region.split('-')[-1],
+    }
+
+    if params['time_range']:
+        query_params['qft'] = time_map.get(params['time_range'], 'interval="9"')
+
+    params['url'] = base_url + '?' + urlencode(query_params)
 
     return params
 
 
 def response(resp):
-
+    """Get response from Bing-Video"""
     results = []
-    rss = etree.fromstring(resp.content)
-    namespaces = rss.nsmap
 
-    for item in rss.xpath('./channel/item'):
-        # url / title / content
-        url = url_cleanup(eval_xpath_getindex(item, './link/text()', 0, default=None))
-        title = eval_xpath_getindex(item, './title/text()', 0, default=url)
-        content = eval_xpath_getindex(item, './description/text()', 0, default='')
+    if not resp.ok or not resp.text:
+        return results
 
-        # publishedDate
-        publishedDate = eval_xpath_getindex(item, './pubDate/text()', 0, default=None)
-        try:
-            publishedDate = parser.parse(publishedDate, dayfirst=False)
-        except TypeError:
-            publishedDate = datetime.now()
-        except ValueError:
-            publishedDate = datetime.now()
+    dom = html.fromstring(resp.text)
 
-        # thumbnail
-        thumbnail = eval_xpath_getindex(item, XPath('./News:Image/text()', namespaces=namespaces), 0, default=None)
-        if thumbnail is not None:
-            thumbnail = image_url_cleanup(thumbnail)
+    for newsitem in eval_xpath_list(dom, '//div[contains(@class, "newsitem")]'):
 
-        # append result
-        if thumbnail is not None:
-            results.append(
-                {'url': url, 'title': title, 'publishedDate': publishedDate, 'content': content, 'img_src': thumbnail}
-            )
-        else:
-            results.append({'url': url, 'title': title, 'publishedDate': publishedDate, 'content': content})
+        link = eval_xpath_getindex(newsitem, './/a[@class="title"]', 0, None)
+        if link is None:
+            continue
+        url = link.attrib.get('href')
+        title = extract_text(link)
+        content = extract_text(eval_xpath(newsitem, './/div[@class="snippet"]'))
+
+        metadata = []
+        source = eval_xpath_getindex(newsitem, './/div[contains(@class, "source")]', 0, None)
+        if source is not None:
+            for item in (
+                eval_xpath_getindex(source, './/span[@aria-label]/@aria-label', 0, None),
+                # eval_xpath_getindex(source, './/a', 0, None),
+                # eval_xpath_getindex(source, './div/span', 3, None),
+                link.attrib.get('data-author'),
+            ):
+                if item is not None:
+                    t = extract_text(item)
+                    if t and t.strip():
+                        metadata.append(t.strip())
+        metadata = ' | '.join(metadata)
+
+        thumbnail = None
+        imagelink = eval_xpath_getindex(newsitem, './/a[@class="imagelink"]//img', 0, None)
+        if imagelink is not None:
+            thumbnail = 'https://www.bing.com/' + imagelink.attrib.get('src')
+
+        results.append(
+            {
+                'url': url,
+                'title': title,
+                'content': content,
+                'thumbnail': thumbnail,
+                'metadata': metadata,
+            }
+        )
 
     return results
+
+
+def fetch_traits(engine_traits: EngineTraits):
+    """Fetch languages and regions from Bing-News."""
+    # pylint: disable=import-outside-toplevel
+
+    from searx.engines.bing import fetch_traits as _f
+
+    _f(engine_traits)
+
+    # fix market codes not known by bing news:
+
+    # In bing the market code 'zh-cn' exists, but there is no 'news' category in
+    # bing for this market.  Alternatively we use the the market code from Honk
+    # Kong.  Even if this is not correct, it is better than having no hits at
+    # all, or sending false queries to bing that could raise the suspicion of a
+    # bot.
+
+    # HINT: 'en-hk' is the region code it does not indicate the language en!!
+    engine_traits.regions['zh-CN'] = 'en-hk'

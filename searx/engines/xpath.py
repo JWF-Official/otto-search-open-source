@@ -1,10 +1,56 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# lint: pylint
 """The XPath engine is a *generic* engine with which it is possible to configure
 engines in the settings.
 
-Here is a simple example of a XPath engine configured in the
-:ref:`settings engine` section, further read :ref:`engines-dev`.
+.. _XPath selector: https://quickref.me/xpath.html#xpath-selectors
+
+Configuration
+=============
+
+Request:
+
+- :py:obj:`search_url`
+- :py:obj:`lang_all`
+- :py:obj:`soft_max_redirects`
+- :py:obj:`cookies`
+- :py:obj:`headers`
+
+Paging:
+
+- :py:obj:`paging`
+- :py:obj:`page_size`
+- :py:obj:`first_page_num`
+
+Time Range:
+
+- :py:obj:`time_range_support`
+- :py:obj:`time_range_url`
+- :py:obj:`time_range_map`
+
+Safe-Search:
+
+- :py:obj:`safe_search_support`
+- :py:obj:`safe_search_map`
+
+Response:
+
+- :py:obj:`no_result_for_http_status`
+
+`XPath selector`_:
+
+- :py:obj:`results_xpath`
+- :py:obj:`url_xpath`
+- :py:obj:`title_xpath`
+- :py:obj:`content_xpath`
+- :py:obj:`thumbnail_xpath`
+- :py:obj:`suggestion_xpath`
+
+
+Example
+=======
+
+Here is a simple example of a XPath engine configured in the :ref:`settings
+engine` section, further read :ref:`engines-dev`.
 
 .. code:: yaml
 
@@ -16,16 +62,20 @@ Here is a simple example of a XPath engine configured in the
     title_xpath : //article[@class="repo-summary"]//a[@class="repo-link"]
     content_xpath : //article[@class="repo-summary"]/p
 
+Implementations
+===============
+
 """
 
 from urllib.parse import urlencode
 
 from lxml import html
 from searx.utils import extract_text, extract_url, eval_xpath, eval_xpath_list
+from searx.network import raise_for_httperror
 
 search_url = None
 """
-Search URL of the engine. Example::
+Search URL of the engine.  Example::
 
     https://example.org/?search={query}&page={pageno}{time_range}{safe_search}
 
@@ -35,7 +85,7 @@ Replacements are:
   Search terms from user.
 
 ``{pageno}``:
-  Page number if engine supports pagging :py:obj:`paging`
+  Page number if engine supports paging :py:obj:`paging`
 
 ``{lang}``:
   ISO 639-1 language code (en, de, fr ..)
@@ -52,7 +102,7 @@ Replacements are:
 
       0: none, 1: moderate, 2:strict
 
-  If not supported, the URL paramter is an empty string.
+  If not supported, the URL parameter is an empty string.
 
 """
 
@@ -61,34 +111,45 @@ lang_all = 'en'
 selected.
 '''
 
+no_result_for_http_status = []
+'''Return empty result for these HTTP status codes instead of throwing an error.
+
+.. code:: yaml
+
+    no_result_for_http_status: []
+'''
+
 soft_max_redirects = 0
 '''Maximum redirects, soft limit. Record an error but don't stop the engine'''
 
 results_xpath = ''
-'''XPath selector for the list of result items'''
+'''`XPath selector`_ for the list of result items'''
 
 url_xpath = None
-'''XPath selector of result's ``url``.'''
+'''`XPath selector`_ of result's ``url``.'''
 
 content_xpath = None
-'''XPath selector of result's ``content``.'''
+'''`XPath selector`_ of result's ``content``.'''
 
 title_xpath = None
-'''XPath selector of result's ``title``.'''
+'''`XPath selector`_ of result's ``title``.'''
 
 thumbnail_xpath = False
-'''XPath selector of result's ``img_src``.'''
+'''`XPath selector`_ of result's ``thumbnail``.'''
 
 suggestion_xpath = ''
-'''XPath selector of result's ``suggestion``.'''
+'''`XPath selector`_ of result's ``suggestion``.'''
 
 cached_xpath = ''
 cached_url = ''
 
 cookies = {}
+'''Some engines might offer different result based on cookies.
+Possible use-case: To set safesearch cookie.'''
+
 headers = {}
-'''Some engines might offer different result based on cookies or headers.
-Possible use-case: To set safesearch cookie or header to moderate.'''
+'''Some engines might offer different result based headers.  Possible use-case:
+To set header to moderate.'''
 
 paging = False
 '''Engine supports paging [True or False].'''
@@ -105,7 +166,7 @@ time_range_support = False
 
 time_range_url = '&hours={time_range_val}'
 '''Time range URL parameter in the in :py:obj:`search_url`.  If no time range is
-requested by the user, the URL paramter is an empty string.  The
+requested by the user, the URL parameter is an empty string.  The
 ``{time_range_val}`` replacement is taken from the :py:obj:`time_range_map`.
 
 .. code:: yaml
@@ -177,11 +238,18 @@ def request(query, params):
     params['url'] = search_url.format(**fargs)
     params['soft_max_redirects'] = soft_max_redirects
 
+    params['raise_for_httperror'] = False
+
     return params
 
 
-def response(resp):
+def response(resp):  # pylint: disable=too-many-branches
     '''Scrap *results* from the response (see :ref:`engine results`).'''
+    if no_result_for_http_status and resp.status_code in no_result_for_http_status:
+        return []
+
+    raise_for_httperror(resp)
+
     results = []
     dom = html.fromstring(resp.text)
     is_onion = 'onions' in categories
@@ -198,7 +266,7 @@ def response(resp):
             if thumbnail_xpath:
                 thumbnail_xpath_result = eval_xpath_list(result, thumbnail_xpath)
                 if len(thumbnail_xpath_result) > 0:
-                    tmp_result['img_src'] = extract_url(thumbnail_xpath_result, search_url)
+                    tmp_result['thumbnail'] = extract_url(thumbnail_xpath_result, search_url)
 
             # add alternative cached url if available
             if cached_xpath:

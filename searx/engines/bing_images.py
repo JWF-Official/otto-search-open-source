@@ -1,20 +1,26 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# lint: pylint
-"""Bing (Images)
-
+"""Bing-Images: description see :py:obj:`searx.engines.bing`.
 """
+# pylint: disable=invalid-name
 
-from json import loads
+
+from typing import TYPE_CHECKING
+import json
 from urllib.parse import urlencode
 
 from lxml import html
 
-from searx.utils import match_language
-from searx.engines.bing import language_aliases
-from searx.engines.bing import (  # pylint: disable=unused-import
-    _fetch_supported_languages,
-    supported_languages_url,
-)
+from searx.enginelib.traits import EngineTraits
+from searx.engines.bing import set_bing_cookies
+from searx.engines.bing import fetch_traits  # pylint: disable=unused-import
+
+
+if TYPE_CHECKING:
+    import logging
+
+    logger = logging.getLogger()
+
+traits: EngineTraits
 
 # about
 about = {
@@ -31,76 +37,73 @@ categories = ['images', 'web']
 paging = True
 safesearch = True
 time_range_support = True
-supported_languages_url = 'https://www.bing.com/account/general'
-number_of_results = 28
 
-# search-url
-base_url = 'https://www.bing.com/'
-search_string = (
-    # fmt: off
-    'images/search'
-    '?{query}'
-    '&count={count}'
-    '&first={first}'
-    '&tsc=ImageHoverTitle'
-    # fmt: on
-)
-time_range_string = '&qft=+filterui:age-lt{interval}'
-time_range_dict = {'day': '1440', 'week': '10080', 'month': '43200', 'year': '525600'}
+base_url = 'https://www.bing.com/images/async'
+"""Bing (Images) search URL"""
 
-# safesearch definitions
-safesearch_types = {2: 'STRICT', 1: 'DEMOTE', 0: 'OFF'}
+time_map = {
+    'day': 60 * 24,
+    'week': 60 * 24 * 7,
+    'month': 60 * 24 * 31,
+    'year': 60 * 24 * 365,
+}
 
 
-# do search-request
 def request(query, params):
-    offset = ((params['pageno'] - 1) * number_of_results) + 1
+    """Assemble a Bing-Image request."""
 
-    search_path = search_string.format(query=urlencode({'q': query}), count=number_of_results, first=offset)
+    engine_region = traits.get_region(params['searxng_locale'], traits.all_locale)  # type: ignore
+    engine_language = traits.get_language(params['searxng_locale'], 'en')  # type: ignore
+    set_bing_cookies(params, engine_language, engine_region)
 
-    language = match_language(params['language'], supported_languages, language_aliases).lower()
+    # build URL query
+    # - example: https://www.bing.com/images/async?q=foo&async=content&first=1&count=35
+    query_params = {
+        'q': query,
+        'async': '1',
+        # to simplify the page count lets use the default of 35 images per page
+        'first': (int(params.get('pageno', 1)) - 1) * 35 + 1,
+        'count': 35,
+    }
 
-    params['cookies']['SRCHHPGUSR'] = 'ADLT=' + safesearch_types.get(params['safesearch'], 'DEMOTE')
+    # time range
+    # - example: one year (525600 minutes) 'qft=+filterui:age-lt525600'
 
-    params['cookies']['_EDGE_S'] = 'mkt=' + language + '&ui=' + language + '&F=1'
+    if params['time_range']:
+        query_params['qft'] = 'filterui:age-lt%s' % time_map[params['time_range']]
 
-    params['url'] = base_url + search_path
-    if params['time_range'] in time_range_dict:
-        params['url'] += time_range_string.format(interval=time_range_dict[params['time_range']])
+    params['url'] = base_url + '?' + urlencode(query_params)
 
     return params
 
 
-# get response from search-request
 def response(resp):
-    results = []
+    """Get response from Bing-Images"""
 
+    results = []
     dom = html.fromstring(resp.text)
 
-    # parse results
-    for result in dom.xpath('//div[@class="imgpt"]'):
-        img_format = result.xpath('./div[contains(@class, "img_info")]/span/text()')[0]
-        # Microsoft seems to experiment with this code so don't make the path too specific,
-        # just catch the text section for the first anchor in img_info assuming this to be
-        # the originating site.
-        source = result.xpath('./div[contains(@class, "img_info")]//a/text()')[0]
+    for result in dom.xpath('//ul[contains(@class, "dgControl_list")]/li'):
 
-        m = loads(result.xpath('./a/@m')[0])
+        metadata = result.xpath('.//a[@class="iusc"]/@m')
+        if not metadata:
+            continue
 
-        # strip 'Unicode private use area' highlighting, they render to Tux
-        # the Linux penguin and a standing diamond on my machine...
-        title = m.get('t', '').replace('\ue000', '').replace('\ue001', '')
+        metadata = json.loads(result.xpath('.//a[@class="iusc"]/@m')[0])
+        title = ' '.join(result.xpath('.//div[@class="infnmpt"]//a/text()')).strip()
+        img_format = ' '.join(result.xpath('.//div[@class="imgpt"]/div/span/text()')).strip().split(" · ")
+        source = ' '.join(result.xpath('.//div[@class="imgpt"]//div[@class="lnkw"]//a/text()')).strip()
         results.append(
             {
                 'template': 'images.html',
-                'url': m['purl'],
-                'thumbnail_src': m['turl'],
-                'img_src': m['murl'],
-                'content': '',
+                'url': metadata['purl'],
+                'thumbnail_src': metadata['turl'],
+                'img_src': metadata['murl'],
+                'content': metadata['desc'],
                 'title': title,
                 'source': source,
-                'img_format': img_format,
+                'resolution': img_format[0],
+                'img_format': img_format[1] if len(img_format) >= 2 else None,
             }
         )
-
     return results

@@ -1,10 +1,11 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# pylint: disable=invalid-name, missing-module-docstring, missing-class-docstring
 
 from abc import abstractmethod, ABC
 import re
 
 from searx import settings
-from searx.languages import language_codes
+from searx.sxng_locales import sxng_locales
 from searx.engines import categories, engines, engine_shortcuts
 from searx.external_bang import get_bang_definition_and_autocomplete
 from searx.search import EngineRef
@@ -84,7 +85,7 @@ class LanguageParser(QueryPartParser):
         found = False
         # check if any language-code is equal with
         # declared language-codes
-        for lc in language_codes:
+        for lc in sxng_locales:
             lang_id, lang_name, country, english_name, _flag = map(str.lower, lc)
 
             # if correct language-code is found
@@ -104,7 +105,7 @@ class LanguageParser(QueryPartParser):
                     break
 
         # user may set a valid, yet not selectable language
-        if VALID_LANGUAGE_CODE.match(value):
+        if VALID_LANGUAGE_CODE.match(value) or value == 'auto':
             lang_parts = value.split('-')
             if len(lang_parts) > 1:
                 value = lang_parts[0].lower() + '-' + lang_parts[1].upper()
@@ -125,7 +126,7 @@ class LanguageParser(QueryPartParser):
                     self.raw_text_query.autocomplete_list.append(lang)
             return
 
-        for lc in language_codes:
+        for lc in sxng_locales:
             if lc[0] not in settings['search']['languages']:
                 continue
             lang_id, lang_name, country, english_name, _flag = map(str.lower, lc)
@@ -150,7 +151,7 @@ class LanguageParser(QueryPartParser):
 class ExternalBangParser(QueryPartParser):
     @staticmethod
     def check(raw_value):
-        return raw_value.startswith('!!')
+        return raw_value.startswith('!!') and len(raw_value) > 2
 
     def __call__(self, raw_value):
         value = raw_value[2:]
@@ -177,7 +178,8 @@ class ExternalBangParser(QueryPartParser):
 class BangParser(QueryPartParser):
     @staticmethod
     def check(raw_value):
-        return raw_value[0] == '!'
+        # make sure it's not any bang with double '!!'
+        return raw_value[0] == '!' and (len(raw_value) < 2 or raw_value[1] != '!')
 
     def __call__(self, raw_value):
         value = raw_value[1:].replace('-', ' ').replace('_', ' ')
@@ -190,7 +192,7 @@ class BangParser(QueryPartParser):
 
     def _parse(self, value):
         # check if prefix is equal with engine shortcut
-        if value in engine_shortcuts:
+        if value in engine_shortcuts:  # pylint: disable=consider-using-get
             value = engine_shortcuts[value]
 
         # check if prefix is equal with engine name
@@ -198,10 +200,10 @@ class BangParser(QueryPartParser):
             self.raw_text_query.enginerefs.append(EngineRef(value, 'none'))
             return True
 
-        # check if prefix is equal with categorie name
+        # check if prefix is equal with category name
         if value in categories:
             # using all engines for that search, which
-            # are declared under that categorie name
+            # are declared under that category name
             self.raw_text_query.enginerefs.extend(
                 EngineRef(engine.name, value)
                 for engine in categories[value]
@@ -219,7 +221,7 @@ class BangParser(QueryPartParser):
                     self._add_autocomplete(first_char + suggestion)
             return
 
-        # check if query starts with categorie name
+        # check if query starts with category name
         for category in categories:
             if category.startswith(value):
                 self._add_autocomplete(first_char + category.replace(' ', '_'))
@@ -235,14 +237,25 @@ class BangParser(QueryPartParser):
                 self._add_autocomplete(first_char + engine_shortcut)
 
 
+class FeelingLuckyParser(QueryPartParser):
+    @staticmethod
+    def check(raw_value):
+        return raw_value == '!!'
+
+    def __call__(self, raw_value):
+        self.raw_text_query.redirect_to_first_result = True
+        return True
+
+
 class RawTextQuery:
     """parse raw text query (the value from the html input)"""
 
     PARSER_CLASSES = [
-        TimeoutParser,  # this force the timeout
-        LanguageParser,  # this force a language
+        TimeoutParser,  # force the timeout
+        LanguageParser,  # force a language
         ExternalBangParser,  # external bang (must be before BangParser)
-        BangParser,  # this force a engine or category
+        BangParser,  # force an engine or category
+        FeelingLuckyParser,  # redirect to the first link in the results list
     ]
 
     def __init__(self, query, disabled_engines):
@@ -261,6 +274,7 @@ class RawTextQuery:
         self.query_parts = []  # use self.getFullQuery()
         self.user_query_parts = []  # use self.getQuery()
         self.autocomplete_location = None
+        self.redirect_to_first_result = False
         self._parse_query()
 
     def _parse_query(self):
@@ -311,7 +325,7 @@ class RawTextQuery:
 
     def getFullQuery(self):
         """
-        get full querry including whitespaces
+        get full query including whitespaces
         """
         return '{0} {1}'.format(' '.join(self.query_parts), self.getQuery()).strip()
 
@@ -330,5 +344,6 @@ class RawTextQuery:
             + f"enginerefs={self.enginerefs!r}\n  "
             + f"autocomplete_list={self.autocomplete_list!r}\n  "
             + f"query_parts={self.query_parts!r}\n  "
-            + f"user_query_parts={self.user_query_parts!r} >"
+            + f"user_query_parts={self.user_query_parts!r} >\n"
+            + f"redirect_to_first_result={self.redirect_to_first_result!r}"
         )

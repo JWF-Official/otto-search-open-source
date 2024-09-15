@@ -1,11 +1,11 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# lint: pylint
 # pylint: disable=,missing-module-docstring,missing-class-docstring
 
 import os
 import shlex
 import subprocess
 import logging
+import importlib
 
 # fallback values
 # if there is searx.version_frozen module, and it is not possible to get the git tag
@@ -58,26 +58,37 @@ def get_git_url_and_branch():
 
 
 def get_git_version():
-    git_commit_date_hash = subprocess_run(r"git show -s --date='format:%Y.%m.%d' --format='%cd-%h'")
+    git_commit_date_hash = subprocess_run(r"git show -s --date='format:%Y.%m.%d' --format='%cd+%h'")
+    # Remove leading zero from minor and patch level / replacement of PR-2122
+    # which depended on the git version: '2023.05.06+..' --> '2023.5.6+..'
+    git_commit_date_hash = git_commit_date_hash.replace('.0', '.')
     tag_version = git_version = git_commit_date_hash
 
-    # add "-dirty" suffix if there are uncommited changes except searx/settings.yml
+    # add "+dirty" suffix if there are uncommitted changes except searx/settings.yml
     try:
         subprocess_run("git diff --quiet -- . ':!searx/settings.yml' ':!utils/brand.env'")
     except subprocess.CalledProcessError as e:
         if e.returncode == 1:
-            git_version += "-dirty"
+            git_version += "+dirty"
         else:
             logger.warning('"%s" returns an unexpected return code %i', e.returncode, e.cmd)
-    return git_version, tag_version
+    docker_tag = git_version.replace("+", "-")
+    return git_version, tag_version, docker_tag
 
 
 try:
-    from searx.version_frozen import VERSION_STRING, VERSION_TAG, GIT_URL, GIT_BRANCH
+    vf = importlib.import_module('searx.version_frozen')
+    VERSION_STRING, VERSION_TAG, DOCKER_TAG, GIT_URL, GIT_BRANCH = (
+        vf.VERSION_STRING,
+        vf.VERSION_TAG,
+        vf.DOCKER_TAG,
+        vf.GIT_URL,
+        vf.GIT_BRANCH,
+    )
 except ImportError:
     try:
         try:
-            VERSION_STRING, VERSION_TAG = get_git_version()
+            VERSION_STRING, VERSION_TAG, DOCKER_TAG = get_git_version()
         except subprocess.CalledProcessError as ex:
             logger.error("Error while getting the version: %s", ex.stderr)
         try:
@@ -96,10 +107,12 @@ if __name__ == "__main__":
     if len(sys.argv) >= 2 and sys.argv[1] == "freeze":
         # freeze the version (to create an archive outside a git repository)
         python_code = f"""# SPDX-License-Identifier: AGPL-3.0-or-later
+# pylint: disable=missing-module-docstring
 # this file is generated automatically by searx/version.py
 
 VERSION_STRING = "{VERSION_STRING}"
 VERSION_TAG = "{VERSION_TAG}"
+DOCKER_TAG = "{DOCKER_TAG}"
 GIT_URL = "{GIT_URL}"
 GIT_BRANCH = "{GIT_BRANCH}"
 """
@@ -112,6 +125,7 @@ GIT_BRANCH = "{GIT_BRANCH}"
         shell_code = f"""
 VERSION_STRING="{VERSION_STRING}"
 VERSION_TAG="{VERSION_TAG}"
+DOCKER_TAG="{DOCKER_TAG}"
 GIT_URL="{GIT_URL}"
 GIT_BRANCH="{GIT_BRANCH}"
 """

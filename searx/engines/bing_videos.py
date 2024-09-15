@@ -1,21 +1,26 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# lint: pylint
-"""Bing (Videos)
-
+# pylint: disable=invalid-name
+"""Bing-Videos: description see :py:obj:`searx.engines.bing`.
 """
 
-from json import loads
+from typing import TYPE_CHECKING
+import json
 from urllib.parse import urlencode
 
 from lxml import html
 
-from searx.utils import match_language
-from searx.engines.bing import language_aliases
+from searx.enginelib.traits import EngineTraits
+from searx.engines.bing import set_bing_cookies
+from searx.engines.bing import fetch_traits  # pylint: disable=unused-import
+from searx.engines.bing_images import time_map
 
-from searx.engines.bing import (  # pylint: disable=unused-import
-    _fetch_supported_languages,
-    supported_languages_url,
-)
+if TYPE_CHECKING:
+    import logging
+
+    logger: logging.Logger
+
+traits: EngineTraits
+
 
 about = {
     "website": 'https://www.bing.com/videos',
@@ -26,68 +31,60 @@ about = {
     "results": 'HTML',
 }
 
+# engine dependent config
 categories = ['videos', 'web']
 paging = True
 safesearch = True
 time_range_support = True
-number_of_results = 28
 
-base_url = 'https://www.bing.com/'
-search_string = (
-    # fmt: off
-    'videos/search'
-    '?{query}'
-    '&count={count}'
-    '&first={first}'
-    '&scope=video'
-    '&FORM=QBLH'
-    # fmt: on
-)
-time_range_string = '&qft=+filterui:videoage-lt{interval}'
-time_range_dict = {'day': '1440', 'week': '10080', 'month': '43200', 'year': '525600'}
-
-# safesearch definitions
-safesearch_types = {2: 'STRICT', 1: 'DEMOTE', 0: 'OFF'}
+base_url = 'https://www.bing.com/videos/asyncv2'
+"""Bing (Videos) async search URL."""
 
 
-# do search-request
 def request(query, params):
-    offset = ((params['pageno'] - 1) * number_of_results) + 1
+    """Assemble a Bing-Video request."""
 
-    search_path = search_string.format(query=urlencode({'q': query}), count=number_of_results, first=offset)
+    engine_region = traits.get_region(params['searxng_locale'], traits.all_locale)  # type: ignore
+    engine_language = traits.get_language(params['searxng_locale'], 'en')  # type: ignore
+    set_bing_cookies(params, engine_language, engine_region)
 
-    # safesearch cookie
-    params['cookies']['SRCHHPGUSR'] = 'ADLT=' + safesearch_types.get(params['safesearch'], 'DEMOTE')
+    # build URL query
+    #
+    # example: https://www.bing.com/videos/asyncv2?q=foo&async=content&first=1&count=35
 
-    # language cookie
-    language = match_language(params['language'], supported_languages, language_aliases).lower()
-    params['cookies']['_EDGE_S'] = 'mkt=' + language + '&F=1'
-
-    # query and paging
-    params['url'] = base_url + search_path
+    query_params = {
+        'q': query,
+        'async': 'content',
+        # to simplify the page count lets use the default of 35 images per page
+        'first': (int(params.get('pageno', 1)) - 1) * 35 + 1,
+        'count': 35,
+    }
 
     # time range
-    if params['time_range'] in time_range_dict:
-        params['url'] += time_range_string.format(interval=time_range_dict[params['time_range']])
+    #
+    # example: one week (10080 minutes) '&qft= filterui:videoage-lt10080'  '&form=VRFLTR'
 
-    # bing videos did not like "older" versions < 70.0.1 when selectin other
-    # languages then 'en' .. very strange ?!?!
-    params['headers']['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64; rv:73.0.1) Gecko/20100101 Firefox/73.0.1'
+    if params['time_range']:
+        query_params['form'] = 'VRFLTR'
+        query_params['qft'] = ' filterui:videoage-lt%s' % time_map[params['time_range']]
+
+    params['url'] = base_url + '?' + urlencode(query_params)
 
     return params
 
 
-# get response from search-request
 def response(resp):
+    """Get response from Bing-Video"""
     results = []
 
     dom = html.fromstring(resp.text)
 
-    for result in dom.xpath('//div[@class="dg_u"]'):
-        metadata = loads(result.xpath('.//div[@class="vrhdata"]/@vrhm')[0])
+    for result in dom.xpath('//div[@class="dg_u"]//div[contains(@id, "mc_vtvc_video")]'):
+        metadata = json.loads(result.xpath('.//div[@class="vrhdata"]/@vrhm')[0])
         info = ' - '.join(result.xpath('.//div[@class="mc_vtvc_meta_block"]//span/text()')).strip()
         content = '{0} - {1}'.format(metadata['du'], info)
-        thumbnail = '{0}th?id={1}'.format(base_url, metadata['thid'])
+        thumbnail = result.xpath('.//div[contains(@class, "mc_vtvc_th")]//img/@src')[0]
+
         results.append(
             {
                 'url': metadata['murl'],

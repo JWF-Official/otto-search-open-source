@@ -17,7 +17,7 @@ Environment variables:
   BIND_ADDRESS  uwsgi bind to the specified TCP socket using HTTP protocol.
                 Default value: ${DEFAULT_BIND_ADDRESS}
 Volume:
-  /etc/Otto  the docker entry point copies settings.yml and uwsgi.ini in
+  /etc/searxng  the docker entry point copies settings.yml and uwsgi.ini in
                 this directory (see the -f command line option)"
 
 EOF
@@ -48,22 +48,28 @@ do
     esac
 done
 
-get_Otto_version(){
-    su Otto -c \
+get_searxng_version(){
+    su searxng -c \
        'python3 -c "import six; import searx.version; six.print_(searx.version.VERSION_STRING)"' \
        2>/dev/null
 }
 
-Otto_VERSION="$(get_Otto_version)"
-export Otto_VERSION
-echo "Otto version ${Otto_VERSION}"
+SEARXNG_VERSION="$(get_searxng_version)"
+export SEARXNG_VERSION
+echo "SearXNG version ${SEARXNG_VERSION}"
 
 # helpers to update the configuration files
 patch_uwsgi_settings() {
     CONF="$1"
+
+    # update uwsg.ini
+    sed -i \
+        -e "s|workers = .*|workers = ${UWSGI_WORKERS:-%k}|g" \
+        -e "s|threads = .*|threads = ${UWSGI_THREADS:-4}|g" \
+        "${CONF}"
 }
 
-patch_Otto_settings() {
+patch_searxng_settings() {
     CONF="$1"
 
     # Make sure that there is trailing slash at the end of BASE_URL
@@ -73,7 +79,7 @@ patch_Otto_settings() {
     # update settings.yml
     sed -i \
         -e "s|base_url: false|base_url: ${BASE_URL}|g" \
-        -e "s/instance_name: \"Otto\"/instance_name: \"${INSTANCE_NAME}\"/g" \
+        -e "s/instance_name: \"SearXNG\"/instance_name: \"${INSTANCE_NAME}\"/g" \
         -e "s/autocomplete: \"\"/autocomplete: \"${AUTOCOMPLETE}\"/g" \
         -e "s/ultrasecretkey/$(openssl rand -hex 32)/g" \
         "${CONF}"
@@ -106,7 +112,7 @@ update_conf() {
             # There is a new version
             if [ "$FORCE_CONF_UPDATE" -ne 0 ]; then
                 # Replace the current configuration
-                printf '⚠️  Automaticaly update %s to the new version\n' "${CONF}"
+                printf '⚠️  Automatically update %s to the new version\n' "${CONF}"
                 if [ ! -f "${OLD_CONF}" ]; then
                     printf 'The previous configuration is saved to %s\n' "${OLD_CONF}"
                     mv "${CONF}" "${OLD_CONF}"
@@ -115,7 +121,7 @@ update_conf() {
                 $PATCH_REF_CONF "${CONF}"
             else
                 # Keep the current configuration
-                printf '⚠️  Check new version %s to make sure Otto is working properly\n' "${NEW_CONF}"
+                printf '⚠️  Check new version %s to make sure SearXNG is working properly\n' "${NEW_CONF}"
                 cp "${REF_CONF}" "${NEW_CONF}"
                 $PATCH_REF_CONF "${NEW_CONF}"
             fi
@@ -129,35 +135,35 @@ update_conf() {
     fi
 }
 
-# searx compatibility: copy /etc/searx/* to /etc/Otto/*
+# searx compatibility: copy /etc/searx/* to /etc/searxng/*
 SEARX_CONF=0
 if [ -f "/etc/searx/settings.yml" ]; then
-    if  [ ! -f "${Otto_SETTINGS_PATH}" ]; then
-        printf '⚠️  /etc/searx/settings.yml is copied to /etc/Otto\n'
-        cp "/etc/searx/settings.yml" "${Otto_SETTINGS_PATH}"
+    if  [ ! -f "${SEARXNG_SETTINGS_PATH}" ]; then
+        printf '⚠️  /etc/searx/settings.yml is copied to /etc/searxng\n'
+        cp "/etc/searx/settings.yml" "${SEARXNG_SETTINGS_PATH}"
     fi
     SEARX_CONF=1
 fi
 if [ -f "/etc/searx/uwsgi.ini" ]; then
-    printf '⚠️  /etc/searx/uwsgi.ini is ignored. Use the volume /etc/Otto\n'
+    printf '⚠️  /etc/searx/uwsgi.ini is ignored. Use the volume /etc/searxng\n'
     SEARX_CONF=1
 fi
 if [ "$SEARX_CONF" -eq "1" ]; then
-    printf '⚠️  The deprecated volume /etc/searx is mounted. Please update your configuration to use /etc/Otto ⚠️\n'
+    printf '⚠️  The deprecated volume /etc/searx is mounted. Please update your configuration to use /etc/searxng ⚠️\n'
     cat << EOF > /etc/searx/deprecated_volume_read_me.txt
-This Docker image uses the volume /etc/Otto
+This Docker image uses the volume /etc/searxng
 Update your configuration:
-* remove uwsgi.ini (or very carefully update your existing uwsgi.ini using https://github.com/Otto/Otto/blob/master/dockerfiles/uwsgi.ini )
-* mount /etc/Otto instead of /etc/searx
+* remove uwsgi.ini (or very carefully update your existing uwsgi.ini using https://github.com/searxng/searxng/blob/master/dockerfiles/uwsgi.ini )
+* mount /etc/searxng instead of /etc/searx
 EOF
 fi
 # end of searx compatibility
 
 # make sure there are uwsgi settings
-update_conf "${FORCE_CONF_UPDATE}" "${UWSGI_SETTINGS_PATH}" "/usr/local/Otto/dockerfiles/uwsgi.ini" "patch_uwsgi_settings"
+update_conf "${FORCE_CONF_UPDATE}" "${UWSGI_SETTINGS_PATH}" "/usr/local/searxng/dockerfiles/uwsgi.ini" "patch_uwsgi_settings"
 
-# make sure there are Otto settings
-update_conf "${FORCE_CONF_UPDATE}" "${Otto_SETTINGS_PATH}" "/usr/local/Otto/searx/settings.yml" "patch_Otto_settings"
+# make sure there are searxng settings
+update_conf "${FORCE_CONF_UPDATE}" "${SEARXNG_SETTINGS_PATH}" "/usr/local/searxng/searx/settings.yml" "patch_searxng_settings"
 
 # dry run (to update configuration files, then inspect them)
 if [ $DRY_RUN -eq 1 ]; then
@@ -169,4 +175,4 @@ unset MORTY_KEY
 
 # Start uwsgi
 printf 'Listen on %s\n' "${BIND_ADDRESS}"
-exec su-exec Otto:Otto uwsgi --master --http-socket "${BIND_ADDRESS}" "${UWSGI_SETTINGS_PATH}"
+exec su-exec searxng:searxng uwsgi --master --http-socket "${BIND_ADDRESS}" "${UWSGI_SETTINGS_PATH}"

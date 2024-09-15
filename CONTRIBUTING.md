@@ -2,8 +2,8 @@
 
 ## Resources in the documentation
 
-* [Development quickstart](https://docs.Otto.org/dev/contribution_guide.html)
-* [Contribution guide](https://docs.Otto.org/dev/contribution_guide.html)
+* [Development quickstart](https://docs.searxng.org/dev/quickstart.html)
+* [Contribution guide](https://docs.searxng.org/dev/contribution_guide.html)
 
 ## Submitting PRs
 

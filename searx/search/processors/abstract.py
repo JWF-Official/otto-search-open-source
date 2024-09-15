@@ -1,7 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# lint: pylint
-
-"""Abstract base classes for engine request processores.
+"""Abstract base classes for engine request processors.
 
 """
 
@@ -58,7 +56,7 @@ class SuspendedStatus:
 
 
 class EngineProcessor(ABC):
-    """Base classes used for all types of reqest processores."""
+    """Base classes used for all types of request processors."""
 
     __slots__ = 'engine', 'engine_name', 'lock', 'suspended_status', 'logger'
 
@@ -74,7 +72,7 @@ class EngineProcessor(ABC):
         try:
             self.engine.init(get_engine_from_settings(self.engine_name))
         except SearxEngineResponseException as exc:
-            self.logger.warn('Fail to initialize // %s', exc)
+            self.logger.warning('Fail to initialize // %s', exc)
         except Exception:  # pylint: disable=broad-except
             self.logger.exception('Fail to initialize')
         else:
@@ -138,8 +136,21 @@ class EngineProcessor(ABC):
         return False
 
     def get_params(self, search_query, engine_category):
+        """Returns a set of (see :ref:`request params <engine request arguments>`) or
+        ``None`` if request is not supported.
+
+        Not supported conditions (``None`` is returned):
+
+        - A page-number > 1 when engine does not support paging.
+        - A time range when the engine does not support time range.
+        """
         # if paging is not supported, skip
         if search_query.pageno > 1 and not self.engine.paging:
+            return None
+
+        # if max page is reached, skip
+        max_page = self.engine.max_page or settings['search']['max_page']
+        if max_page and max_page < search_query.pageno:
             return None
 
         # if time_range is not supported, skip
@@ -152,11 +163,20 @@ class EngineProcessor(ABC):
         params['safesearch'] = search_query.safesearch
         params['time_range'] = search_query.time_range
         params['engine_data'] = search_query.engine_data.get(self.engine_name, {})
+        params['searxng_locale'] = search_query.lang
+
+        # deprecated / vintage --> use params['searxng_locale']
+        #
+        # Conditions related to engine's traits are implemented in engine.traits
+        # module. Don't do 'locale' decisions here in the abstract layer of the
+        # search processor, just pass the value from user's choice unchanged to
+        # the engine request.
 
         if hasattr(self.engine, 'language') and self.engine.language:
             params['language'] = self.engine.language
         else:
             params['language'] = search_query.lang
+
         return params
 
     @abstractmethod

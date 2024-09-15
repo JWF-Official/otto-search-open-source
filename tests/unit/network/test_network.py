@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# pylint: disable=missing-module-docstring, protected-access
 
 from mock import patch
 
@@ -8,7 +9,7 @@ from searx.network.network import Network, NETWORKS, initialize
 from tests import SearxTestCase
 
 
-class TestNetwork(SearxTestCase):
+class TestNetwork(SearxTestCase):  # pylint: disable=missing-class-docstring
     def setUp(self):
         initialize()
 
@@ -121,7 +122,7 @@ class TestNetwork(SearxTestCase):
             await network.aclose()
 
 
-class TestNetworkRequestRetries(SearxTestCase):
+class TestNetworkRequestRetries(SearxTestCase):  # pylint: disable=missing-class-docstring
 
     TEXT = 'Lorem Ipsum'
 
@@ -129,7 +130,7 @@ class TestNetworkRequestRetries(SearxTestCase):
     def get_response_404_then_200(cls):
         first = True
 
-        async def get_response(*args, **kwargs):
+        async def get_response(*args, **kwargs):  # pylint: disable=unused-argument
             nonlocal first
             if first:
                 first = False
@@ -141,35 +142,35 @@ class TestNetworkRequestRetries(SearxTestCase):
     async def test_retries_ok(self):
         with patch.object(httpx.AsyncClient, 'request', new=TestNetworkRequestRetries.get_response_404_then_200()):
             network = Network(enable_http=True, retries=1, retry_on_http_error=403)
-            response = await network.request('GET', 'https://example.com/')
+            response = await network.request('GET', 'https://example.com/', raise_for_httperror=False)
             self.assertEqual(response.text, TestNetworkRequestRetries.TEXT)
             await network.aclose()
 
     async def test_retries_fail_int(self):
         with patch.object(httpx.AsyncClient, 'request', new=TestNetworkRequestRetries.get_response_404_then_200()):
             network = Network(enable_http=True, retries=0, retry_on_http_error=403)
-            response = await network.request('GET', 'https://example.com/')
+            response = await network.request('GET', 'https://example.com/', raise_for_httperror=False)
             self.assertEqual(response.status_code, 403)
             await network.aclose()
 
     async def test_retries_fail_list(self):
         with patch.object(httpx.AsyncClient, 'request', new=TestNetworkRequestRetries.get_response_404_then_200()):
             network = Network(enable_http=True, retries=0, retry_on_http_error=[403, 429])
-            response = await network.request('GET', 'https://example.com/')
+            response = await network.request('GET', 'https://example.com/', raise_for_httperror=False)
             self.assertEqual(response.status_code, 403)
             await network.aclose()
 
     async def test_retries_fail_bool(self):
         with patch.object(httpx.AsyncClient, 'request', new=TestNetworkRequestRetries.get_response_404_then_200()):
             network = Network(enable_http=True, retries=0, retry_on_http_error=True)
-            response = await network.request('GET', 'https://example.com/')
+            response = await network.request('GET', 'https://example.com/', raise_for_httperror=False)
             self.assertEqual(response.status_code, 403)
             await network.aclose()
 
     async def test_retries_exception_then_200(self):
         request_count = 0
 
-        async def get_response(*args, **kwargs):
+        async def get_response(*args, **kwargs):  # pylint: disable=unused-argument
             nonlocal request_count
             request_count += 1
             if request_count < 3:
@@ -178,7 +179,7 @@ class TestNetworkRequestRetries(SearxTestCase):
 
         with patch.object(httpx.AsyncClient, 'request', new=get_response):
             network = Network(enable_http=True, retries=2)
-            response = await network.request('GET', 'https://example.com/')
+            response = await network.request('GET', 'https://example.com/', raise_for_httperror=False)
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.text, TestNetworkRequestRetries.TEXT)
             await network.aclose()
@@ -190,11 +191,11 @@ class TestNetworkRequestRetries(SearxTestCase):
         with patch.object(httpx.AsyncClient, 'request', new=get_response):
             network = Network(enable_http=True, retries=0)
             with self.assertRaises(httpx.RequestError):
-                await network.request('GET', 'https://example.com/')
+                await network.request('GET', 'https://example.com/', raise_for_httperror=False)
             await network.aclose()
 
 
-class TestNetworkStreamRetries(SearxTestCase):
+class TestNetworkStreamRetries(SearxTestCase):  # pylint: disable=missing-class-docstring
 
     TEXT = 'Lorem Ipsum'
 
@@ -202,7 +203,7 @@ class TestNetworkStreamRetries(SearxTestCase):
     def get_response_exception_then_200(cls):
         first = True
 
-        def stream(*args, **kwargs):
+        def stream(*args, **kwargs):  # pylint: disable=unused-argument
             nonlocal first
             if first:
                 first = False
@@ -228,7 +229,7 @@ class TestNetworkStreamRetries(SearxTestCase):
     async def test_retries_exception(self):
         first = True
 
-        def stream(*args, **kwargs):
+        def stream(*args, **kwargs):  # pylint: disable=unused-argument
             nonlocal first
             if first:
                 first = False
@@ -237,6 +238,6 @@ class TestNetworkStreamRetries(SearxTestCase):
 
         with patch.object(httpx.AsyncClient, 'stream', new=stream):
             network = Network(enable_http=True, retries=0, retry_on_http_error=403)
-            response = await network.stream('GET', 'https://example.com/')
+            response = await network.stream('GET', 'https://example.com/', raise_for_httperror=False)
             self.assertEqual(response.status_code, 403)
             await network.aclose()

@@ -1,12 +1,13 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""
- Duden
+"""Duden
+
 """
 
 import re
 from urllib.parse import quote, urljoin
 from lxml import html
 from searx.utils import extract_text, eval_xpath, eval_xpath_list, eval_xpath_getindex
+from searx.network import raise_for_httperror
 
 # about
 about = {
@@ -28,15 +29,6 @@ search_url = base_url + 'suchen/dudenonline/{query}?search_api_fulltext=&page={o
 
 
 def request(query, params):
-    '''pre-request callback
-    params<dict>:
-      method  : POST/GET
-      headers : {}
-      data    : {} # if method == POST
-      url     : ''
-      category: 'search category'
-      pageno  : 1 # number of the requested page
-    '''
 
     offset = params['pageno'] - 1
     if offset == 0:
@@ -47,14 +39,17 @@ def request(query, params):
     # after the last page of results, spelling corrections are returned after a HTTP redirect
     # whatever the page number is
     params['soft_max_redirects'] = 1
+    params['raise_for_httperror'] = False
     return params
 
 
 def response(resp):
-    '''post-response callback
-    resp: requests response object
-    '''
     results = []
+
+    if resp.status_code == 404:
+        return results
+
+    raise_for_httperror(resp)
 
     dom = html.fromstring(resp.text)
 
