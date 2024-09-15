@@ -4,30 +4,38 @@
 Buildhosts
 ==========
 
-.. sidebar:: This article needs some work
-
-   If you have any contribution send us your :pull:`PR <../pulls>`, see
-   :ref:`how to contribute`.
-
-.. contents:: Contents
+.. contents::
    :depth: 2
    :local:
    :backlinks: entry
 
-To get best results from build, its recommend to install additional packages
-on build hosts (see :ref:`searx.sh`).::
+To get best results from build, it's recommend to install additional packages on
+build hosts (see :ref:`searxng.sh`).
 
-  sudo -H ./utils/searx.sh install buildhost
+.. _searxng.sh install buildhost:
 
-This will install packages needed by searx:
+Build and Development tools
+===========================
 
-.. kernel-include:: $DOCS_BUILD/includes/searx.rst
+To Install tools used by build and development tasks in once:
+
+.. tabs::
+
+  .. group-tab:: SearXNG's development tools
+
+     .. code:: sh
+
+        $ sudo -H ./utils/searxng.sh install buildhost
+
+This will install packages needed by SearXNG:
+
+.. kernel-include:: $DOCS_BUILD/includes/searxng.rst
    :start-after: START distro-packages
    :end-before: END distro-packages
 
-and packages needed to build docuemtation and run tests:
+and packages needed to build documentation and run tests:
 
-.. kernel-include:: $DOCS_BUILD/includes/searx.rst
+.. kernel-include:: $DOCS_BUILD/includes/searxng.rst
    :start-after: START build-packages
    :end-before: END build-packages
 
@@ -51,7 +59,7 @@ Build docs
 Most of the sphinx requirements are installed from :origin:`setup.py` and the
 docs can be build from scratch with ``make docs.html``.  For better math and
 image processing additional packages are needed.  The XeTeX_ needed not only for
-PDF creation, its also needed for :ref:`math` when HTML output is build.
+PDF creation, it's also needed for :ref:`math` when HTML output is build.
 
 To be able to do :ref:`sphinx:math-support` without CDNs, the math are rendered
 as images (``sphinx.ext.imgmath`` extension).
@@ -73,7 +81,7 @@ If your docs build (``make docs.html``) shows warnings like this::
             display), check the imgmath_latex setting
 
 you need to install additional packages on your build host, to get better HTML
-output.
+output (:ref:`install buildhost <searxng.sh install buildhost>`).
 
 .. tabs::
 
@@ -93,7 +101,7 @@ output.
 
       .. code-block:: sh
 
-         $ sudo dnf install graphviz graphviz-gd texlive-xetex-bin librsvg2-tools
+         $ sudo dnf install graphviz graphviz-gd ImageMagick texlive-xetex-bin librsvg2-tools
 
 
 For PDF output you also need:
@@ -117,9 +125,8 @@ For PDF output you also need:
       .. code:: sh
 
       	 $ sudo dnf install \
-	        texlive-collection-fontsrecommended texlive-collection-latex \
-		dejavu-sans-fonts dejavu-serif-fonts dejavu-sans-mono-fonts \
-		ImageMagick
+             texlive-collection-fontsrecommended texlive-collection-latex \
+             dejavu-sans-fonts dejavu-serif-fonts dejavu-sans-mono-fonts
 
 .. _sh lint:
 
@@ -128,7 +135,8 @@ Lint shell scripts
 
 .. _ShellCheck: https://github.com/koalaman/shellcheck
 
-To lint shell scripts, we use ShellCheck_ - A shell script static analysis tool.
+To lint shell scripts we use ShellCheck_ - a shell script static analysis tool
+(:ref:`install buildhost <searxng.sh install buildhost>`).
 
 .. SNIP sh lint requirements
 

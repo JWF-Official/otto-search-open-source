@@ -1,6 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# lint: pylint
-"""Processores for engine-type: ``online_dictionary``
+"""Processors for engine-type: ``online_dictionary``
 
 """
 
@@ -9,7 +8,7 @@ import re
 from searx.utils import is_valid_lang
 from .online import OnlineProcessor
 
-parser_re = re.compile('.*?([a-z]+)-([a-z]+) ([^ ]+)$', re.I)
+parser_re = re.compile('.*?([a-z]+)-([a-z]+) (.+)$', re.I)
 
 
 class OnlineDictionaryProcessor(OnlineProcessor):
@@ -18,6 +17,9 @@ class OnlineDictionaryProcessor(OnlineProcessor):
     engine_type = 'online_dictionary'
 
     def get_params(self, search_query, engine_category):
+        """Returns a set of :ref:`request params <engine request online_dictionary>` or
+        ``None`` if search query does not match to :py:obj:`parser_re`.
+        """
         params = super().get_params(search_query, engine_category)
         if params is None:
             return None

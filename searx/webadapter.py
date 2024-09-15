@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# pylint: disable=missing-module-docstring
+
 from collections import defaultdict
 from typing import Dict, List, Optional, Tuple
 from searx.exceptions import SearxParameterException
@@ -6,10 +9,11 @@ from searx.query import RawTextQuery
 from searx.engines import categories, engines
 from searx.search import SearchQuery, EngineRef
 from searx.preferences import Preferences, is_locked
+from searx.utils import detect_language
 
 
 # remove duplicate queries.
-# FIXME: does not fix "!music !soundcloud", because the categories are 'none' and 'music'
+# HINT: does not fix "!music !soundcloud", because the categories are 'none' and 'music'
 def deduplicate_engineref_list(engineref_list: List[EngineRef]) -> List[EngineRef]:
     engineref_dict = {q.category + '|' + q.name: q for q in engineref_list}
     return list(engineref_dict.values())
@@ -54,7 +58,7 @@ def parse_lang(preferences: Preferences, form: Dict[str, str], raw_text_query: R
         return preferences.get_value('language')
     # get language
     # set specific language if set on request, query or preferences
-    # TODO support search with multible languages
+    # search with multiple languages is not supported (by most engines)
     if len(raw_text_query.languages):
         query_lang = raw_text_query.languages[-1]
     elif 'language' in form:
@@ -63,7 +67,7 @@ def parse_lang(preferences: Preferences, form: Dict[str, str], raw_text_query: R
         query_lang = preferences.get_value('language')
 
     # check language
-    if not VALID_LANGUAGE_CODE.match(query_lang):
+    if not VALID_LANGUAGE_CODE.match(query_lang) and query_lang != 'auto':
         raise SearxParameterException('language', query_lang)
 
     return query_lang
@@ -152,7 +156,10 @@ def get_selected_categories(preferences: Preferences, form: Optional[Dict[str, s
     return selected_categories
 
 
-def get_engineref_from_category_list(category_list: List[str], disabled_engines: List[str]) -> List[EngineRef]:
+def get_engineref_from_category_list(  # pylint: disable=invalid-name
+    category_list: List[str],
+    disabled_engines: List[str],
+) -> List[EngineRef]:
     result = []
     for categ in category_list:
         result.extend(
@@ -171,7 +178,7 @@ def parse_generic(preferences: Preferences, form: Dict[str, str], disabled_engin
     explicit_engine_list = False
     if not is_locked('categories'):
         # parse the form only if the categories are not locked
-        for pd_name, pd in form.items():
+        for pd_name, pd in form.items():  # pylint: disable=invalid-name
             if pd_name == 'engines':
                 pd_engines = [
                     EngineRef(engine_name, engines[engine_name].categories[0])
@@ -214,7 +221,27 @@ def parse_engine_data(form):
 
 def get_search_query_from_webapp(
     preferences: Preferences, form: Dict[str, str]
-) -> Tuple[SearchQuery, RawTextQuery, List[EngineRef], List[EngineRef]]:
+) -> Tuple[SearchQuery, RawTextQuery, List[EngineRef], List[EngineRef], str]:
+    """Assemble data from preferences and request.form (from the HTML form) needed
+    in a search query.
+
+    The returned tuple consits of:
+
+    1. instance of :py:obj:`searx.search.SearchQuery`
+    2. instance of :py:obj:`searx.query.RawTextQuery`
+    3. list of :py:obj:`searx.search.EngineRef` instances
+    4. string with the *selected locale* of the query
+
+    About language/locale: if the client selects the alias ``auto`` the
+    ``SearchQuery`` object is build up by the :py:obj:`detected language
+    <searx.utils.detect_language>`.  If language recognition does not have a
+    match the language preferred by the :py:obj:`Preferences.client` is used.
+    If client does not have a preference, the default ``all`` is used.
+
+    The *selected locale* in the tuple always represents the selected
+    language/locale and might differ from the language recognition.
+
+    """
     # no text for the query ?
     if not form.get('q'):
         raise SearxParameterException('q', '')
@@ -223,22 +250,29 @@ def get_search_query_from_webapp(
     disabled_engines = preferences.engines.get_disabled()
 
     # parse query, if tags are set, which change
-    # the serch engine or search-language
+    # the search engine or search-language
     raw_text_query = RawTextQuery(form['q'], disabled_engines)
 
     # set query
     query = raw_text_query.getQuery()
     query_pageno = parse_pageno(form)
-    query_lang = parse_lang(preferences, form, raw_text_query)
     query_safesearch = parse_safesearch(preferences, form)
     query_time_range = parse_time_range(form)
     query_timeout = parse_timeout(form, raw_text_query)
     external_bang = raw_text_query.external_bang
+    redirect_to_first_result = raw_text_query.redirect_to_first_result
     engine_data = parse_engine_data(form)
+
+    query_lang = parse_lang(preferences, form, raw_text_query)
+    selected_locale = query_lang
+
+    if query_lang == 'auto':
+        query_lang = detect_language(query, threshold=0.8, only_search_languages=True)
+        query_lang = query_lang or preferences.client.locale_tag or 'all'
 
     if not is_locked('categories') and raw_text_query.specific:
         # if engines are calculated from query,
-        # set categories by using that informations
+        # set categories by using that information
         query_engineref_list = raw_text_query.enginerefs
     else:
         # otherwise, using defined categories to
@@ -261,8 +295,10 @@ def get_search_query_from_webapp(
             query_timeout,
             external_bang=external_bang,
             engine_data=engine_data,
+            redirect_to_first_result=redirect_to_first_result,
         ),
         raw_text_query,
         query_engineref_list_unknown,
         query_engineref_list_notoken,
+        selected_locale,
     )

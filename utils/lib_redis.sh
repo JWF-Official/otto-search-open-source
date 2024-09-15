@@ -12,8 +12,8 @@
 #
 # systemd commands::
 #
-#    sudo -H systemctl status Otto-redis
-#    sudo -H journalctl -u Otto-redis
+#    sudo -H systemctl status searxng-redis
+#    sudo -H journalctl -u searxng-redis
 #    sudo -H journalctl --vacuum-size=1M
 #
 # Test socket connection from client (local user)::
@@ -21,15 +21,15 @@
 #    $ sudo -H ./manage redis.addgrp "${USER}"
 #    # logout & login to get member of group
 #    $ groups
-#    ... Otto-redis ...
-#    $ source /usr/local/Otto-redis/.redis_env
+#    ... searxng-redis ...
+#    $ source /usr/local/searxng-redis/.redis_env
 #    $ which redis-cli
-#    /usr/local/Otto-redis/.local/bin/redis-cli
+#    /usr/local/searxng-redis/.local/bin/redis-cli
 #
-#    $ redis-cli -s /usr/local/Otto-redis/redis.sock
-#    redis /usr/local/Otto-redis/redis.sock> set foo bar
+#    $ redis-cli -s /usr/local/searxng-redis/redis.sock
+#    redis /usr/local/searxng-redis/redis.sock> set foo bar
 #    OK
-#    redis /usr/local/Otto-redis/redis.sock> get foo
+#    redis /usr/local/searxng-redis/redis.sock> get foo
 #    "bar"
 #    [CTRL-D]
 
@@ -41,12 +41,14 @@
 REDIS_GIT_URL="https://github.com/redis/redis.git"
 REDIS_GIT_TAG="${REDIS_GIT_TAG:-6.2.6}"
 
-REDIS_USER="Otto-redis"
+REDIS_USER="searxng-redis"
+REDIS_GROUP="searxng-redis"
+
 REDIS_HOME="/usr/local/${REDIS_USER}"
 REDIS_HOME_BIN="${REDIS_HOME}/.local/bin"
 REDIS_ENV="${REDIS_HOME}/.redis_env"
 
-REDIS_SERVICE_NAME="Otto-redis"
+REDIS_SERVICE_NAME="searxng-redis"
 REDIS_SYSTEMD_UNIT="${SYSTEMD_UNITS}/${REDIS_SERVICE_NAME}.service"
 
 # binaries to compile & install
@@ -113,7 +115,7 @@ redis.devpkg() {
 
     case ${DIST_ID} in
         ubuntu|debian)
-            pkg_install git build-essential
+            pkg_install git build-essential gawk
             ;;
         arch)
             pkg_install git base-devel
@@ -139,15 +141,20 @@ redis.build() {
     rst_title "get redis sources" section
     redis.src "${CACHE}/redis"
 
-    if ! required_commands gcc nm make gawk; then
-        sudo -H "$0" redis.devpkg
+    if ! required_commands gcc nm make gawk ; then
+        info_msg "install development tools to get missing command(s) .."
+        if [[ -n ${SUDO_USER} ]]; then
+            sudo -H "$0" redis.devpkg
+        else
+            redis.devpkg
+        fi
     fi
 
     rst_title "compile redis sources" section
 
     pushd "${CACHE}/redis" &>/dev/null
 
-    if ask_yn "Do you run 'make distclean' first'?" Ny; then
+    if ask_yn "Do you run 'make distclean' first'?" Yn; then
         $(bash.cmd) -c "make distclean" 2>&1 | prefix_stdout
     fi
 
@@ -158,7 +165,7 @@ redis.build() {
 
     popd &>/dev/null
 
-    tee_stderr 0.1 <<EOF | $(bash.cmd) 2>&1 |  prefix_stdout
+    tee_stderr 0.1 <<EOF | $(bash.cmd) 2>&1 | prefix_stdout
 mkdir -p "$(redis._get_dist)"
 cd "${CACHE}/redis/src"
 cp ${REDIS_INSTALL_EXE[@]} "$(redis._get_dist)"
@@ -233,7 +240,7 @@ useradd --shell /bin/bash --system \
  --home-dir "${REDIS_HOME}" \
  --comment 'user that runs a redis instance' "${REDIS_USER}"
 mkdir -p "${REDIS_HOME}"
-chown -R "${REDIS_USER}:${REDIS_USER}" "${REDIS_HOME}"
+chown -R "${REDIS_USER}:${REDIS_GROUP}" "${REDIS_HOME}"
 groups "${REDIS_USER}"
 EOF
 
@@ -248,7 +255,7 @@ EOF
 redis.userdel() {
     sudo_or_exit
     drop_service_account "${REDIS_USER}"
-    groupdel "${REDIS_USER}" 2>&1 | prefix_stdout || true
+    groupdel "${REDIS_GROUP}" 2>&1 | prefix_stdout || true
 }
 
 redis.addgrp() {
@@ -256,7 +263,7 @@ redis.addgrp() {
     # usage: redis.addgrp <user>
 
     [[ -z $1 ]] && die_caller 42 "missing argument <user>"
-    sudo -H gpasswd -a "$1" "${REDIS_USER}"
+    sudo -H gpasswd -a "$1" "${REDIS_GROUP}"
 }
 
 redis.rmgrp() {
@@ -264,7 +271,7 @@ redis.rmgrp() {
     # usage: redis.rmgrp <user>
 
     [[ -z $1 ]] && die_caller 42 "missing argument <user>"
-    sudo -H gpasswd -d "$1" "${REDIS_USER}"
+    sudo -H gpasswd -d "$1" "${REDIS_GROUP}"
 
 }
 
@@ -278,7 +285,7 @@ redis._install_bin() {
     (
         set -e
         for redis_exe in "${REDIS_INSTALL_EXE[@]}"; do
-            install -v -o "${REDIS_USER}" -g "${REDIS_USER}" \
+            install -v -o "${REDIS_USER}" -g "${REDIS_GROUP}" \
                  "${src}/${redis_exe}" "${REDIS_HOME_BIN}"
         done
 

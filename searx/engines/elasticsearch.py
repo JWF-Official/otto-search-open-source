@@ -1,6 +1,44 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""
- Elasticsearch
+""".. sidebar:: info
+
+   - :origin:`elasticsearch.py <searx/engines/elasticsearch.py>`
+   - `Elasticsearch <https://www.elastic.co/elasticsearch/>`_
+   - `Elasticsearch Guide
+     <https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html>`_
+   - `Install Elasticsearch
+     <https://www.elastic.co/guide/en/elasticsearch/reference/current/install-elasticsearch.html>`_
+
+Elasticsearch_ supports numerous ways to query the data it is storing.  At the
+moment the engine supports the most popular search methods (``query_type``):
+
+- ``match``,
+- ``simple_query_string``,
+- ``term`` and
+- ``terms``.
+
+If none of the methods fit your use case, you can select ``custom`` query type
+and provide the JSON payload to submit to Elasticsearch in
+``custom_query_json``.
+
+Example
+=======
+
+The following is an example configuration for an Elasticsearch_ instance with
+authentication configured to read from ``my-index`` index.
+
+.. code:: yaml
+
+  - name: elasticsearch
+    shortcut: es
+    engine: elasticsearch
+    base_url: http://localhost:9200
+    username: elastic
+    password: changeme
+    index: my-index
+    query_type: match
+    # custom_query_json: '{ ... }'
+    enable_http: true
+
 """
 
 from json import loads, dumps
@@ -11,7 +49,7 @@ base_url = 'http://localhost:9200'
 username = ''
 password = ''
 index = ''
-search_url = base_url + '/' + index + '/_search'
+search_url = '{base_url}/{index}/_search'
 query_type = 'match'
 custom_query_json = {}
 show_metadata = False
@@ -33,7 +71,7 @@ def request(query, params):
     if username and password:
         params['auth'] = (username, password)
 
-    params['url'] = search_url
+    params['url'] = search_url.format(base_url=base_url, index=index)
     params['method'] = 'GET'
     params['data'] = dumps(_available_query_types[query_type](query))
     params['headers']['Content-Type'] = 'application/json'

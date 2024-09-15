@@ -4,245 +4,435 @@
 #
 # Translators:
 # Jan Hovancik, 2017
+# Markus Heiser <markus.heiser@darmarit.de>, 2022.
+# Fero Novák <itzwowsmile@gmail.com>, 2022.
+# JohnyPeaN <johnypean@gmail.com>, 2022.
+# return42 <markus.heiser@darmarit.de>, 2023.
+# return42 <return42@users.noreply.translate.codeberg.org>, 2024.
+# Vision <Vision@users.noreply.translate.codeberg.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-07-02 08:59+0000\n"
-"PO-Revision-Date: 2022-05-13 07:20+0000\n"
-"Last-Translator: Markus Heiser <markus.heiser@darmarit.de>\n"
+"POT-Creation-Date: 2024-06-17 12:15+0000\n"
+"PO-Revision-Date: 2024-05-06 07:18+0000\n"
+"Last-Translator: Vision <Vision@users.noreply.translate.codeberg.org>\n"
 "Language: sk\n"
 "Language-Team: Slovak "
-"<https://weblate.bubu1.eu/projects/Otto/Otto/sk/>\n"
+"<https://translate.codeberg.org/projects/searxng/searxng/sk/>\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 "
 "&& n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.10.3\n"
+"Generated-By: Babel 2.15.0\n"
 
-#. CONSTANT_NAMES['DEFAULT_GROUP_NAME']
-#: searx/Otto.msg
-msgid "others"
-msgstr "iné"
+#. CONSTANT_NAMES['NO_SUBGROUPING']
+#: searx/searxng.msg
+msgid "without further subgrouping"
+msgstr "bez ďalšieho zoskupenia"
 
-#. CONSTANT_NAMES['OTHER_CATEGORY']
-#: searx/Otto.msg
+#. CONSTANT_NAMES['DEFAULT_CATEGORY']
+#: searx/searxng.msg
 msgid "other"
-msgstr "ostatne"
+msgstr "ostatné"
 
 #. CATEGORY_NAMES['FILES']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "files"
 msgstr "súbory"
 
 #. CATEGORY_NAMES['GENERAL']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "general"
 msgstr "všeobecné"
 
 #. CATEGORY_NAMES['MUSIC']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "music"
 msgstr "hudba"
 
 #. CATEGORY_NAMES['SOCIAL_MEDIA']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "social media"
 msgstr "sociálne médiá"
 
 #. CATEGORY_NAMES['IMAGES']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "images"
 msgstr "obrázky"
 
 #. CATEGORY_NAMES['VIDEOS']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "videos"
 msgstr "videá"
 
+#. CATEGORY_NAMES['RADIO']
+#: searx/engines/radio_browser.py:103 searx/searxng.msg
+msgid "radio"
+msgstr "rádio"
+
+#. CATEGORY_NAMES['TV']
+#: searx/searxng.msg
+msgid "tv"
+msgstr "tv"
+
 #. CATEGORY_NAMES['IT']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "it"
-msgstr "technika"
+msgstr "technológia"
 
 #. CATEGORY_NAMES['NEWS']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "news"
 msgstr "správy"
 
 #. CATEGORY_NAMES['MAP']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "map"
-msgstr "mapy"
+msgstr "mapa"
 
 #. CATEGORY_NAMES['ONIONS']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "onions"
 msgstr "onions"
 
 #. CATEGORY_NAMES['SCIENCE']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "science"
 msgstr "veda"
 
 #. CATEGORY_GROUPS['APPS']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "apps"
 msgstr "aplikácie"
 
 #. CATEGORY_GROUPS['DICTIONARIES']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "dictionaries"
 msgstr "slovníky"
 
 #. CATEGORY_GROUPS['LYRICS']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "lyrics"
 msgstr "texty piesní"
 
 #. CATEGORY_GROUPS['PACKAGES']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "packages"
 msgstr "programové balíčky"
 
 #. CATEGORY_GROUPS['Q_A']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "q&a"
 msgstr "otázky a odpovede"
 
 #. CATEGORY_GROUPS['REPOS']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "repos"
 msgstr "repozitáre"
 
 #. CATEGORY_GROUPS['SOFTWARE_WIKIS']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "software wikis"
-msgstr "Dokumentácia aplikácií"
+msgstr "Dokumentácie aplikácií"
 
 #. CATEGORY_GROUPS['WEB']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "web"
 msgstr "web"
 
+#. CATEGORY_GROUPS['SCIENTIFIC PUBLICATIONS']
+#: searx/searxng.msg
+msgid "scientific publications"
+msgstr "vedecké publikácie"
+
 #. STYLE_NAMES['AUTO']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "auto"
 msgstr "automaticky"
 
 #. STYLE_NAMES['LIGHT']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "light"
 msgstr "svetlý"
 
 #. STYLE_NAMES['DARK']
-#: searx/Otto.msg
+#: searx/searxng.msg
 msgid "dark"
 msgstr "tmavý"
 
-#: searx/webapp.py:165
-msgid "timeout"
-msgstr "časový limit"
+#. BRAND_CUSTOM_LINKS['UPTIME']
+#: searx/searxng.msg
+msgid "Uptime"
+msgstr "Doba prevádzky"
 
-#: searx/webapp.py:166
-msgid "parsing error"
-msgstr "chyba parsovania"
+#. BRAND_CUSTOM_LINKS['ABOUT']
+#: searx/searxng.msg searx/templates/simple/base.html:50
+msgid "About"
+msgstr "O nás"
 
-#: searx/webapp.py:167
-msgid "HTTP protocol error"
-msgstr "chyba HTTP protokolu"
+#. WEATHER_TERMS['AVERAGE TEMP.']
+#: searx/searxng.msg
+msgid "Average temp."
+msgstr "Priemerná teplota"
 
-#: searx/webapp.py:168
-msgid "network error"
-msgstr "chyba siete"
+#. WEATHER_TERMS['CLOUD COVER']
+#: searx/searxng.msg
+msgid "Cloud cover"
+msgstr "Oblačnosť"
 
-#: searx/webapp.py:170
-msgid "unexpected crash"
-msgstr "neočakávaná chyba"
+#. WEATHER_TERMS['CONDITION']
+#: searx/searxng.msg
+msgid "Condition"
+msgstr "Podmienka"
 
-#: searx/webapp.py:177
-msgid "HTTP error"
-msgstr "HTTP chyba"
+#. WEATHER_TERMS['CURRENT CONDITION']
+#: searx/searxng.msg
+msgid "Current condition"
+msgstr "Aktuálna podmienka"
 
-#: searx/webapp.py:178
-msgid "HTTP connection error"
-msgstr "chyba pripojenie cez HTTP"
+#. WEATHER_TERMS['EVENING']
+#: searx/engines/wttr.py:100 searx/searxng.msg
+msgid "Evening"
+msgstr "Večer"
 
-#: searx/webapp.py:184
-msgid "proxy error"
-msgstr "chyba proxy"
+#. WEATHER_TERMS['FEELS LIKE']
+#: searx/searxng.msg
+msgid "Feels like"
+msgstr "Pocitovo ako"
 
-#: searx/webapp.py:185
-msgid "CAPTCHA"
-msgstr "CAPTCHA"
+#. WEATHER_TERMS['HUMIDITY']
+#: searx/searxng.msg
+msgid "Humidity"
+msgstr "Vlhkosť"
 
-#: searx/webapp.py:186
-msgid "too many requests"
-msgstr "priveľa dotazov"
+#. WEATHER_TERMS['MAX TEMP.']
+#: searx/searxng.msg
+msgid "Max temp."
+msgstr "Max teplota"
 
-#: searx/webapp.py:187
-msgid "access denied"
-msgstr "prístup bol odmietnutý"
+#. WEATHER_TERMS['MIN TEMP.']
+#: searx/searxng.msg
+msgid "Min temp."
+msgstr "Min teplota"
 
-#: searx/webapp.py:188
-msgid "server API error"
-msgstr "API chyba servera"
+#. WEATHER_TERMS['MORNING']
+#: searx/engines/wttr.py:100 searx/searxng.msg
+msgid "Morning"
+msgstr "Ráno"
 
-#: searx/webapp.py:363
+#. WEATHER_TERMS['NIGHT']
+#: searx/engines/wttr.py:100 searx/searxng.msg
+msgid "Night"
+msgstr "Noc"
+
+#. WEATHER_TERMS['NOON']
+#: searx/engines/wttr.py:100 searx/searxng.msg
+msgid "Noon"
+msgstr "Poludnie"
+
+#. WEATHER_TERMS['PRESSURE']
+#: searx/searxng.msg
+msgid "Pressure"
+msgstr "Tlak"
+
+#. WEATHER_TERMS['SUNRISE']
+#: searx/searxng.msg
+msgid "Sunrise"
+msgstr "Východ slnka"
+
+#. WEATHER_TERMS['SUNSET']
+#: searx/searxng.msg
+msgid "Sunset"
+msgstr "Západ slnka"
+
+#. WEATHER_TERMS['TEMPERATURE']
+#: searx/searxng.msg
+msgid "Temperature"
+msgstr "Teplota"
+
+#. WEATHER_TERMS['UV INDEX']
+#: searx/searxng.msg
+msgid "UV index"
+msgstr "Index UV"
+
+#. WEATHER_TERMS['VISIBILITY']
+#: searx/searxng.msg
+msgid "Visibility"
+msgstr "Viditeľnosť"
+
+#. WEATHER_TERMS['WIND']
+#: searx/searxng.msg
+msgid "Wind"
+msgstr "Vietor"
+
+#. SOCIAL_MEDIA_TERMS['SUBSCRIBERS']
+#: searx/searxng.msg
+msgid "subscribers"
+msgstr "odberatelia"
+
+#. SOCIAL_MEDIA_TERMS['POSTS']
+#: searx/searxng.msg
+msgid "posts"
+msgstr "príspevky"
+
+#. SOCIAL_MEDIA_TERMS['ACTIVE USERS']
+#: searx/searxng.msg
+msgid "active users"
+msgstr "aktívny používatelia"
+
+#. SOCIAL_MEDIA_TERMS['COMMENTS']
+#: searx/searxng.msg
+msgid "comments"
+msgstr "komentáre"
+
+#. SOCIAL_MEDIA_TERMS['USER']
+#: searx/searxng.msg
+msgid "user"
+msgstr "používateľ"
+
+#. SOCIAL_MEDIA_TERMS['COMMUNITY']
+#: searx/searxng.msg
+msgid "community"
+msgstr "komunita"
+
+#. SOCIAL_MEDIA_TERMS['POINTS']
+#: searx/searxng.msg
+msgid "points"
+msgstr "body"
+
+#. SOCIAL_MEDIA_TERMS['TITLE']
+#: searx/searxng.msg
+msgid "title"
+msgstr "názov"
+
+#. SOCIAL_MEDIA_TERMS['AUTHOR']
+#: searx/searxng.msg
+msgid "author"
+msgstr "autor"
+
+#. SOCIAL_MEDIA_TERMS['THREAD OPEN']
+#: searx/engines/discourse.py:121 searx/searxng.msg
+msgid "open"
+msgstr ""
+
+#. SOCIAL_MEDIA_TERMS['THREAD CLOSED']
+#: searx/engines/discourse.py:121 searx/searxng.msg
+msgid "closed"
+msgstr ""
+
+#. SOCIAL_MEDIA_TERMS['THREAD ANSWERED']
+#: searx/engines/discourse.py:132 searx/searxng.msg
+msgid "answered"
+msgstr ""
+
+#: searx/webapp.py:330
 msgid "No item found"
-msgstr "Neboli nájdené záznamy"
+msgstr "Nič sa nenašlo"
 
-#: searx/engines/qwant.py:212
-#: searx/templates/simple/result_templates/images.html:20 searx/webapp.py:365
+#: searx/engines/qwant.py:281
+#: searx/templates/simple/result_templates/images.html:23 searx/webapp.py:332
 msgid "Source"
 msgstr "Zdroj"
 
-#: searx/webapp.py:367
+#: searx/webapp.py:334
 msgid "Error loading the next page"
-msgstr "Chyba pri načítaní ďalšej strany"
+msgstr "Chyba pri načítaní ďalšej stránky"
 
-#: searx/webapp.py:510 searx/webapp.py:954
+#: searx/webapp.py:491 searx/webapp.py:887
 msgid "Invalid settings, please edit your preferences"
-msgstr "Neplatné nastavenia, upravte svoje hodnoty, prosím"
+msgstr "Nesprávne nastavenia, prosím upravte svoje predvoľby"
 
-#: searx/webapp.py:526
+#: searx/webapp.py:507
 msgid "Invalid settings"
-msgstr "Chybná konfigurácia"
+msgstr "Nesprávne nastavenia"
 
-#: searx/webapp.py:603 searx/webapp.py:679
+#: searx/webapp.py:584 searx/webapp.py:666
 msgid "search error"
 msgstr "chyba vyhľadávania"
 
-#: searx/webapp.py:725
-msgid "{minutes} minute(s) ago"
-msgstr "{minutes} min. pred"
+#: searx/webutils.py:36
+msgid "timeout"
+msgstr "časový limit"
 
-#: searx/webapp.py:727
-msgid "{hours} hour(s), {minutes} minute(s) ago"
-msgstr "{hours} hod., {minutes} min. pred"
+#: searx/webutils.py:37
+msgid "parsing error"
+msgstr "chyba parsovania"
 
-#: searx/webapp.py:853
+#: searx/webutils.py:38
+msgid "HTTP protocol error"
+msgstr "chyba HTTP protokolu"
+
+#: searx/webutils.py:39
+msgid "network error"
+msgstr "chyba siete"
+
+#: searx/webutils.py:40
+msgid "SSL error: certificate validation has failed"
+msgstr "SSL error: overenie certifikátu zlyhalo"
+
+#: searx/webutils.py:42
+msgid "unexpected crash"
+msgstr "neočakávaná chyba"
+
+#: searx/webutils.py:49
+msgid "HTTP error"
+msgstr "HTTP chyba"
+
+#: searx/webutils.py:50
+msgid "HTTP connection error"
+msgstr "chyba pripojenia cez HTTP"
+
+#: searx/webutils.py:56
+msgid "proxy error"
+msgstr "chyba proxy"
+
+#: searx/webutils.py:57
+msgid "CAPTCHA"
+msgstr "CAPTCHA"
+
+#: searx/webutils.py:58
+msgid "too many requests"
+msgstr "priveľa žiadostí"
+
+#: searx/webutils.py:59
+msgid "access denied"
+msgstr "prístup bol odmietnutý"
+
+#: searx/webutils.py:60
+msgid "server API error"
+msgstr "API chyba servera"
+
+#: searx/webutils.py:79
 msgid "Suspended"
 msgstr "Pozastavené"
 
-#: searx/answerers/random/answerer.py:67
+#: searx/webutils.py:314
+msgid "{minutes} minute(s) ago"
+msgstr "pred {minutes} min."
+
+#: searx/webutils.py:315
+msgid "{hours} hour(s), {minutes} minute(s) ago"
+msgstr "pred {hours} hod., {minutes} min."
+
+#: searx/answerers/random/answerer.py:75
 msgid "Random value generator"
 msgstr "Generátor nahodných hodnôt"
 
-#: searx/answerers/random/answerer.py:68
+#: searx/answerers/random/answerer.py:76
 msgid "Generate different random values"
-msgstr "Vytvoriť iné náhodné hodnoty"
+msgstr "Vytvoriť rôzné náhodné hodnoty"
 
-#: searx/answerers/statistics/answerer.py:47
+#: searx/answerers/statistics/answerer.py:48
 msgid "Statistics functions"
 msgstr "Štatistické funkcie"
 
-#: searx/answerers/statistics/answerer.py:48
+#: searx/answerers/statistics/answerer.py:49
 msgid "Compute {functions} of the arguments"
 msgstr "Vypočítať {functions} argumentov"
 
-#: searx/engines/openstreetmap.py:156
+#: searx/engines/openstreetmap.py:159
 msgid "Get directions"
 msgstr "Požiadať o navigáciu"
 
@@ -254,35 +444,94 @@ msgstr "{title} (ZASTARANÉ)"
 msgid "This entry has been superseded by"
 msgstr "Táto položka bola nahradená"
 
-#: searx/engines/pubmed.py:78
-msgid "No abstract is available for this publication."
-msgstr "Pre túto publikáciu nie je dostupný žiadny abstrakt."
-
-#: searx/engines/qwant.py:214
+#: searx/engines/qwant.py:283
 msgid "Channel"
 msgstr "Kanál"
 
-#: searx/plugins/hash_plugin.py:24
+#: searx/engines/radio_browser.py:105
+msgid "bitrate"
+msgstr "bitrate"
+
+#: searx/engines/radio_browser.py:106
+msgid "votes"
+msgstr "hlasy"
+
+#: searx/engines/radio_browser.py:107
+msgid "clicks"
+msgstr "kliknutia"
+
+#: searx/engines/seekr.py:193 searx/engines/yummly.py:71
+#: searx/engines/zlibrary.py:128
+msgid "Language"
+msgstr "Jazyk"
+
+#: searx/engines/semantic_scholar.py:78
+msgid ""
+"{numCitations} citations from the year {firstCitationVelocityYear} to "
+"{lastCitationVelocityYear}"
+msgstr ""
+"{numCitations} citácií od roku {firstCitationVelocityYear} do roku "
+"{lastCitationVelocityYear}"
+
+#: searx/engines/tineye.py:39
+msgid ""
+"Could not read that image url. This may be due to an unsupported file "
+"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
+" WebP."
+msgstr ""
+"Danú webovú adresu obrázka sa nepodarilo načítať. Môže to byť spôsobené "
+"nepodporovaným formátom súboru. TinEye podporuje iba obrázky JPEG, PNG, "
+"GIF, BMP, TIFF alebo WebP."
+
+#: searx/engines/tineye.py:45
+msgid ""
+"The image is too simple to find matches. TinEye requires a basic level of"
+" visual detail to successfully identify matches."
+msgstr ""
+"Obrázok je príliš nízkej kvality na to aby sa našla zhoda. TinEye "
+"vyžaduje vyššiu kvalitu detailov v obrázku na identifikáciu zhôd."
+
+#: searx/engines/tineye.py:51
+msgid "The image could not be downloaded."
+msgstr "Obrázok nemohol byť stiahnutý."
+
+#: searx/engines/zlibrary.py:129
+msgid "Book rating"
+msgstr "Hodnotenie knižky"
+
+#: searx/engines/zlibrary.py:130
+msgid "File quality"
+msgstr "Kvalita súboru"
+
+#: searx/plugins/calculator.py:12
+msgid "Calculate mathematical expressions via the search bar"
+msgstr ""
+
+#: searx/plugins/hash_plugin.py:10
 msgid "Converts strings to different hash digests."
 msgstr "Skonvertuje text pomocou rôznych hash funkcií."
 
-#: searx/plugins/hash_plugin.py:52
+#: searx/plugins/hash_plugin.py:38
 msgid "hash digest"
 msgstr "hash hodnota"
 
-#: searx/plugins/hostname_replace.py:9
+#: searx/plugins/hostname_replace.py:7
 msgid "Hostname replace"
-msgstr "Zámeny názvov serverov"
+msgstr "Nahradenie názvu servera"
 
-#: searx/plugins/hostname_replace.py:10
-msgid "Rewrite result hostnames or remove results based on the hostname"
+#: searx/plugins/hostnames.py:68
+msgid "Hostnames plugin"
 msgstr ""
 
-#: searx/plugins/oa_doi_rewrite.py:9
+#: searx/plugins/hostnames.py:69
+msgid "Rewrite hostnames, remove results or prioritize them based on the hostname"
+msgstr ""
+
+#: searx/plugins/oa_doi_rewrite.py:12
 msgid "Open Access DOI rewrite"
-msgstr ""
+msgstr "Otvoriť prístup k prepísaniu DOI"
 
-#: searx/plugins/oa_doi_rewrite.py:10
+#: searx/plugins/oa_doi_rewrite.py:13
 msgid ""
 "Avoid paywalls by redirecting to open-access versions of publications "
 "when available"
@@ -290,23 +539,11 @@ msgstr ""
 "Vyhnúť sa plateným bránam presmerovaním na verejne prístupné verzie "
 "publikácií ak sú k dispozícii"
 
-#: searx/plugins/search_on_category_select.py:19
-msgid "Search on category select"
-msgstr "Vyhľadávanie pri výbere kategórie"
+#: searx/plugins/self_info.py:9
+msgid "Self Information"
+msgstr "Vlastné informácie"
 
-#: searx/plugins/search_on_category_select.py:20
-msgid ""
-"Perform search immediately if a category selected. Disable to select "
-"multiple categories. (JavaScript required)"
-msgstr ""
-"Vyhľadávať okamžite, ak je kategória vybraná. Vypnúť pre vyberanie "
-"viacerých kategórií. (Je potrebný JavaScript)"
-
-#: searx/plugins/self_info.py:20
-msgid "Self Informations"
-msgstr ""
-
-#: searx/plugins/self_info.py:21
+#: searx/plugins/self_info.py:10
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -314,26 +551,55 @@ msgstr ""
 "Zobrazí vašu IP ak je dotaz \"ip\" a user agenta ak dotaz obsahuje \"user"
 " agent\"."
 
-#: searx/plugins/tracker_url_remover.py:29
+#: searx/plugins/self_info.py:28
+msgid "Your IP is: "
+msgstr ""
+
+#: searx/plugins/self_info.py:31
+msgid "Your user-agent is: "
+msgstr ""
+
+#: searx/plugins/tor_check.py:24
+msgid "Tor check plugin"
+msgstr "Kontrola Tor plugin"
+
+#: searx/plugins/tor_check.py:27
+msgid ""
+"This plugin checks if the address of the request is a Tor exit-node, and "
+"informs the user if it is; like check.torproject.org, but from SearXNG."
+msgstr ""
+"Tento plugin kontroluje, či žiadaná adresa je výstupný bod TORu, a "
+"informuje používateľa ak je, ako check.torproject.org ale od SearXNG."
+
+#: searx/plugins/tor_check.py:61
+msgid ""
+"Could not download the list of Tor exit-nodes from: "
+"https://check.torproject.org/exit-addresses"
+msgstr ""
+"Nepodarilo sa stiahnuť zoznam Tor exit-nodes z: "
+"https://check.torproject.org/exit-addresses"
+
+#: searx/plugins/tor_check.py:77
+msgid ""
+"You are using Tor and it looks like you have this external IP address: "
+"{ip_address}"
+msgstr "Používate Tor a vyzerá to, že máte túto externú IP adresu: {ip_address}"
+
+#: searx/plugins/tor_check.py:85
+msgid "You are not using Tor and you have this external IP address: {ip_address}"
+msgstr "Nepoužívate Tor a máte túto externú IP adresu: {ip_address}"
+
+#: searx/plugins/tracker_url_remover.py:16
 msgid "Tracker URL remover"
 msgstr "Odstraňovanie sledovacích argumentov"
 
-#: searx/plugins/tracker_url_remover.py:30
+#: searx/plugins/tracker_url_remover.py:17
 msgid "Remove trackers arguments from the returned URL"
 msgstr "Odstrániť sledovacie argumenty z vrátenej URL"
 
-#: searx/plugins/vim_hotkeys.py:3
-msgid "Vim-like hotkeys"
-msgstr "Skratky ako vo VIM"
-
-#: searx/plugins/vim_hotkeys.py:4
-msgid ""
-"Navigate search results with Vim-like hotkeys (JavaScript required). "
-"Press \"h\" key on main or result page to get help."
-msgstr ""
-"Prechádzať výsledky vyhľadávania klávesovými skratkami ako VIM (je "
-"potrebný JavaScript). Stlačte klávesy \"h\" na hlavnej stránke alebo na "
-"stránke s výsledkami pre zobrazenie pomoci."
+#: searx/plugins/unit_converter.py:29
+msgid "Convert between units"
+msgstr "Previesť medzi jednotkami"
 
 #: searx/templates/simple/404.html:4
 msgid "Page not found"
@@ -348,587 +614,378 @@ msgstr "Choď na %(search_page)s."
 msgid "search page"
 msgstr "stránka vyhľadávania"
 
-#: searx/templates/simple/base.html:46
-msgid "About"
-msgstr ""
-
-#: searx/templates/simple/base.html:49
+#: searx/templates/simple/base.html:54
 msgid "Donate"
-msgstr ""
+msgstr "Prispejte"
 
-#: searx/templates/simple/base.html:52
-#: searx/templates/simple/preferences.html:99
+#: searx/templates/simple/base.html:58
+#: searx/templates/simple/preferences.html:156
 msgid "Preferences"
 msgstr "Nastavenia"
 
-#: searx/templates/simple/base.html:62
+#: searx/templates/simple/base.html:68
 msgid "Powered by"
 msgstr "Používame"
 
-#: searx/templates/simple/base.html:62
-msgid "a privacy-respecting, hackable metasearch engine"
-msgstr "prispôsobitelný meta-vyhľadávač, ktorý rešpektuje vaše súkromie"
+#: searx/templates/simple/base.html:68
+msgid "a privacy-respecting, open metasearch engine"
+msgstr "otvorený metavyhľadávač rešpektujúci súkromie"
 
-#: searx/templates/simple/base.html:63
+#: searx/templates/simple/base.html:69
+#: searx/templates/simple/result_templates/packages.html:59
 msgid "Source code"
 msgstr "Zdrojový kód"
 
-#: searx/templates/simple/base.html:64
+#: searx/templates/simple/base.html:70
 msgid "Issue tracker"
-msgstr ""
+msgstr "Sledovanie problémov"
 
-#: searx/templates/simple/base.html:65 searx/templates/simple/stats.html:18
+#: searx/templates/simple/base.html:71 searx/templates/simple/stats.html:18
 msgid "Engine stats"
 msgstr "Štatistiky vyhľadávača"
 
-#: searx/templates/simple/base.html:66
-#: searx/templates/simple/messages/no_results.html:15
+#: searx/templates/simple/base.html:73
 msgid "Public instances"
-msgstr ""
+msgstr "Verejné inštancie"
 
-#: searx/templates/simple/base.html:68
+#: searx/templates/simple/base.html:76
 msgid "Privacy policy"
-msgstr ""
+msgstr "Ochrana súkromia"
 
-#: searx/templates/simple/base.html:71
+#: searx/templates/simple/base.html:79
 msgid "Contact instance maintainer"
-msgstr ""
+msgstr "Kontaktujte správcu inštancie"
 
-#: searx/templates/simple/categories.html:24
+#: searx/templates/simple/categories.html:26
 msgid "Click on the magnifier to perform search"
 msgstr "Kliknite na lupu pre vyhľadávanie"
 
-#: searx/templates/simple/macros.html:36
+#: searx/templates/simple/macros.html:35
 msgid "Length"
-msgstr ""
+msgstr "Dĺžka"
 
-#: searx/templates/simple/macros.html:37
-#: searx/templates/simple/result_templates/images.html:18
+#: searx/templates/simple/macros.html:36
+#: searx/templates/simple/result_templates/files.html:34
+#: searx/templates/simple/result_templates/images.html:19
+#: searx/templates/simple/result_templates/paper.html:6
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
-#: searx/templates/simple/macros.html:45
+#: searx/templates/simple/macros.html:44
 msgid "cached"
 msgstr "z vyrovnávacej pamäte"
 
-#: searx/templates/simple/macros.html:45
+#: searx/templates/simple/macros.html:44
 msgid "proxied"
 msgstr "cez proxy"
 
-#: searx/templates/simple/new_issue.html:63
+#: searx/templates/simple/new_issue.html:64
+msgid "Start submiting a new issue on GitHub"
+msgstr "Začnite s pridaním nového problému na Githube"
+
+#: searx/templates/simple/new_issue.html:66
+msgid "Please check for existing bugs about this engine on GitHub"
+msgstr "Skontrolujte prosím existujúce chyby tohto vyhľadávaču na Githube"
+
+#: searx/templates/simple/new_issue.html:69
+msgid "I confirm there is no existing bug about the issue I encounter"
+msgstr ""
+"Potvrdzujem, že neexistuje žiadna chyba týkajúca sa problému, s ktorým sa"
+" stretávam"
+
+#: searx/templates/simple/new_issue.html:71
+msgid "If this is a public instance, please specify the URL in the bug report"
+msgstr "Ak ide o verejnú inštanciu, uveďte v hlásení o chybe adresu URL"
+
+#: searx/templates/simple/new_issue.html:72
 msgid "Submit a new issue on Github including the above information"
-msgstr ""
+msgstr "Odošlite novú chybu na Github vrátane informácii nad"
 
-#: searx/templates/simple/preferences.html:29
+#: searx/templates/simple/preferences.html:65
 msgid "No HTTPS"
-msgstr ""
+msgstr "Žiadne HTTPS"
 
-#: searx/templates/simple/messages/no_results.html:10
-#: searx/templates/simple/preferences.html:31
-#: searx/templates/simple/preferences.html:32
-#: searx/templates/simple/results.html:49
+#: searx/templates/simple/elements/engines_msg.html:18
+#: searx/templates/simple/preferences.html:69
+#: searx/templates/simple/preferences.html:70
 msgid "View error logs and submit a bug report"
 msgstr "Zobraziť záznamy chýb a odoslať hlásenie o chybe"
 
-#: searx/templates/simple/preferences.html:53
-#: searx/templates/simple/stats.html:67
+#: searx/templates/simple/preferences.html:74
+msgid "!bang for this engine"
+msgstr "!bang pre tento vyhľadávač"
+
+#: searx/templates/simple/preferences.html:80
+msgid "!bang for its categories"
+msgstr "!bang pre jeho kategórie"
+
+#: searx/templates/simple/preferences.html:102
+#: searx/templates/simple/stats.html:64
 msgid "Median"
-msgstr ""
+msgstr "Medián"
 
-#: searx/templates/simple/preferences.html:54
-#: searx/templates/simple/stats.html:73
+#: searx/templates/simple/preferences.html:103
+#: searx/templates/simple/stats.html:70
 msgid "P80"
-msgstr ""
+msgstr "P80"
 
-#: searx/templates/simple/preferences.html:55
-#: searx/templates/simple/stats.html:79
+#: searx/templates/simple/preferences.html:104
+#: searx/templates/simple/stats.html:76
 msgid "P95"
-msgstr ""
+msgstr "P95"
 
-#: searx/templates/simple/preferences.html:83
+#: searx/templates/simple/preferences.html:136
 msgid "Failed checker test(s): "
-msgstr ""
+msgstr "Neúspešný(é) kontrolný(é) test(y): "
 
-#: searx/templates/simple/preferences.html:85
+#: searx/templates/simple/preferences.html:138
 msgid "Errors:"
-msgstr ""
+msgstr "Chyby:"
 
-#: searx/templates/simple/preferences.html:105
+#: searx/templates/simple/preferences.html:162
 msgid "General"
 msgstr "Všeobecné"
 
-#: searx/templates/simple/preferences.html:108
+#: searx/templates/simple/preferences.html:165
 msgid "Default categories"
 msgstr "Predvolené kategórie"
 
-#: searx/templates/simple/filters/languages.html:1
-#: searx/templates/simple/preferences.html:115
-msgid "Search language"
-msgstr "Jazyk vyhľadávania"
-
-#: searx/templates/simple/filters/languages.html:2
-#: searx/templates/simple/preferences.html:118
-msgid "Default language"
-msgstr "Predvolený jazyk"
-
-#: searx/templates/simple/preferences.html:124
-msgid "What language do you prefer for search?"
-msgstr "Aký jazyk preferujete pre vyhľadávanie?"
-
-#: searx/templates/simple/preferences.html:129
-msgid "Autocomplete"
-msgstr "Automatické dokončovanie"
-
-#: searx/templates/simple/preferences.html:138
-msgid "Find stuff as you type"
-msgstr "Vyhľadávať počas písania"
-
-#: searx/templates/simple/filters/safesearch.html:1
-#: searx/templates/simple/filters/safesearch.html:2
-#: searx/templates/simple/filters/safesearch.html:3
-#: searx/templates/simple/filters/safesearch.html:4
-#: searx/templates/simple/preferences.html:143
-#: searx/templates/simple/preferences.html:311
-msgid "SafeSearch"
-msgstr "Bezpečné vyhľadávanie"
-
-#: searx/templates/simple/filters/safesearch.html:2
-#: searx/templates/simple/preferences.html:146
-msgid "Strict"
-msgstr "Striktné"
-
-#: searx/templates/simple/filters/safesearch.html:3
-#: searx/templates/simple/preferences.html:147
-msgid "Moderate"
-msgstr "Mierne"
-
-#: searx/templates/simple/filters/safesearch.html:4
-#: searx/templates/simple/preferences.html:148
-msgid "None"
-msgstr "Žiadne"
-
-#: searx/templates/simple/preferences.html:151
-msgid "Filter content"
-msgstr "Filtrovanie obsahu"
-
-#: searx/templates/simple/preferences.html:157
-msgid "Open Access DOI resolver"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:167
-msgid ""
-"Redirect to open-access versions of publications when available (plugin "
-"required)"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:171
-msgid "Engine tokens"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:175
-msgid "Access tokens for private engines"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:179
+#: searx/templates/simple/preferences.html:187
 msgid "User interface"
-msgstr ""
+msgstr "UI"
 
-#: searx/templates/simple/preferences.html:182
-msgid "Interface language"
-msgstr "Jazyk rozhrania"
-
-#: searx/templates/simple/preferences.html:190
-msgid "Change the language of the layout"
-msgstr "Zmena jazyku rozhrania"
-
-#: searx/templates/simple/preferences.html:195
-msgid "Theme"
-msgstr "Téma"
-
-#: searx/templates/simple/preferences.html:203
-msgid "Change Otto layout"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:206
-msgid "Theme style"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:214
-msgid "Choose auto to follow your browser settings"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:217
-msgid "Center Alignment"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:220
-#: searx/templates/simple/preferences.html:232
-#: searx/templates/simple/preferences.html:244
-msgid "On"
-msgstr "Zapnuté"
+#: searx/templates/simple/preferences.html:208
+msgid "Privacy"
+msgstr "Súkromie"
 
 #: searx/templates/simple/preferences.html:221
-#: searx/templates/simple/preferences.html:233
-#: searx/templates/simple/preferences.html:245
-msgid "Off"
-msgstr "Vypnuté"
-
-#: searx/templates/simple/preferences.html:224
-msgid "Displays results in the center of the page (Oscar layout)."
-msgstr ""
-
-#: searx/templates/simple/preferences.html:229
-msgid "Results on new tabs"
-msgstr "Výsledky v novom tabe"
-
-#: searx/templates/simple/preferences.html:236
-msgid "Open result links on new browser tabs"
-msgstr "Otvoriť odkazy v novom tabe"
-
-#: searx/templates/simple/preferences.html:241
-msgid "Infinite scroll"
-msgstr "Nekonečné posúvanie"
-
-#: searx/templates/simple/preferences.html:248
-msgid "Automatically load next page when scrolling to bottom of current page"
-msgstr ""
-"Automaticky načítať ďalšiu stránku pri posunutí na koniec aktuálnej "
-"stránky"
-
-#: searx/templates/simple/preferences.html:254
-msgid "Privacy"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:257
-msgid "HTTP Method"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:264
-msgid ""
-"Change how forms are submited, <a "
-"href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
-" rel=\"external\">learn more about request methods</a>"
-msgstr ""
-"Zmeniť spôsob, akým sú odosielané formuláre, <a "
-"href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
-" rel=\"external\">dozvedieť sa viac o týchto metódach</a>"
-
-#: searx/templates/simple/preferences.html:269
-msgid "Image proxy"
-msgstr "Proxy pre obrázky"
-
-#: searx/templates/simple/preferences.html:272
-#: searx/templates/simple/preferences.html:284
-msgid "Enabled"
-msgstr "Povolené"
-
-#: searx/templates/simple/preferences.html:273
-#: searx/templates/simple/preferences.html:285
-msgid "Disabled"
-msgstr "Zakázané"
-
-#: searx/templates/simple/preferences.html:276
-msgid "Proxying image results through Otto"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:281
-msgid "Query in the page's title"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:288
-msgid ""
-"When enabled, the result page's title contains your query. Your browser "
-"can record this title"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:294
 msgid "Engines"
 msgstr "Vyhľadávače"
 
-#: searx/templates/simple/preferences.html:295
+#: searx/templates/simple/preferences.html:223
 msgid "Currently used search engines"
-msgstr "poruba@contours.cz"
+msgstr "List práve používaných vyhľadávačov"
 
-#: searx/templates/simple/preferences.html:302
-msgid ""
-"This tab does not show up for search results, but you can search the "
-"engines listed here via bangs."
-msgstr ""
-
-#: searx/templates/simple/preferences.html:307
-#: searx/templates/simple/preferences.html:358
-msgid "Allow"
-msgstr "Povoliť"
-
-#: searx/templates/simple/preferences.html:308
-#: searx/templates/simple/stats.html:25
-msgid "Engine name"
-msgstr "Názov vyhľadávača"
-
-#: searx/templates/simple/preferences.html:309
-msgid "Shortcut"
-msgstr "Skratka"
-
-#: searx/templates/simple/preferences.html:310
-msgid "Supports selected language"
-msgstr "Podporuje zvolený jazyk"
-
-#: searx/templates/simple/filters/time_range.html:1
-#: searx/templates/simple/preferences.html:312
-msgid "Time range"
-msgstr "Časový rozsah"
-
-#: searx/templates/simple/preferences.html:313
-#: searx/templates/simple/stats.html:28
-msgid "Response time"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:314
-msgid "Max time"
-msgstr "Maximálny čas"
-
-#: searx/templates/simple/preferences.html:315
-#: searx/templates/simple/stats.html:29
-msgid "Reliability"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:353
+#: searx/templates/simple/preferences.html:231
 msgid "Special Queries"
 msgstr "Špeciálne vyhľadávania"
 
-#: searx/templates/simple/preferences.html:359
-msgid "Keywords"
-msgstr "Kľúčové slová"
-
-#: searx/templates/simple/preferences.html:360
-msgid "Name"
-msgstr "Názov"
-
-#: searx/templates/simple/preferences.html:361
-msgid "Description"
-msgstr "Popis"
-
-#: searx/templates/simple/preferences.html:362
-msgid "Examples"
-msgstr "Príklady"
-
-#: searx/templates/simple/preferences.html:365
-msgid "This is the list of Otto's instant answering modules."
-msgstr ""
-
-#: searx/templates/simple/preferences.html:376
-msgid "This is the list of plugins."
-msgstr ""
-
-#: searx/templates/simple/preferences.html:393
+#: searx/templates/simple/preferences.html:237
 msgid "Cookies"
 msgstr "Cookies"
-
-#: searx/templates/simple/preferences.html:395
-msgid ""
-"This is the list of cookies and their values Otto is storing on your "
-"computer."
-msgstr ""
-
-#: searx/templates/simple/preferences.html:396
-msgid "With that list, you can assess Otto transparency."
-msgstr ""
-
-#: searx/templates/simple/preferences.html:401
-msgid "Cookie name"
-msgstr "Názov cookie"
-
-#: searx/templates/simple/preferences.html:402
-msgid "Value"
-msgstr "Hodnota"
-
-#: searx/templates/simple/preferences.html:414
-msgid "Search URL of the currently saved preferences"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:418
-msgid ""
-"Note: specifying custom settings in the search URL can reduce privacy by "
-"leaking data to the clicked result sites."
-msgstr ""
-
-#: searx/templates/simple/preferences.html:419
-msgid "URL to restore your preferences in another browser"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:423
-msgid ""
-"Specifying custom settings in the preferences URL can be used to sync "
-"preferences across devices."
-msgstr ""
-
-#: searx/templates/simple/preferences.html:428
-msgid ""
-"These settings are stored in your cookies, this allows us not to store "
-"this data about you."
-msgstr ""
-"Tieto nastavenia sú uložené v cookies, čo nám umožňuje neukladať dáta o "
-"vás na našej strane."
-
-#: searx/templates/simple/preferences.html:430
-msgid ""
-"These cookies serve your sole convenience, we don't use these cookies to "
-"track you."
-msgstr ""
-"Tieto cookies slúžia výhradné pre vaše pohodlie a nie sú používané na "
-"sledovanie."
-
-#: searx/templates/simple/preferences.html:433
-msgid "Save"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:434
-msgid "Reset defaults"
-msgstr "Obnoviť predvolené"
-
-#: searx/templates/simple/preferences.html:435
-msgid "Back"
-msgstr ""
 
 #: searx/templates/simple/results.html:23
 msgid "Answers"
 msgstr "Odpovede"
 
-#: searx/templates/simple/results.html:39
+#: searx/templates/simple/results.html:42
 msgid "Number of results"
 msgstr "Počet výsledkov"
 
-#: searx/templates/simple/messages/no_results.html:6
-#: searx/templates/simple/results.html:46
-msgid "Error!"
-msgstr "Chyba!"
+#: searx/templates/simple/results.html:48
+msgid "Info"
+msgstr "Informácie"
 
-#: searx/templates/simple/results.html:46
-msgid "Engines cannot retrieve results"
-msgstr ""
-
-#: searx/templates/simple/results.html:68
-msgid "Suggestions"
-msgstr "Návrhy"
-
-#: searx/templates/simple/results.html:90
-msgid "Search URL"
-msgstr "Adresa URL vyhľadávania"
-
-#: searx/templates/simple/results.html:96
-msgid "Download results"
-msgstr "Výsledky na stiahnutie"
-
-#: searx/templates/simple/results.html:120
+#: searx/templates/simple/results.html:77
 msgid "Try searching for:"
-msgstr ""
+msgstr "Skús hľadať:"
 
-#: searx/templates/simple/results.html:152
+#: searx/templates/simple/results.html:109
 msgid "Back to top"
-msgstr ""
+msgstr "Späť na začiatok"
 
-#: searx/templates/simple/results.html:170
+#: searx/templates/simple/results.html:127
 msgid "Previous page"
-msgstr ""
+msgstr "Predošlá strana"
 
-#: searx/templates/simple/results.html:187
+#: searx/templates/simple/results.html:145
 msgid "Next page"
-msgstr ""
+msgstr "Ďalšia strana"
 
 #: searx/templates/simple/search.html:3
 msgid "Display the front page"
-msgstr ""
+msgstr "Zobraz úvodnú stranu"
 
 #: searx/templates/simple/search.html:9
 #: searx/templates/simple/simple_search.html:5
-msgid "Search for..."
+msgid "What's on your mind?"
 msgstr "Hľadať..."
 
 #: searx/templates/simple/search.html:10
 #: searx/templates/simple/simple_search.html:6
 msgid "clear"
-msgstr ""
+msgstr "vyčistiť"
 
 #: searx/templates/simple/search.html:11
 #: searx/templates/simple/simple_search.html:7
 msgid "search"
-msgstr ""
+msgstr "hľadať"
 
 #: searx/templates/simple/stats.html:21
 msgid "There is currently no data available. "
 msgstr "Momentálne nie su dostupné žiadne dáta."
 
+#: searx/templates/simple/preferences/engines.html:24
+#: searx/templates/simple/stats.html:25
+msgid "Engine name"
+msgstr "Názov vyhľadávača"
+
 #: searx/templates/simple/stats.html:26
 msgid "Scores"
-msgstr ""
+msgstr "Hodnotenia"
 
 #: searx/templates/simple/stats.html:27
 msgid "Result count"
-msgstr ""
+msgstr "Počet výsledkov"
 
-#: searx/templates/simple/stats.html:38
-msgid "Scores per result"
-msgstr ""
+#: searx/templates/simple/preferences/engines.html:31
+#: searx/templates/simple/stats.html:28
+msgid "Response time"
+msgstr "Doba odozvy"
 
-#: searx/templates/simple/stats.html:62
+#: searx/templates/simple/preferences/engines.html:35
+#: searx/templates/simple/stats.html:29
+msgid "Reliability"
+msgstr "Spoľahlivosť"
+
+#: searx/templates/simple/stats.html:59
 msgid "Total"
-msgstr ""
+msgstr "Celkom"
 
-#: searx/templates/simple/stats.html:63
+#: searx/templates/simple/stats.html:60
 msgid "HTTP"
-msgstr ""
+msgstr "HTTP"
 
-#: searx/templates/simple/stats.html:64
+#: searx/templates/simple/stats.html:61
 msgid "Processing"
-msgstr ""
+msgstr "Spracovávanie"
 
-#: searx/templates/simple/stats.html:102
+#: searx/templates/simple/stats.html:99
 msgid "Warnings"
-msgstr ""
+msgstr "Varovania"
 
-#: searx/templates/simple/stats.html:102
+#: searx/templates/simple/stats.html:99
 msgid "Errors and exceptions"
-msgstr ""
+msgstr "Chyby a výnimky"
 
-#: searx/templates/simple/stats.html:108
+#: searx/templates/simple/stats.html:105
 msgid "Exception"
-msgstr ""
+msgstr "Výnimka"
 
-#: searx/templates/simple/stats.html:110
+#: searx/templates/simple/stats.html:107
 msgid "Message"
-msgstr ""
+msgstr "Správa"
 
-#: searx/templates/simple/stats.html:112
+#: searx/templates/simple/stats.html:109
 msgid "Percentage"
-msgstr ""
+msgstr "Úroveň"
 
-#: searx/templates/simple/stats.html:114
+#: searx/templates/simple/stats.html:111
 msgid "Parameter"
-msgstr ""
+msgstr "Parameter"
 
-#: searx/templates/simple/stats.html:122
+#: searx/templates/simple/result_templates/files.html:36
+#: searx/templates/simple/stats.html:119
 msgid "Filename"
-msgstr ""
+msgstr "Názov súboru"
 
-#: searx/templates/simple/stats.html:123
+#: searx/templates/simple/stats.html:120
 msgid "Function"
-msgstr ""
+msgstr "Funkcia"
 
-#: searx/templates/simple/stats.html:124
+#: searx/templates/simple/stats.html:121
 msgid "Code"
-msgstr ""
+msgstr "Kód"
+
+#: searx/templates/simple/stats.html:128
+msgid "Checker"
+msgstr "Kontrolór"
 
 #: searx/templates/simple/stats.html:131
-msgid "Checker"
-msgstr ""
-
-#: searx/templates/simple/stats.html:134
 msgid "Failed test"
-msgstr ""
+msgstr "Zlyhaný test"
 
-#: searx/templates/simple/stats.html:135
+#: searx/templates/simple/stats.html:132
 msgid "Comment(s)"
-msgstr ""
+msgstr "Komentár(e)"
+
+#: searx/templates/simple/elements/apis.html:3
+msgid "Download results"
+msgstr "Výsledky na stiahnutie"
+
+#: searx/templates/simple/elements/engines_msg.html:7
+msgid "Messages from the search engines"
+msgstr "Hlásenia z vyhľadávačov"
+
+#: searx/templates/simple/elements/engines_msg.html:12
+msgid "Error!"
+msgstr "Chyba!"
+
+#: searx/templates/simple/elements/engines_msg.html:13
+msgid "Engines cannot retrieve results"
+msgstr "Vyhľadávače nemôžu získať výsledky"
+
+#: searx/templates/simple/elements/search_url.html:3
+msgid "Search URL"
+msgstr "Adresa URL vyhľadávania"
+
+#: searx/templates/simple/elements/search_url.html:4
+#: searx/templates/simple/preferences/cookies.html:54
+msgid "Copied"
+msgstr "Skopírované"
+
+#: searx/templates/simple/elements/search_url.html:4
+#: searx/templates/simple/preferences/cookies.html:54
+msgid "Copy"
+msgstr "Kopírovať"
+
+#: searx/templates/simple/elements/suggestions.html:3
+msgid "Suggestions"
+msgstr "Návrhy"
+
+#: searx/templates/simple/filters/languages.html:1
+#: searx/templates/simple/preferences/language.html:2
+msgid "Search language"
+msgstr "Jazyk vyhľadávania"
+
+#: searx/templates/simple/filters/languages.html:2
+#: searx/templates/simple/preferences/language.html:7
+msgid "Default language"
+msgstr "Predvolený jazyk"
+
+#: searx/templates/simple/filters/languages.html:4
+#: searx/templates/simple/preferences/language.html:11
+msgid "Auto-detect"
+msgstr "Auto-detekcia"
+
+#: searx/templates/simple/filters/safesearch.html:1
+#: searx/templates/simple/filters/safesearch.html:2
+#: searx/templates/simple/filters/safesearch.html:3
+#: searx/templates/simple/filters/safesearch.html:4
+#: searx/templates/simple/preferences/engines.html:27
+#: searx/templates/simple/preferences/safesearch.html:2
+msgid "SafeSearch"
+msgstr "Bezpečné vyhľadávanie"
+
+#: searx/templates/simple/filters/safesearch.html:2
+#: searx/templates/simple/preferences/safesearch.html:7
+msgid "Strict"
+msgstr "Striktné"
+
+#: searx/templates/simple/filters/safesearch.html:3
+#: searx/templates/simple/preferences/safesearch.html:11
+msgid "Moderate"
+msgstr "Mierne"
+
+#: searx/templates/simple/filters/safesearch.html:4
+#: searx/templates/simple/preferences/safesearch.html:15
+msgid "None"
+msgstr "Žiadne"
+
+#: searx/templates/simple/filters/time_range.html:1
+#: searx/templates/simple/preferences/engines.html:28
+msgid "Time range"
+msgstr "Časový rozsah"
 
 #: searx/templates/simple/filters/time_range.html:3
 msgid "Anytime"
@@ -959,53 +1016,389 @@ msgid "currently, there are no cookies defined."
 msgstr "momentálne nie su definované žiadne cookies."
 
 #: searx/templates/simple/messages/no_results.html:6
-msgid "Engines cannot retrieve results."
-msgstr ""
-
-#: searx/templates/simple/messages/no_results.html:15
-msgid "Please, try again later or find another Otto instance."
-msgstr ""
-
-#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "Je nám ľúto!"
 
+#: searx/templates/simple/messages/no_results.html:12
+msgid "No results were found. You can try to:"
+msgstr "Nenašli sa žiadne výsledky. Môžete skúsiť:"
+
+#: searx/templates/simple/messages/no_results.html:14
+msgid "There are no more results. You can try to:"
+msgstr "Nie sú k dispozícii žiadne ďalšie výsledky. Môžete skúsiť:"
+
+#: searx/templates/simple/messages/no_results.html:19
+msgid "Refresh the page."
+msgstr "Obnovte stránku."
+
+#: searx/templates/simple/messages/no_results.html:20
+msgid "Search for another query or select another category (above)."
+msgstr "Vyhľadajte inú požiadavku alebo vyberte inú kategóriu (vyššie)."
+
 #: searx/templates/simple/messages/no_results.html:21
-msgid ""
-"we didn't find any results. Please use another query or search in more "
-"categories."
+msgid "Change the search engine used in the preferences:"
+msgstr "Zmeňte použitý vyhľadávač v preferenciách:"
+
+#: searx/templates/simple/messages/no_results.html:22
+msgid "Switch to another instance:"
+msgstr "Prepnúť na inú inštanciu:"
+
+#: searx/templates/simple/messages/no_results.html:24
+msgid "Search for another query or select another category."
+msgstr "Vyhľadajte inú požiadavku alebo vyberte inú kategóriu."
+
+#: searx/templates/simple/messages/no_results.html:25
+msgid "Go back to the previous page using the previous page button."
 msgstr ""
-"nepodarilo sa nájsť žiadne výsledky. Skúste použiť iné zadanie alebo "
-"vyhľadávajte vo viacerých kategóriach."
+"Vráťte sa na predchádzajúcu stránku pomocou tlačidla predchádzajúcej "
+"stránky."
+
+#: searx/templates/simple/preferences/answerers.html:4
+#: searx/templates/simple/preferences/engines.html:23
+msgid "Allow"
+msgstr "Povoliť"
+
+#: searx/templates/simple/preferences/answerers.html:5
+msgid "Keywords"
+msgstr "Kľúčové slová"
+
+#: searx/templates/simple/preferences/answerers.html:6
+#: searx/templates/simple/result_templates/packages.html:7
+msgid "Name"
+msgstr "Názov"
+
+#: searx/templates/simple/preferences/answerers.html:7
+msgid "Description"
+msgstr "Popis"
+
+#: searx/templates/simple/preferences/answerers.html:8
+msgid "Examples"
+msgstr "Príklady"
+
+#: searx/templates/simple/preferences/answerers.html:13
+msgid "This is the list of SearXNG's instant answering modules."
+msgstr "Toto je zoznam modulov okamžitých odpovedí SearXNG."
+
+#: searx/templates/simple/preferences/answerers.html:29
+msgid "This is the list of plugins."
+msgstr "Toto je zoznam pluginov."
+
+#: searx/templates/simple/preferences/autocomplete.html:2
+msgid "Autocomplete"
+msgstr "Automatické dokončovanie"
+
+#: searx/templates/simple/preferences/autocomplete.html:15
+msgid "Find stuff as you type"
+msgstr "Vyhľadávať počas písania"
+
+#: searx/templates/simple/preferences/center_alignment.html:2
+msgid "Center Alignment"
+msgstr "Zarovnanie na stred"
+
+#: searx/templates/simple/preferences/center_alignment.html:14
+msgid "Displays results in the center of the page (Oscar layout)."
+msgstr "Zobrazenie výsledkov v strede stránky (Oscar layout)."
+
+#: searx/templates/simple/preferences/cookies.html:2
+msgid ""
+"This is the list of cookies and their values SearXNG is storing on your "
+"computer."
+msgstr ""
+"Toto je zoznam cookies a ich hodnôt, ktoré vo vašom počítači ukladá "
+"SearXNG."
+
+#: searx/templates/simple/preferences/cookies.html:3
+msgid "With that list, you can assess SearXNG transparency."
+msgstr "Týmto zoznamom môžete zhodnotiť priehľadnosť SearXNG."
+
+#: searx/templates/simple/preferences/cookies.html:9
+msgid "Cookie name"
+msgstr "Názov cookie"
+
+#: searx/templates/simple/preferences/cookies.html:10
+msgid "Value"
+msgstr "Hodnota"
+
+#: searx/templates/simple/preferences/cookies.html:23
+msgid "Search URL of the currently saved preferences"
+msgstr "Vyhľadávacia adresa (URL) stávajúcich, uložených nastavení"
+
+#: searx/templates/simple/preferences/cookies.html:32
+msgid ""
+"Note: specifying custom settings in the search URL can reduce privacy by "
+"leaking data to the clicked result sites."
+msgstr ""
+"Poznámka: zadanie osobitých nastavení vo vyhľadávacej adrese (URL) môže "
+"zredukovať úroveň súkromia tým že poskytne doplňujúce údaje kliknutým "
+"adresám vo výsledkoch."
+
+#: searx/templates/simple/preferences/cookies.html:35
+msgid "URL to restore your preferences in another browser"
+msgstr "Adresa (URL) pre obnovu nastavení v inom prehliadači"
+
+#: searx/templates/simple/preferences/cookies.html:43
+msgid ""
+"Specifying custom settings in the preferences URL can be used to sync "
+"preferences across devices."
+msgstr ""
+"Zadaním osobitých nastavení v adrese (URL) nastavení je možné "
+"synchronizovať nastavenia do iných zariadení."
+
+#: searx/templates/simple/preferences/cookies.html:46
+msgid "Copy preferences hash"
+msgstr "Kopírovať hash predvolieb"
+
+#: searx/templates/simple/preferences/cookies.html:57
+msgid "Insert copied preferences hash (without URL) to restore"
+msgstr "Vložte skopírovaný hash kód predvolieb (bez adresy URL) na obnovenie"
+
+#: searx/templates/simple/preferences/cookies.html:59
+msgid "Preferences hash"
+msgstr "Hash kód predvolieb"
+
+#: searx/templates/simple/preferences/doi_resolver.html:2
+msgid "Open Access DOI resolver"
+msgstr "DOI vyhodnocovač otvoreným prístupom"
+
+#: searx/templates/simple/preferences/doi_resolver.html:14
+msgid "Select service used by DOI rewrite"
+msgstr "Vyberte službu, ktorú používa DOI rewrite"
+
+#: searx/templates/simple/preferences/engines.html:9
+msgid ""
+"This tab does not exists in the user interface, but you can search in "
+"these engines by its !bangs."
+msgstr ""
+"Táto stránka neexistuje v používateľskom rozhraní, ale môžete v nich "
+"vyhľadávať pomocou jej !bangs."
+
+#: searx/templates/simple/preferences/engines.html:15
+msgid "Enable all"
+msgstr "Povoliť všetko"
+
+#: searx/templates/simple/preferences/engines.html:16
+msgid "Disable all"
+msgstr "Zakázať všetko"
+
+#: searx/templates/simple/preferences/engines.html:25
+msgid "!bang"
+msgstr "!bang"
+
+#: searx/templates/simple/preferences/engines.html:26
+msgid "Supports selected language"
+msgstr "Podporuje zvolený jazyk"
+
+#: searx/templates/simple/preferences/engines.html:29
+msgid "Weight"
+msgstr "Váha/Hmotnosť"
+
+#: searx/templates/simple/preferences/engines.html:33
+msgid "Max time"
+msgstr "Maximálny čas"
+
+#: searx/templates/simple/preferences/footer.html:2
+msgid ""
+"These settings are stored in your cookies, this allows us not to store "
+"this data about you."
+msgstr ""
+"Tieto nastavenia sú uložené v cookies, čo nám umožňuje neukladať dáta o "
+"vás na našej strane."
+
+#: searx/templates/simple/preferences/footer.html:3
+msgid ""
+"These cookies serve your sole convenience, we don't use these cookies to "
+"track you."
+msgstr ""
+"Tieto cookies slúžia výhradné pre vaše pohodlie a nie sú používané na "
+"sledovanie."
+
+#: searx/templates/simple/preferences/footer.html:6
+msgid "Save"
+msgstr "Uložiť"
+
+#: searx/templates/simple/preferences/footer.html:9
+msgid "Reset defaults"
+msgstr "Obnoviť predvolené"
+
+#: searx/templates/simple/preferences/footer.html:13
+msgid "Back"
+msgstr "Späť"
+
+#: searx/templates/simple/preferences/hotkeys.html:2
+msgid "Hotkeys"
+msgstr "Klávesové skratky"
+
+#: searx/templates/simple/preferences/hotkeys.html:13
+msgid "Vim-like"
+msgstr "Ako Vim"
+
+#: searx/templates/simple/preferences/hotkeys.html:18
+msgid ""
+"Navigate search results with hotkeys (JavaScript required). Press \"h\" "
+"key on main or result page to get help."
+msgstr ""
+"Navigujte vo výsledkoch vyhľadávania pomocou klávesových skratiek "
+"(vyžaduje sa JavaScript). Stlačte klávesu \"h\" na hlavnej stránke alebo "
+"na stránke s výsledkami vyhľadávania pre získanie pomoci."
+
+#: searx/templates/simple/preferences/image_proxy.html:2
+msgid "Image proxy"
+msgstr "Proxy pre obrázky"
+
+#: searx/templates/simple/preferences/image_proxy.html:14
+msgid "Proxying image results through SearXNG"
+msgstr "Sprostredkovanie výsledkov snímok cez SearXNG"
+
+#: searx/templates/simple/preferences/infinite_scroll.html:2
+msgid "Infinite scroll"
+msgstr "Nekonečné posúvanie"
+
+#: searx/templates/simple/preferences/infinite_scroll.html:14
+msgid "Automatically load next page when scrolling to bottom of current page"
+msgstr ""
+"Automaticky načítať ďalšiu stránku pri posunutí na koniec aktuálnej "
+"stránky"
+
+#: searx/templates/simple/preferences/language.html:24
+msgid "What language do you prefer for search?"
+msgstr "Aký jazyk preferujete pre vyhľadávanie?"
+
+#: searx/templates/simple/preferences/language.html:25
+msgid "Choose Auto-detect to let SearXNG detect the language of your query."
+msgstr ""
+"Ak chcete, aby SearXNG zistil jazyk vášho vyhľadávania, vyberte možnosť "
+"Auto-detect (Automatické zisťovanie)."
+
+#: searx/templates/simple/preferences/method.html:2
+msgid "HTTP Method"
+msgstr "Metóda HTTP"
+
+#: searx/templates/simple/preferences/method.html:14
+msgid "Change how forms are submitted"
+msgstr "Zmena spôsobu odosielania formulárov"
+
+#: searx/templates/simple/preferences/query_in_title.html:2
+msgid "Query in the page's title"
+msgstr "Dotaz v názve stránky"
+
+#: searx/templates/simple/preferences/query_in_title.html:14
+msgid ""
+"When enabled, the result page's title contains your query. Your browser "
+"can record this title"
+msgstr ""
+"Ak je táto možnosť povolená, názov stránky s výsledkami obsahuje vašu "
+"požiadavku. Váš prehliadač môže tento názov zaznamenať"
+
+#: searx/templates/simple/preferences/results_on_new_tab.html:2
+msgid "Results on new tabs"
+msgstr "Výsledky v novom tabe"
+
+#: searx/templates/simple/preferences/results_on_new_tab.html:14
+msgid "Open result links on new browser tabs"
+msgstr "Otvoriť odkazy v novom tabe"
+
+#: searx/templates/simple/preferences/safesearch.html:20
+msgid "Filter content"
+msgstr "Filtrovanie obsahu"
+
+#: searx/templates/simple/preferences/search_on_category_select.html:2
+msgid "Search on category select"
+msgstr "Vyhľadávanie pri výbere kategórie"
+
+#: searx/templates/simple/preferences/search_on_category_select.html:14
+msgid ""
+"Perform search immediately if a category selected. Disable to select "
+"multiple categories"
+msgstr ""
+"Okamžité vykonanie vyhľadávania, ak je vybraná kategória. Zakážte pre "
+"výber viacerých kategórií"
+
+#: searx/templates/simple/preferences/theme.html:2
+msgid "Theme"
+msgstr "Téma"
+
+#: searx/templates/simple/preferences/theme.html:14
+msgid "Change SearXNG layout"
+msgstr "Zmena SearXNG vzhľadu"
+
+#: searx/templates/simple/preferences/theme.html:19
+msgid "Theme style"
+msgstr "Štýl témy"
+
+#: searx/templates/simple/preferences/theme.html:31
+msgid "Choose auto to follow your browser settings"
+msgstr "Vyberte možnosť auto, aby sa riadila nastaveniami vášho prehliadača"
+
+#: searx/templates/simple/preferences/tokens.html:2
+msgid "Engine tokens"
+msgstr "Engine tokeny"
+
+#: searx/templates/simple/preferences/tokens.html:9
+msgid "Access tokens for private engines"
+msgstr "Prístupové tokwny pre súkromné nástroje"
+
+#: searx/templates/simple/preferences/ui_locale.html:2
+msgid "Interface language"
+msgstr "Jazyk rozhrania"
+
+#: searx/templates/simple/preferences/ui_locale.html:14
+msgid "Change the language of the layout"
+msgstr "Zmena jazyku rozhrania"
+
+#: searx/templates/simple/result_templates/code.html:13
+msgid "repo"
+msgstr "repozitár"
 
 #: searx/templates/simple/result_templates/default.html:6
+#: searx/templates/simple/result_templates/files.html:8
+#: searx/templates/simple/result_templates/files.html:11
 msgid "show media"
 msgstr "ukázať médiá"
 
 #: searx/templates/simple/result_templates/default.html:6
+#: searx/templates/simple/result_templates/files.html:8
 msgid "hide media"
 msgstr "skryť médiá"
 
 #: searx/templates/simple/result_templates/default.html:14
 #: searx/templates/simple/result_templates/videos.html:14
 msgid "This site did not provide any description."
-msgstr ""
+msgstr "Táto stránka neposkytuje žiaden popis."
 
-#: searx/templates/simple/result_templates/images.html:19
-msgid "Format"
-msgstr ""
+#: searx/templates/simple/result_templates/files.html:38
+#: searx/templates/simple/result_templates/images.html:22
+#: searx/templates/simple/result_templates/torrent.html:11
+msgid "Filesize"
+msgstr "Veľkosť súboru"
+
+#: searx/templates/simple/result_templates/files.html:40
+msgid "Date"
+msgstr "Dátum"
+
+#: searx/templates/simple/result_templates/files.html:42
+#: searx/templates/simple/result_templates/paper.html:24
+msgid "Type"
+msgstr "Typ"
+
+#: searx/templates/simple/result_templates/images.html:20
+msgid "Resolution"
+msgstr "Rozlíšenie"
 
 #: searx/templates/simple/result_templates/images.html:21
-msgid "Engine"
-msgstr ""
+msgid "Format"
+msgstr "Formát"
 
-#: searx/templates/simple/result_templates/images.html:22
+#: searx/templates/simple/result_templates/images.html:24
+msgid "Engine"
+msgstr "Vyhľadávač"
+
+#: searx/templates/simple/result_templates/images.html:25
 msgid "View source"
 msgstr "Zobraziť zdroj"
 
 #: searx/templates/simple/result_templates/map.html:12
 msgid "address"
-msgstr ""
+msgstr "adresa"
 
 #: searx/templates/simple/result_templates/map.html:43
 msgid "show map"
@@ -1014,6 +1407,75 @@ msgstr "ukázať mapu"
 #: searx/templates/simple/result_templates/map.html:43
 msgid "hide map"
 msgstr "skryť mapu"
+
+#: searx/templates/simple/result_templates/packages.html:12
+msgid "Version"
+msgstr "Verzia"
+
+#: searx/templates/simple/result_templates/packages.html:18
+msgid "Maintainer"
+msgstr "Správca"
+
+#: searx/templates/simple/result_templates/packages.html:24
+msgid "Updated at"
+msgstr "Aktualizované v"
+
+#: searx/templates/simple/result_templates/packages.html:30
+#: searx/templates/simple/result_templates/paper.html:25
+msgid "Tags"
+msgstr "Značky"
+
+#: searx/templates/simple/result_templates/packages.html:36
+msgid "Popularity"
+msgstr "Popularita"
+
+#: searx/templates/simple/result_templates/packages.html:42
+msgid "License"
+msgstr "Licencia"
+
+#: searx/templates/simple/result_templates/packages.html:52
+msgid "Project"
+msgstr "Projekt"
+
+#: searx/templates/simple/result_templates/packages.html:55
+msgid "Project homepage"
+msgstr "Domovská stránka projektu"
+
+#: searx/templates/simple/result_templates/paper.html:5
+msgid "Published date"
+msgstr "Dátum publikácie"
+
+#: searx/templates/simple/result_templates/paper.html:9
+msgid "Journal"
+msgstr "Žurnál"
+
+#: searx/templates/simple/result_templates/paper.html:22
+msgid "Editor"
+msgstr "Editor"
+
+#: searx/templates/simple/result_templates/paper.html:23
+msgid "Publisher"
+msgstr "Vydavateľ"
+
+#: searx/templates/simple/result_templates/paper.html:26
+msgid "DOI"
+msgstr "DOI"
+
+#: searx/templates/simple/result_templates/paper.html:27
+msgid "ISSN"
+msgstr "ISSN"
+
+#: searx/templates/simple/result_templates/paper.html:28
+msgid "ISBN"
+msgstr "ISBN"
+
+#: searx/templates/simple/result_templates/paper.html:33
+msgid "PDF"
+msgstr "PDF"
+
+#: searx/templates/simple/result_templates/paper.html:34
+msgid "HTML"
+msgstr "HTML"
 
 #: searx/templates/simple/result_templates/torrent.html:6
 msgid "magnet link"
@@ -1025,37 +1487,13 @@ msgstr "torrent súbor"
 
 #: searx/templates/simple/result_templates/torrent.html:9
 msgid "Seeder"
-msgstr ""
+msgstr "Odosielateľ"
 
 #: searx/templates/simple/result_templates/torrent.html:9
 msgid "Leecher"
-msgstr ""
-
-#: searx/templates/simple/result_templates/torrent.html:11
-msgid "Filesize"
-msgstr "Veľkosť súboru"
-
-#: searx/templates/simple/result_templates/torrent.html:12
-msgid "Bytes"
-msgstr "bajtov"
+msgstr "Príjemca"
 
 #: searx/templates/simple/result_templates/torrent.html:13
-msgid "kiB"
-msgstr "kB"
-
-#: searx/templates/simple/result_templates/torrent.html:14
-msgid "MiB"
-msgstr "MB"
-
-#: searx/templates/simple/result_templates/torrent.html:15
-msgid "GiB"
-msgstr "GB"
-
-#: searx/templates/simple/result_templates/torrent.html:16
-msgid "TiB"
-msgstr "TB"
-
-#: searx/templates/simple/result_templates/torrent.html:20
 msgid "Number of Files"
 msgstr "Počet súborov"
 
@@ -1278,7 +1716,7 @@ msgstr "skryť video"
 #~ msgid "Heads up!"
 #~ msgstr "Pozor!"
 
-#~ msgid "It look like you are using Otto first time."
+#~ msgid "It look like you are using SearXNG first time."
 #~ msgstr ""
 
 #~ msgid "Well done!"
@@ -1310,4 +1748,192 @@ msgstr "skryť video"
 
 #~ msgid "preferences"
 #~ msgstr "nastavenia"
+
+#~ msgid "Scores per result"
+#~ msgstr ""
+
+#~ msgid "a privacy-respecting, hackable metasearch engine"
+#~ msgstr "prispôsobitelný meta-vyhľadávač, ktorý rešpektuje vaše súkromie"
+
+#~ msgid "No abstract is available for this publication."
+#~ msgstr "Pre túto publikáciu nie je dostupný žiadny abstrakt."
+
+#~ msgid "Self Informations"
+#~ msgstr "Informácie o sebe"
+
+#~ msgid ""
+#~ "Change how forms are submited, <a "
+#~ "href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
+#~ " rel=\"external\">learn more about request "
+#~ "methods</a>"
+#~ msgstr ""
+#~ "Zmeniť spôsob, akým sú odosielané "
+#~ "formuláre, <a "
+#~ "href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
+#~ " rel=\"external\">dozvedieť sa viac o "
+#~ "týchto metódach</a>"
+
+#~ msgid ""
+#~ "This plugin checks if the address "
+#~ "of the request is a TOR exit "
+#~ "node, and informs the user if it"
+#~ " is, like check.torproject.org but from "
+#~ "searxng."
+#~ msgstr ""
+#~ "Tento plugin kontroluje, či žiadaná "
+#~ "adresa je výstupný bod TORu, a "
+#~ "informuje používateľa ak je, ako "
+#~ "check.torproject.org ale od searxng."
+
+#~ msgid ""
+#~ "The TOR exit node list "
+#~ "(https://check.torproject.org/exit-addresses) is "
+#~ "unreachable."
+#~ msgstr ""
+#~ "Zoznam výstupných bodov TORu "
+#~ "(https://check.torproject.org/exit-addresses) je "
+#~ "nedostupný."
+
+#~ msgid "You are using TOR. Your IP address seems to be: {ip_address}."
+#~ msgstr "Používate TOR. Zdá sa, že vaša IP adresa je: {ip_address}."
+
+#~ msgid "You are not using TOR. Your IP address seems to be: {ip_address}."
+#~ msgstr "Nepoužívate TOR. Zdá sa, že vaša IP adresa je: {ip_address}."
+
+#~ msgid ""
+#~ "The could not download the list of"
+#~ " Tor exit-nodes from "
+#~ "https://check.torproject.org/exit-addresses."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "You are using Tor. It looks like"
+#~ " you have this external IP address:"
+#~ " {ip_address}."
+#~ msgstr ""
+
+#~ msgid "You are not using Tor. You have this external IP address: {ip_address}."
+#~ msgstr ""
+
+#~ msgid "Autodetect search language"
+#~ msgstr "Autodetekcia jazyka vyhľadávania"
+
+#~ msgid "Automatically detect the query search language and switch to it."
+#~ msgstr "Automatická detekcia a prepnutie na jazyk dopytu."
+
+#~ msgid "others"
+#~ msgstr "iné"
+
+#~ msgid ""
+#~ "This tab does not show up for "
+#~ "search results, but you can search "
+#~ "the engines listed here via bangs."
+#~ msgstr ""
+#~ "Táto karta sa nezobrazuje vo výsledkoch"
+#~ " vyhľadávania, ale môžete vyhľadávať v "
+#~ "enginoch, ktoré sú tu uvedené, pomocou"
+#~ " Bangs."
+
+#~ msgid "Shortcut"
+#~ msgstr "Skratka"
+
+#~ msgid "!bang"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "This tab dues not exists in the"
+#~ " user interface, but you can search"
+#~ " in these engines by its !bangs."
+#~ msgstr ""
+
+#~ msgid "Engines cannot retrieve results."
+#~ msgstr "Vyhľadávače nemôžu získať výsledky."
+
+#~ msgid "Please, try again later or find another SearXNG instance."
+#~ msgstr "Skúste znova neskôr, prosím, alebo použite inú inštanciu SearXNG."
+
+#~ msgid ""
+#~ "Redirect to open-access versions of "
+#~ "publications when available (plugin required)"
+#~ msgstr ""
+#~ "Presmerovanie na verzie publikácií s "
+#~ "otvoreným prístupom, ak sú k dispozícii"
+#~ " (vyžaduje sa plugin)"
+
+#~ msgid "Bang"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Change how forms are submitted, <a "
+#~ "href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
+#~ " rel=\"external\">learn more about request "
+#~ "methods</a>"
+#~ msgstr ""
+#~ "Zmena spôsobu odosielania formulárov, <a "
+#~ "href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
+#~ " rel=\"external\">dozvedieť sa viac o "
+#~ "metódach žiadosti</a>"
+
+#~ msgid "On"
+#~ msgstr "Zapnuté"
+
+#~ msgid "Off"
+#~ msgstr "Vypnuté"
+
+#~ msgid "Enabled"
+#~ msgstr "Povolené"
+
+#~ msgid "Disabled"
+#~ msgstr "Zakázané"
+
+#~ msgid ""
+#~ "Perform search immediately if a category"
+#~ " selected. Disable to select multiple "
+#~ "categories. (JavaScript required)"
+#~ msgstr ""
+#~ "Vyhľadávať okamžite, ak je kategória "
+#~ "vybraná. Vypnúť pre vyberanie viacerých "
+#~ "kategórií. (Je potrebný JavaScript)"
+
+#~ msgid "Vim-like hotkeys"
+#~ msgstr "Skratky ako vo VIM"
+
+#~ msgid ""
+#~ "Navigate search results with Vim-like"
+#~ " hotkeys (JavaScript required). Press \"h\""
+#~ " key on main or result page to"
+#~ " get help."
+#~ msgstr ""
+#~ "Prechádzať výsledky vyhľadávania klávesovými "
+#~ "skratkami ako VIM (je potrebný "
+#~ "JavaScript). Stlačte klávesy \"h\" na "
+#~ "hlavnej stránke alebo na stránke s "
+#~ "výsledkami pre zobrazenie pomoci."
+
+#~ msgid ""
+#~ "we didn't find any results. Please "
+#~ "use another query or search in "
+#~ "more categories."
+#~ msgstr ""
+#~ "nepodarilo sa nájsť žiadne výsledky. "
+#~ "Skúste použiť iné zadanie alebo "
+#~ "vyhľadávajte vo viacerých kategóriach."
+
+#~ msgid "Rewrite result hostnames or remove results based on the hostname"
+#~ msgstr "Informácie o sebe"
+
+#~ msgid "Bytes"
+#~ msgstr "bajtov"
+
+#~ msgid "kiB"
+#~ msgstr "kB"
+
+#~ msgid "MiB"
+#~ msgstr "MB"
+
+#~ msgid "GiB"
+#~ msgstr "GB"
+
+#~ msgid "TiB"
+#~ msgstr "TB"
 

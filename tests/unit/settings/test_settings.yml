@@ -1,5 +1,10 @@
-# This Otto setup is used in unit tests
+# This SearXNG setup is used in unit tests
 
 use_default_settings: true
 search:
   formats: [html, csv, json, rss]
+
+engines:
+  - name: general dummy
+    engine: demo_offline
+    timeout: 3

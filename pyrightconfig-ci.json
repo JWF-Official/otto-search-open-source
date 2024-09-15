@@ -3,7 +3,7 @@
     "venv": "py3",
     "include": [
         "searx",
-        "Otto_extra",
+        "searxng_extra",
         "tests"
     ],
     "typeCheckingMode": "off"

@@ -4,7 +4,7 @@
 How to contribute
 =================
 
-.. contents:: Contents
+.. contents::
    :depth: 2
    :local:
    :backlinks: entry
@@ -12,21 +12,21 @@ How to contribute
 Prime directives: Privacy, Hackability
 ======================================
 
-Otto has two prime directives, **privacy-by-design and hackability** .  The
+SearXNG has two prime directives, **privacy-by-design and hackability** .  The
 hackability comes in three levels:
 
 - support of search engines
 - plugins to alter search behaviour
-- hacking Otto itself
+- hacking SearXNG itself
 
-Note the lack of "world domination" among the directives.  Otto has no
+Note the lack of "world domination" among the directives.  SearXNG has no
 intention of wide mass-adoption, rounded corners, etc.  The prime directive
 "privacy" deserves a separate chapter, as it's quite uncommon unfortunately.
 
 Privacy-by-design
 -----------------
 
-Otto was born out of the need for a **privacy-respecting** search tool which
+SearXNG was born out of the need for a **privacy-respecting** search tool which
 can be extended easily to maximize both, its search and its privacy protecting
 capabilities.
 
@@ -46,7 +46,7 @@ Submitting a bugreport to the vendor of the tool that misbehaves might be a good
 feedback to reconsider the disrespect to its customers (e.g. ``GET`` vs ``POST``
 requests in various browsers).
 
-Remember the other prime directive of Otto is to be hackable, so if the above
+Remember the other prime directive of SearXNG is to be hackable, so if the above
 privacy concerns do not fancy you, simply fork it.
 
   *Happy hacking.*
@@ -99,7 +99,7 @@ In order to submit a patch, please follow the steps below:
 
 - Create a pull request.
 
-For more help on getting started with Otto development, see :ref:`devquickstart`.
+For more help on getting started with SearXNG development, see :ref:`devquickstart`.
 
 
 Translation
@@ -148,7 +148,7 @@ live build
 Live build is like WYSIWYG.  If you want to edit the documentation, its
 recommended to use.  The Makefile target ``docs.live`` builds the docs, opens
 URL in your favorite browser and rebuilds every time a reST file has been
-changed.
+changed (:ref:`make docs.clean`).
 
 .. code:: sh
 
@@ -183,3 +183,8 @@ commit and push:
 .. code:: sh
 
    $ make docs.clean docs.gh-pages
+
+.. attention::
+
+   If you are working in your own brand, don't forget to adjust your
+   :ref:`settings brand`.
