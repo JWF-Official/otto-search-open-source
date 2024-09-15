@@ -1,60 +1,44 @@
-# SearXNG settings
+# Otto settings
 
 use_default_settings: true
 
 general:
+  # Debug mode, only for development
   debug: false
-  instance_name: "SearXNG"
+  # change displayed name
+  # instance_name: "Otto"
 
 search:
-  safe_search: 2
-  autocomplete: 'duckduckgo'
+  # Filter results. 0: None, 1: Moderate, 2: Strict
+  safe_search: 0
+  # Existing autocomplete backends: "dbpedia", "duckduckgo", "google",
+  # "startpage", "swisscows", "qwant", "wikipedia" - leave blank to turn it off
+  # by default.
+  autocomplete: ''
+  # Default search language - leave blank to detect from browser information or
+  # use codes from 'languages.py'
+  default_lang: ''
+  # remove format to deny access, use lower case.
+  formats:
+    - html
 
 server:
-  # Is overwritten by ${SEARXNG_SECRET}
-  secret_key: "R5gW2v5zslrJKbtMrk023fdJYepRJ6z5qTBkopAfgppkwBRJ"
-  limiter: true
-  image_proxy: true
-  # public URL of the instance, to ensure correct inbound links. Is overwritten
-  # by ${SEARXNG_URL}.
-  # base_url: http://example.com/location
+  secret_key: "ultrasecretkey"  # change this!
+  # Proxying image results through Otto
+  image_proxy: false
 
-redis:
-  # URL to connect redis database. Is overwritten by ${SEARXNG_REDIS_URL}.
-  url: unix:///usr/local/searxng-redis/run/redis.sock?db=0
-
-ui:
-  static_use_hash: true
-
-# preferences:
-#   lock:
-#     - autocomplete
-#     - method
-
-enabled_plugins:
-  - 'Hash plugin'
-  - 'Self Informations'
-  - 'Tracker URL remover'
-  - 'Ahmia blacklist'
-  # - 'Hostnames plugin'  # see 'hostnames' configuration below
-  # - 'Open Access DOI rewrite'
+# result_proxy:
+#   url: http://127.0.0.1:3000/
+#   key: !!binary "your_morty_proxy_key"
 
 # plugins:
 #   - only_show_green_results
 
-# hostnames:
-#   replace:
-#     '(.*\.)?youtube\.com$': 'invidious.example.com'
-#     '(.*\.)?youtu\.be$': 'invidious.example.com'
-#   remove:
-#     - '(.*\.)?facebook.com$'
-#   low_priority:
-#     - '(.*\.)?google\.com$'
-#   high_priority:
-#     - '(.*\.)?wikipedia.org$'
-
-engines:
-
+# engines:
+#
+#   - name: duckduckgo
+#     disabled: false
+#
 #   - name: fdroid
 #     disabled: false
 #
@@ -62,13 +46,6 @@ engines:
 #     disabled: false
 #
 #   - name: mediathekviewweb
-#     categories: TV
-#     disabled: false
-#
-#   - name: invidious
-#     disabled: false
-#     base_url:
-#       - https://invidious.snopyta.org
-#       - https://invidious.tiekoetter.com
-#       - https://invidio.xamh.de
-#       - https://inv.riverside.rocks
+#     engine: mediathekviewweb
+#     shortcut: mvw
+#     categories: general

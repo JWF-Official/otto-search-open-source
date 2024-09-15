@@ -194,9 +194,8 @@ wait_key(){
     [[ -n $FORCE_TIMEOUT ]] && _t=$FORCE_TIMEOUT
     [[ -n $_t ]] && _t="-t $_t"
     printf "$msg"
-    # shellcheck disable=SC2229
     # shellcheck disable=SC2086
-    read -r -s -n1 $_t || true
+    read -r -s -n1 $_t
     echo
     clean_stdin
 }
@@ -228,7 +227,7 @@ ask_yn() {
     while true; do
         clean_stdin
         printf "$1 ${choice} "
-        # shellcheck disable=SC2086,SC2229
+        # shellcheck disable=SC2086
         read -r -n1 $_t
         if [[ -z $REPLY ]]; then
             printf "$default\n"; break
@@ -262,7 +261,7 @@ tee_stderr () {
     if [[ -n $1 ]] ; then _t="$1"; fi
 
     (while read -r line; do
-         # shellcheck disable=SC2086,SC2229
+         # shellcheck disable=SC2086
          sleep $_t
          echo -e "$line" >&2
          echo "$line"
@@ -368,7 +367,7 @@ choose_one() {
         printf "$1 [${_BGreen}$default${_creset}] "
 
         if (( 10 > max )); then
-            # shellcheck disable=SC2086,SC2229
+            # shellcheck disable=SC2086
             read -r -n1 $_t
         else
             # shellcheck disable=SC2086,SC2229
@@ -601,7 +600,7 @@ pyenv.OK() {
     fi
 
     if [ ! -f "${PY_ENV}/requirements.sha256" ] \
-        || ! sha256sum -c "${PY_ENV}/requirements.sha256" > /dev/null 2>&1; then
+        || ! sha256sum --check --status <"${PY_ENV}/requirements.sha256" 2>/dev/null; then
         build_msg PYENV "[virtualenv] requirements.sha256 failed"
         sed 's/^/          [virtualenv] - /' <"${PY_ENV}/requirements.sha256"
         return 1
@@ -709,7 +708,6 @@ pyenv.uninstall() {
 	pyenv.cmd python setup.py develop --uninstall 2>&1 \
             | prefix_stdout "${_Blue}PYENV     ${_creset}[pyenv.uninstall] "
     else
-        # shellcheck disable=SC2086
 	pyenv.cmd python -m pip uninstall --yes ${PYOBJECTS} 2>&1 \
             | prefix_stdout "${_Blue}PYENV     ${_creset}[pyenv.uninstall] "
     fi
@@ -1013,8 +1011,8 @@ nginx_install_app() {
 
 nginx_include_apps_enabled() {
 
-    # Add the *NGINX_APPS_ENABLED* infrastructure to a nginx server block.  Such
-    # infrastructure is already known from fedora and centos, including apps (location
+    # Add the *NGINX_APPS_ENABLED* infrastruture to a nginx server block.  Such
+    # infrastruture is already known from fedora and centos, including apps (location
     # directives) from the /etc/nginx/default.d folder into the *default* nginx
     # server.
 
@@ -1029,7 +1027,7 @@ nginx_include_apps_enabled() {
     local include_directive="include ${NGINX_APPS_ENABLED}/*.conf;"
     local include_directive_re="^\s*include ${NGINX_APPS_ENABLED}/\*\.conf;"
 
-    info_msg "checking existence: '${include_directive}' in file ${server_conf}"
+    info_msg "checking existence: '${include_directive}' in file  ${server_conf}"
     if grep "${include_directive_re}" "${server_conf}"; then
         info_msg "OK, already exists."
         return
@@ -1119,7 +1117,7 @@ apache_distro_setup() {
             APACHE_SITES_AVAILABLE="/etc/httpd/sites-available"
             APACHE_SITES_ENABLED="/etc/httpd/sites-enabled"
             APACHE_MODULES="modules"
-            APACHE_PACKAGES="httpd mod_ssl"
+            APACHE_PACKAGES="httpd"
             ;;
         *)
             err_msg "$DIST_ID-$DIST_VERS: apache not yet implemented"
@@ -1251,6 +1249,8 @@ apache_dissable_site() {
 # -----
 
 uWSGI_SETUP="${uWSGI_SETUP:=/etc/uwsgi}"
+uWSGI_USER=
+uWSGI_GROUP=
 
 # How distros manage uWSGI apps is very different.  From uWSGI POV read:
 # - https://uwsgi-docs.readthedocs.io/en/latest/Management.html
@@ -1276,14 +1276,13 @@ uWSGI_distro_setup() {
             ;;
         fedora-*|centos-7)
             # systemd --> /usr/lib/systemd/system/uwsgi.service
-            # Fedora runs uWSGI in emperor-tyrant mode: in Tyrant mode the
-            # Emperor will run the vassal using the UID/GID of the vassal
-            # configuration file [1] (user and group of the app .ini file).
-            # There are some quirks abbout additional POSIX groups in uWSGI
-            # 2.0.x, read at least: https://github.com/unbit/uwsgi/issues/2099
+            # The unit file starts uWSGI in emperor mode (/etc/uwsgi.ini), see
+            # - https://uwsgi-docs.readthedocs.io/en/latest/Emperor.html
             uWSGI_APPS_AVAILABLE="${uWSGI_SETUP}/apps-available"
             uWSGI_APPS_ENABLED="${uWSGI_SETUP}.d"
             uWSGI_PACKAGES="uwsgi"
+            uWSGI_USER="uwsgi"
+            uWSGI_GROUP="uwsgi"
             ;;
         *)
             err_msg "$DIST_ID-$DIST_VERS: uWSGI not yet implemented"
@@ -1345,6 +1344,30 @@ uWSGI_restart() {
     esac
 }
 
+uWSGI_prepare_app() {
+
+    # usage:  uWSGI_prepare_app <myapp.ini>
+
+    [[ -z $1 ]] && die_caller 42 "missing argument <myapp.ini>"
+
+    local APP="${1%.*}"
+
+    case $DIST_ID-$DIST_VERS in
+        fedora-*|centos-7)
+            # in emperor mode, the uwsgi user is the owner of the sockets
+            info_msg "prepare (uwsgi:uwsgi)  /run/uwsgi/app/${APP}"
+            mkdir -p "/run/uwsgi/app/${APP}"
+            chown -R "uwsgi:uwsgi"  "/run/uwsgi/app/${APP}"
+            ;;
+        *)
+            info_msg "prepare (${SERVICE_USER}:${SERVICE_GROUP})  /run/uwsgi/app/${APP}"
+            mkdir -p "/run/uwsgi/app/${APP}"
+            chown -R "${SERVICE_USER}:${SERVICE_GROUP}"  "/run/uwsgi/app/${APP}"
+            ;;
+    esac
+}
+
+
 uWSGI_app_available() {
     # usage:  uWSGI_app_available <myapp.ini>
     local CONF="$1"
@@ -1355,7 +1378,7 @@ uWSGI_app_available() {
 
 uWSGI_install_app() {
 
-    # usage:  uWSGI_install_app [<template option> ...] <myapp.ini> [{owner} [{group} [{chmod}]]]
+    # usage:  uWSGI_install_app [<template option> ...] <myapp.ini>
     #
     # <template option>:  see install_template
 
@@ -1367,10 +1390,11 @@ uWSGI_install_app() {
             *)  pos_args+=("$i");;
         esac
     done
+    uWSGI_prepare_app "${pos_args[1]}"
     mkdir -p "${uWSGI_APPS_AVAILABLE}"
     install_template "${template_opts[@]}" \
                      "${uWSGI_APPS_AVAILABLE}/${pos_args[1]}" \
-                     "${pos_args[2]:-root}" "${pos_args[3]:-root}" "${pos_args[4]:-644}"
+                     root root 644
     uWSGI_enable_app "${pos_args[1]}"
     uWSGI_restart "${pos_args[1]}"
     info_msg "uWSGI app: ${pos_args[1]} is installed"
@@ -1444,6 +1468,7 @@ uWSGI_enable_app() {
             mkdir -p "${uWSGI_APPS_ENABLED}"
             rm -f "${uWSGI_APPS_ENABLED}/${CONF}"
             ln -s "${uWSGI_APPS_AVAILABLE}/${CONF}" "${uWSGI_APPS_ENABLED}/${CONF}"
+            chown "${uWSGI_USER}:${uWSGI_GROUP}" "${uWSGI_APPS_ENABLED}/${CONF}"
             info_msg "enabled uWSGI app: ${CONF}"
             ;;
         *)
@@ -1489,7 +1514,7 @@ _apt_pkg_info_is_updated=0
 
 pkg_install() {
 
-    # usage: TITLE='install foobar' pkg_install foopkg barpkg
+    # usage: TITEL='install foobar' pkg_install foopkg barpkg
 
     rst_title "${TITLE:-installation of packages}" section
     echo -e "\npackage(s)::\n"
@@ -1525,7 +1550,7 @@ pkg_install() {
 
 pkg_remove() {
 
-    # usage: TITLE='remove foobar' pkg_remove foopkg barpkg
+    # usage: TITEL='remove foobar' pkg_remove foopkg barpkg
 
     rst_title "${TITLE:-remove packages}" section
     echo -e "\npackage(s)::\n"
@@ -1594,7 +1619,7 @@ git_clone() {
     #  into <path>.  If repository is already cloned, pull from <branch> and
     #  update working tree (if needed, the caller has to stash local changes).
     #
-    #    git clone https://github.com/searxng/searxng searx-src origin/master searxlogin
+    #    git clone https://github.com/Otto/Otto searx-src origin/master searxlogin
     #
 
     local url="$1"
@@ -1664,7 +1689,7 @@ lxc_init_container_env() {
     # usage: lxc_init_container_env <name>
 
     # Create a /.lxcenv file in the root folder.  Call this once after the
-    # container is initial started and before installing any boilerplate stuff.
+    # container is inital started and before installing any boilerplate stuff.
 
     info_msg "create /.lxcenv in container $1"
     cat <<EOF | lxc exec "${1}" -- bash | prefix_stdout "[${_BBlue}${1}${_creset}] "

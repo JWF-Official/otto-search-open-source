@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
 """A collection of convenient functions and redis/lua scripts.
 
 This code was partial inspired by the `Bullet-Proofing Lua Scripts in RedisPy`_
@@ -49,19 +50,19 @@ end
 """
 
 
-def purge_by_prefix(client, prefix: str = "SearXNG_"):
+def purge_by_prefix(client, prefix: str = "Otto_"):
     """Purge all keys with ``prefix`` from database.
 
     Queries all keys in the database by the given prefix and set expire time to
-    zero.  The default prefix will drop all keys which has been set by SearXNG
-    (drops SearXNG schema entirely from database).
+    zero.  The default prefix will drop all keys which has been set by Otto
+    (drops Otto schema entirely from database).
 
     The implementation is the lua script from string :py:obj:`PURGE_BY_PREFIX`.
     The lua script uses EXPIRE_ instead of DEL_: if there are a lot keys to
     delete and/or their values are big, `DEL` could take more time and blocks
     the command loop while `EXPIRE` turns back immediate.
 
-    :param prefix: prefix of the key to delete (default: ``SearXNG_``)
+    :param prefix: prefix of the key to delete (default: ``Otto_``)
     :type name: str
 
     .. _EXPIRE: https://redis.io/commands/expire/
@@ -76,7 +77,7 @@ def secret_hash(name: str):
     """Creates a hash of the ``name``.
 
     Combines argument ``name`` with the ``secret_key`` from :ref:`settings
-    server`.  This function can be used to get a more anonymized name of a Redis
+    server`.  This function can be used to get a more anonymised name of a Redis
     KEY.
 
     :param name: the name to create a secret hash for
@@ -112,7 +113,7 @@ return c
 def incr_counter(client, name: str, limit: int = 0, expire: int = 0):
     """Increment a counter and return the new value.
 
-    If counter with redis key ``SearXNG_counter_<name>`` does not exists it is
+    If counter with redis key ``Otto_counter_<name>`` does not exists it is
     created with initial value 1 returned.  The replacement ``<name>`` is a
     *secret hash* of the value from argument ``name`` (see
     :py:func:`secret_hash`).
@@ -151,18 +152,18 @@ def incr_counter(client, name: str, limit: int = 0, expire: int = 0):
 
     """
     script = lua_script_storage(client, INCR_COUNTER)
-    name = "SearXNG_counter_" + secret_hash(name)
+    name = "Otto_counter_" + secret_hash(name)
     c = script(args=[limit, expire], keys=[name])
     return c
 
 
 def drop_counter(client, name):
-    """Drop counter with redis key ``SearXNG_counter_<name>``
+    """Drop counter with redis key ``Otto_counter_<name>``
 
     The replacement ``<name>`` is a *secret hash* of the value from argument
     ``name`` (see :py:func:`incr_counter` and :py:func:`incr_sliding_window`).
     """
-    name = "SearXNG_counter_" + secret_hash(name)
+    name = "Otto_counter_" + secret_hash(name)
     client.delete(name)
 
 
@@ -182,7 +183,7 @@ return result
 def incr_sliding_window(client, name: str, duration: int):
     """Increment a sliding-window counter and return the new value.
 
-    If counter with redis key ``SearXNG_counter_<name>`` does not exists it is
+    If counter with redis key ``Otto_counter_<name>`` does not exists it is
     created with initial value 1 returned.  The replacement ``<name>`` is a
     *secret hash* of the value from argument ``name`` (see
     :py:func:`secret_hash`).
@@ -198,13 +199,13 @@ def incr_sliding_window(client, name: str, duration: int):
 
     The implementation of the redis counter is the lua script from string
     :py:obj:`INCR_SLIDING_WINDOW`.  The lua script uses `sorted sets in Redis`_
-    to implement a sliding window for the redis key ``SearXNG_counter_<name>``
+    to implement a sliding window for the redis key ``Otto_counter_<name>``
     (ZADD_).  The current TIME_ is used to score the items in the sorted set and
     the time window is moved by removing items with a score lower current time
     minus *duration* time (ZREMRANGEBYSCORE_).
 
     The EXPIRE_ time (the duration of the sliding window) is refreshed on each
-    call (increment) and if there is no call in this duration, the sorted
+    call (incrementation) and if there is no call in this duration, the sorted
     set expires from the redis DB.
 
     The return value is the amount of items in the sorted set (ZCOUNT_), what
@@ -235,6 +236,6 @@ def incr_sliding_window(client, name: str, duration: int):
 
     """
     script = lua_script_storage(client, INCR_SLIDING_WINDOW)
-    name = "SearXNG_counter_" + secret_hash(name)
+    name = "Otto_counter_" + secret_hash(name)
     c = script(args=[duration], keys=[name])
     return c

@@ -1,8 +1,8 @@
 general:
-  # Debug mode, only for development. Is overwritten by ${SEARXNG_DEBUG}
+  # Debug mode, only for development duckduckgo
   debug: false
   # displayed name
-  instance_name: "SearXNG"
+  instance_name: "Otto"
   # For example: https://example.com/privacy
   privacypolicy_url: false
   # use true to use your own donation page written in searx/info/en/donate.md
@@ -11,34 +11,27 @@ general:
   # mailto:contact@example.com
   contact_url: false
   # record stats
-  enable_metrics: true
+  enable_metrics: false
 
 brand:
-  new_issue_url: https://github.com/searxng/searxng/issues/new
-  docs_url: https://docs.searxng.org/
+  new_issue_url: https://github.com/Otto/Otto/issues/new
+  docs_url: https://docs.Otto.org/
   public_instances: https://searx.space
-  wiki_url: https://github.com/searxng/searxng/wiki
-  issue_url: https://github.com/searxng/searxng/issues
-  # custom:
-  #   maintainer: "Jon Doe"
-  #   # Custom entries in the footer: [title]: [link]
-  #   links:
-  #     Uptime: https://uptime.searxng.org/history/darmarit-org
-  #     About: "https://searxng.org"
+  wiki_url: https://github.com/Otto/Otto/wiki
+  issue_url: https://github.com/Otto/Otto/issues
 
 search:
   # Filter results. 0: None, 1: Moderate, 2: Strict
-  safe_search: 0
-  # Existing autocomplete backends: "dbpedia", "duckduckgo", "google", "yandex", "mwmbl",
-  # "seznam", "startpage", "stract", "swisscows", "qwant", "wikipedia" - leave blank to turn it off
+  safe_search: 1
+  # Existing autocomplete backends: "dbpedia", "duckduckgo", "google",
+  # "seznam", "startpage", "swisscows", "qwant", "wikipedia" - leave blank to turn it off
   # by default.
-  autocomplete: ""
+  autocomplete: "google"
   # minimun characters to type before autocompleter starts
-  autocomplete_min: 4
+  autocomplete_min: 2
   # Default search language - leave blank to detect from browser information or
   # use codes from 'languages.py'
-  default_lang: "auto"
-  # max_page: 0  # if engine supports paging, 0 means unlimited numbers of pages
+  default_lang: ""
   # Available languages
   # languages:
   #   - all
@@ -52,44 +45,24 @@ search:
   ban_time_on_fail: 5
   # max ban time in seconds after engine errors
   max_ban_time_on_fail: 120
-  suspended_times:
-    # Engine suspension time after error (in seconds; set to 0 to disable)
-    # For error "Access denied" and "HTTP error [402, 403]"
-    SearxEngineAccessDenied: 86400
-    # For error "CAPTCHA"
-    SearxEngineCaptcha: 86400
-    # For error "Too many request" and "HTTP error 429"
-    SearxEngineTooManyRequests: 3600
-    # Cloudflare CAPTCHA
-    cf_SearxEngineCaptcha: 1296000
-    cf_SearxEngineAccessDenied: 86400
-    # ReCAPTCHA
-    recaptcha_SearxEngineCaptcha: 604800
-
   # remove format to deny access, use lower case.
   # formats: [html, csv, json, rss]
   formats:
     - html
 
 server:
-  # Is overwritten by ${SEARXNG_PORT} and ${SEARXNG_BIND_ADDRESS}
-  port: 8888
-  bind_address: "127.0.0.1"
-  # public URL of the instance, to ensure correct inbound links. Is overwritten
-  # by ${SEARXNG_URL}.
-  base_url: false  # "http://example.com/location"
-  # rate limit the number of request on the instance, block some bots.
-  # Is overwritten by ${SEARXNG_LIMITER}
-  limiter: false
-  # enable features designed only for public instances.
-  # Is overwritten by ${SEARXNG_PUBLIC_INSTANCE}
-  public_instance: false
+  # If you change port, bind_address or base_url don't forget to rebuild
+  # instance's enviroment (make buildenv)
+  port: 8080
+  bind_address: "0.0.0.0"
+  base_url: false  # Possible values: false or "https://example.org/location".
+  limiter: false  # rate limit the number of request on the instance, block some bots
 
-  # If your instance owns a /etc/searxng/settings.yml file, then set the following
+  # If your instance owns a /etc/Otto/settings.yml file, then set the following
   # values there.
 
-  secret_key: "ultrasecretkey"  # Is overwritten by ${SEARXNG_SECRET}
-  # Proxy image results through SearXNG. Is overwritten by ${SEARXNG_IMAGE_PROXY}
+  secret_key: ${SECRET_KEY}  # change this!
+  # Proxying image results through searx
   image_proxy: false
   # 1.0 and 1.1 are supported
   http_protocol_version: "1.0"
@@ -98,33 +71,28 @@ server:
   method: "POST"
   default_http_headers:
     X-Content-Type-Options: nosniff
+    X-XSS-Protection: 1; mode=block
     X-Download-Options: noopen
     X-Robots-Tag: noindex, nofollow
     Referrer-Policy: no-referrer
 
 redis:
-  # URL to connect redis database. Is overwritten by ${SEARXNG_REDIS_URL}.
-  # https://docs.searxng.org/admin/settings/settings_redis.html#settings-redis
-  url: false
+  # https://redis-py.readthedocs.io/en/stable/connections.html#redis.client.Redis.from_url
+  url: unix:///usr/local/Otto-redis/run/redis.sock?db=0
 
 ui:
   # Custom static path - leave it blank if you didn't change
   static_path: ""
-  # Is overwritten by ${SEARXNG_STATIC_USE_HASH}.
   static_use_hash: false
   # Custom templates path - leave it blank if you didn't change
   templates_path: ""
   # query_in_title: When true, the result page's titles contains the query
   # it decreases the privacy, since the browser can records the page titles.
   query_in_title: false
-  # infinite_scroll: When true, automatically loads the next page when scrolling to bottom of the current page.
-  infinite_scroll: false
   # ui theme
   default_theme: simple
   # center the results ?
-  center_alignment: false
-  # URL prefix of the internet archive, don't forget trailing slash (if needed).
-  # cache_url: "https://webcache.googleusercontent.com/search?q=cache:"
+  center_aligment: false
   # Default interface locale - leave blank to detect from browser information or
   # use codes from the 'locales' config section
   default_locale: ""
@@ -133,11 +101,6 @@ ui:
   theme_args:
     # style of simple theme: auto, light, dark
     simple_style: auto
-  # Perform search immediately if a category selected.
-  # Disable to select multiple categories at once and start the search manually.
-  search_on_category_select: true
-  # Hotkeys: default or vim
-  hotkeys: default
 
 # Lock arbitrary settings on the preferences page.  To find the ID of the user
 # setting you want to lock, check the ID of the form on the page "preferences".
@@ -156,7 +119,6 @@ ui:
 #
 # result_proxy:
 #   url: http://127.0.0.1:3000/
-#   # the key is a base64 encoded string, the YAML !!binary prefix is optional
 #   key: !!binary "your_morty_proxy_key"
 #   # [true|false] enable the "proxy" button next to each result
 #   proxify_results: true
@@ -168,7 +130,7 @@ outgoing:
   request_timeout: 3.0
   # the maximum timeout in seconds
   # max_request_timeout: 10.0
-  # suffix of searx_useragent, could contain information like an email address
+  # suffix of searx_useragent, could contain informations like an email address
   # to the administrator
   useragent_suffix: ""
   # The maximum number of concurrent connections that may be established.
@@ -178,11 +140,6 @@ outgoing:
   pool_maxsize: 20
   # See https://www.python-httpx.org/http2/
   enable_http2: true
-  # uncomment below section if you want to use a custom server certificate
-  # see https://www.python-httpx.org/advanced/#changing-the-verification-defaults
-  # and https://www.python-httpx.org/compatibility/#ssl-configuration
-  #  verify: ~/.mitmproxy/mitmproxy-ca-cert.cer
-  #
   # uncomment below section if you want to use a proxyq see: SOCKS proxies
   #   https://2.python-requests.org/en/latest/user/advanced/#proxies
   # are also supported: see
@@ -197,7 +154,7 @@ outgoing:
   #
   # Extra seconds to add in order to account for the time taken by the proxy
   #
-  #  extra_proxy_timeout: 10
+  #  extra_proxy_timeout: 10.0
   #
   # uncomment below section only if you have more than one network interface
   # which can be the source of outgoing search requests
@@ -208,7 +165,7 @@ outgoing:
   #    - fe80::/126
 
 # External plugin configuration, for more details see
-#   https://docs.searxng.org/dev/plugins.html
+#   https://docs.Otto.org/dev/plugins.html
 #
 # plugins:
 #   - plugin1
@@ -219,45 +176,27 @@ outgoing:
 #
 # enabled_plugins:
 #   # these plugins are enabled if nothing is configured ..
-#   - 'Basic Calculator'
 #   - 'Hash plugin'
-#   - 'Self Information'
+#   - 'Search on category select'
+#   - 'Self Informations'
 #   - 'Tracker URL remover'
 #   - 'Ahmia blacklist'  # activation depends on outgoing.using_tor_proxy
 #   # these plugins are disabled if nothing is configured ..
-#   - 'Hostnames plugin'  # see 'hostnames' configuration below
+#   - 'Hostname replace'  # see hostname_replace configuration below
 #   - 'Open Access DOI rewrite'
-#   - 'Tor check plugin'
-#   # Read the docs before activate: auto-detection of the language could be
-#   # detrimental to users expectations / users can activate the plugin in the
-#   # preferences if they want.
-#   - 'Autodetect search language'
+#   - 'Vim-like hotkeys'
 
-# Configuration of the "Hostnames plugin":
+# Configuration of the "Hostname replace" plugin:
 #
-# hostnames:
-#   replace:
-#     '(.*\.)?youtube\.com$': 'invidious.example.com'
-#     '(.*\.)?youtu\.be$': 'invidious.example.com'
-#     '(.*\.)?reddit\.com$': 'teddit.example.com'
-#     '(.*\.)?redd\.it$': 'teddit.example.com'
-#     '(www\.)?twitter\.com$': 'nitter.example.com'
-#   remove:
-#     - '(.*\.)?facebook.com$'
-#   low_priority:
-#     - '(.*\.)?google(\..*)?$'
-#   high_priority:
-#     - '(.*\.)?wikipedia.org$'
-#
-# Alternatively you can use external files for configuring the "Hostnames plugin":
-#
-# hostnames:
-#  replace: 'rewrite-hosts.yml'
-#
-# Content of 'rewrite-hosts.yml' (place the file in the same directory as 'settings.yml'):
-# '(.*\.)?youtube\.com$': 'invidious.example.com'
-# '(.*\.)?youtu\.be$': 'invidious.example.com'
-#
+# hostname_replace:
+#   '(.*\.)?youtube\.com$': 'invidious.example.com'
+#   '(.*\.)?youtu\.be$': 'invidious.example.com'
+#   '(.*\.)?youtube-noocookie\.com$': 'yotter.example.com'
+#   '(.*\.)?reddit\.com$': 'teddit.example.com'
+#   '(.*\.)?redd\.it$': 'teddit.example.com'
+#   '(www\.)?twitter\.com$': 'nitter.example.com'
+#   # to remove matching host names from result list, set value to false
+#   'spam\.example\.com': false
 
 checker:
   # disable checker when in debug mode
@@ -268,7 +207,7 @@ checker:
 
   # to activate the scheduler:
   # * uncomment "scheduling" section
-  # * add "cache2 = name=searxngcache,items=2000,blocks=2000,blocksize=4096,bitmap=1"
+  # * add "cache2 = name=searxcache,items=2000,blocks=2000,blocksize=4096,bitmap=1"
   #   to your uwsgi.ini
 
   # scheduling:
@@ -320,38 +259,10 @@ categories_as_tabs:
   social media:
 
 engines:
-  - name: 9gag
-    engine: 9gag
-    shortcut: 9g
-    disabled: true
-
-  - name: alpine linux packages
-    engine: alpinelinux
-    disabled: true
-    shortcut: alp
-
-  - name: annas archive
-    engine: annas_archive
-    disabled: true
-    shortcut: aa
-
-  # - name: annas articles
-  #   engine: annas_archive
-  #   shortcut: aaa
-  #   # https://docs.searxng.org/dev/engines/online/annas_archive.html
-  #   aa_content: 'magazine' # book_fiction, book_unknown, book_nonfiction, book_comic
-  #   aa_ext: 'pdf'  # pdf, epub, ..
-  #   aa_sort: oldest'  # newest, oldest, largest, smallest
-
   - name: apk mirror
     engine: apkmirror
     timeout: 4.0
     shortcut: apkm
-    disabled: true
-
-  - name: apple app store
-    engine: apple_app_store
-    shortcut: aps
     disabled: true
 
   # Requires Tor
@@ -361,23 +272,28 @@ engines:
     enable_http: true
     shortcut: ah
 
-  - name: anaconda
-    engine: xpath
-    paging: true
-    first_page_num: 0
-    search_url: https://anaconda.org/search?q={query}&page={pageno}
-    results_xpath: //tbody/tr
-    url_xpath: ./td/h5/a[last()]/@href
-    title_xpath: ./td/h5
-    content_xpath: ./td[h5]/text()
-    categories: it
-    timeout: 6.0
-    shortcut: conda
-    disabled: true
-
   - name: arch linux wiki
     engine: archlinux
     shortcut: al
+
+  - name: archive is
+    engine: xpath
+    search_url: https://archive.is/search/?q={query}
+    url_xpath: (//div[@class="TEXT-BLOCK"]/a)/@href
+    title_xpath: (//div[@class="TEXT-BLOCK"]/a)
+    content_xpath: //div[@class="TEXT-BLOCK"]/ul/li
+    categories: general
+    timeout: 7.0
+    disabled: true
+    shortcut: ai
+    soft_max_redirects: 1
+    about:
+      website: https://archive.is/
+      wikidata_id: Q13515725
+      official_api_documentation: https://mementoweb.org/depot/native/archiveis/
+      use_official_api: false
+      require_api_key: false
+      results: HTML
 
   - name: artic
     engine: artic
@@ -387,12 +303,8 @@ engines:
   - name: arxiv
     engine: arxiv
     shortcut: arx
+    categories: science
     timeout: 4.0
-
-  - name: ask
-    engine: ask
-    shortcut: ask
-    disabled: true
 
   # tmp suspended:  dh key too small
   # - name: base
@@ -407,15 +319,7 @@ engines:
   - name: wikipedia
     engine: wikipedia
     shortcut: wp
-    # add "list" to the array to get results in the results list
-    display_type: ["infobox"]
     base_url: 'https://{language}.wikipedia.org/'
-    categories: [general]
-
-  - name: bilibili
-    engine: bilibili
-    shortcut: bil
-    disabled: true
 
   - name: bing
     engine: bing
@@ -453,34 +357,36 @@ engines:
       require_api_key: false
       results: HTML
 
-  - name: bpb
-    engine: bpb
-    shortcut: bpb
-    disabled: true
-
   - name: btdigg
     engine: btdigg
     shortcut: bt
     disabled: true
 
+  - name: ccc-tv
+    engine: xpath
+    paging: false
+    search_url: https://media.ccc.de/search/?q={query}
+    url_xpath: //div[@class="caption"]/h3/a/@href
+    title_xpath: //div[@class="caption"]/h3/a/text()
+    content_xpath: //div[@class="caption"]/h4/@title
+    categories: videos
+    disabled: true
+    shortcut: c3tv
+    about:
+      website: https://media.ccc.de/
+      wikidata_id: Q80729951
+      official_api_documentation: https://github.com/voc/voctoweb
+      use_official_api: false
+      require_api_key: false
+      results: HTML
+      # We don't set language: de here because media.ccc.de is not just
+      # for a German audience. It contains many English videos and many
+      # German videos have English subtitles.
+
   - name: openverse
     engine: openverse
     categories: images
     shortcut: opv
-
-  - name: media.ccc.de
-    engine: ccc_media
-    shortcut: c3tv
-    # We don't set language: de here because media.ccc.de is not just
-    # for a German audience. It contains many English videos and many
-    # German videos have English subtitles.
-    disabled: true
-
-  - name: chefkoch
-    engine: chefkoch
-    shortcut: chef
-    # to show premium or plus results too:
-    # skip_premium: false
 
   # - name: core.ac.uk
   #   engine: core
@@ -489,53 +395,49 @@ engines:
   #   # get your API key from: https://core.ac.uk/api-keys/register/
   #   api_key: 'unset'
 
-  - name: cppreference
-    engine: cppreference
-    shortcut: cpp
-    paging: false
-    disabled: true
-
   - name: crossref
-    engine: crossref
-    shortcut: cr
-    timeout: 30
-    disabled: true
-
-  - name: crowdview
     engine: json_engine
-    shortcut: cv
-    categories: general
-    paging: false
-    search_url: https://crowdview-next-js.onrender.com/api/search-v3?query={query}
-    results_query: results
-    url_query: link
-    title_query: title
-    content_query: snippet
+    paging: true
     disabled: true
+    search_url: https://search.crossref.org/dois?q={query}&page={pageno}
+    url_query: doi
+    title_query: title
+    title_html_to_text: true
+    content_query: fullCitation
+    content_html_to_text: true
+    categories: science
+    shortcut: cr
     about:
-      website: https://crowdview.ai/
+      website: https://www.crossref.org/
+      wikidata_id: Q5188229
+      official_api_documentation: https://github.com/CrossRef/rest-api-doc
+      use_official_api: false
+      require_api_key: false
+      results: JSON
 
   - name: yep
-    engine: yep
+    engine: json_engine
     shortcut: yep
     categories: general
-    search_type: web
-    timeout: 5
     disabled: true
-
-  - name: yep images
-    engine: yep
-    shortcut: yepi
-    categories: images
-    search_type: images
-    disabled: true
-
-  - name: yep news
-    engine: yep
-    shortcut: yepn
-    categories: news
-    search_type: news
-    disabled: true
+    paging: false
+    page_size: 10
+    content_html_to_text: true
+    title_html_to_text: true
+    search_url: https://api.yep.com/fs/1/?type=web&q={query}&no_correct=false
+    results_query: 1/results
+    title_query: title
+    url_query: url
+    content_query: snippet
+    timeout: 12.0
+    headers:
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8'
+      'Sec-Fetch-Dest': 'document'
+    about:
+      website: https://yep.com
+      use_official_api: false
+      require_api_key: false
+      results: JSON
 
   - name: curlie
     engine: xpath
@@ -567,11 +469,6 @@ engines:
     shortcut: dz
     disabled: true
 
-  - name: destatis
-    engine: destatis
-    shortcut: destat
-    disabled: true
-
   - name: deviantart
     engine: deviantart
     shortcut: da
@@ -595,24 +492,6 @@ engines:
     engine: docker_hub
     shortcut: dh
     categories: [it, packages]
-
-  - name: encyclosearch
-    engine: json_engine
-    shortcut: es
-    categories: general
-    paging: true
-    search_url: https://encyclosearch.org/encyclosphere/search?q={query}&page={pageno}&resultsPerPage=15
-    results_query: Results
-    url_query: SourceURL
-    title_query: Title
-    content_query: Description
-    disabled: true
-    about:
-      website: https://encyclosearch.org
-      official_api_documentation: https://encyclosearch.org/docs/#/rest-api
-      use_official_api: true
-      require_api_key: false
-      results: JSON
 
   - name: erowid
     engine: xpath
@@ -653,58 +532,22 @@ engines:
     shortcut: wd
     timeout: 3.0
     weight: 2
-    # add "list" to the array to get results in the results list
-    display_type: ["infobox"]
     tests: *tests_infobox
-    categories: [general]
 
   - name: duckduckgo
     engine: duckduckgo
     shortcut: ddg
+    disabled: false
 
   - name: duckduckgo images
-    engine: duckduckgo_extra
-    categories: [images, web]
-    ddg_category: images
+    engine: duckduckgo_images
     shortcut: ddi
-    disabled: true
-
-  - name: duckduckgo videos
-    engine: duckduckgo_extra
-    categories: [videos, web]
-    ddg_category: videos
-    shortcut: ddv
-    disabled: true
-
-  - name: duckduckgo news
-    engine: duckduckgo_extra
-    categories: [news, web]
-    ddg_category: news
-    shortcut: ddn
-    disabled: true
-
-  - name: duckduckgo weather
-    engine: duckduckgo_weather
-    shortcut: ddw
-    disabled: true
-
-  - name: apple maps
-    engine: apple_maps
-    shortcut: apm
-    disabled: true
-    timeout: 5.0
-
-  - name: emojipedia
-    engine: emojipedia
-    timeout: 4.0
-    shortcut: em
-    disabled: true
+    timeout: 3.0
 
   - name: tineye
     engine: tineye
     shortcut: tin
     timeout: 9.0
-    disabled: true
 
   - name: etymonline
     engine: xpath
@@ -716,6 +559,7 @@ engines:
     first_page_num: 1
     shortcut: et
     categories: [dictionaries]
+    disabled: false
     about:
       website: https://www.etymonline.com/
       wikidata_id: Q1188617
@@ -742,11 +586,6 @@ engines:
     shortcut: fd
     disabled: true
 
-  - name: findthatmeme
-    engine: findthatmeme
-    shortcut: ftm
-    disabled: true
-
   - name: flickr
     categories: images
     shortcut: fl
@@ -762,6 +601,11 @@ engines:
     shortcut: fsd
     categories: [it, software wikis]
     base_url: https://directory.fsf.org/
+    number_of_results: 5
+    # what part of a page matches the query string: title, text, nearmatch
+    # * title     - query matches title
+    # * text      - query matches the text of page
+    # * nearmatch - nearmatch in title
     search_type: title
     timeout: 5.0
     disabled: true
@@ -782,29 +626,24 @@ engines:
     shortcut: frk
     disabled: true
 
-  - name: fyyd
-    engine: fyyd
-    shortcut: fy
-    timeout: 8.0
-    disabled: true
-
-  - name: geizhals
-    engine: geizhals
-    shortcut: geiz
-    disabled: true
-
   - name: genius
     engine: genius
     shortcut: gen
+    disabled: true
+
+
+  - name: gigablast
+    engine: gigablast
+    shortcut: gb
+    timeout: 4.0
+    disabled: true
+    additional_tests:
+      rosebud: *test_rosebud
 
   - name: gentoo
-    engine: mediawiki
+    engine: gentoo
     shortcut: ge
-    categories: ["it", "software wikis"]
-    base_url: "https://wiki.gentoo.org/"
-    api_path: "api.php"
-    search_type: text
-    timeout: 10
+    disabled: true
 
   - name: gitlab
     engine: json_engine
@@ -830,30 +669,45 @@ engines:
     engine: github
     shortcut: gh
 
+    # This a Gitea service. If you would like to use a different instance,
+    # change codeberg.org to URL of the desired Gitea host. Or you can create a
+    # new engine by copying this and changing the name, shortcut and search_url.
+
   - name: codeberg
-    # https://docs.searxng.org/dev/engines/online/gitea.html
-    engine: gitea
-    base_url: https://codeberg.org
+    engine: json_engine
+    search_url: https://codeberg.org/api/v1/repos/search?q={query}&limit=10
+    url_query: html_url
+    title_query: name
+    content_query: description
+    categories: [it, repos]
     shortcut: cb
     disabled: true
-
-  - name: gitea.com
-    engine: gitea
-    base_url: https://gitea.com
-    shortcut: gitea
-    disabled: true
-
-  - name: goodreads
-    engine: goodreads
-    shortcut: good
-    timeout: 4.0
-    disabled: true
+    about:
+      website: https://codeberg.org/
+      wikidata_id:
+      official_api_documentation: https://try.gitea.io/api/swagger
+      use_official_api: false
+      require_api_key: false
+      results: JSON
 
   - name: google
     engine: google
     shortcut: go
+    # see https://docs.Otto.org/src/searx.engines.google.html#module-searx.engines.google
+    use_mobile_ui: false
     # additional_tests:
     #   android: *test_android
+
+  # - name: google italian
+  #   engine: google
+  #   shortcut: goit
+  #   use_mobile_ui: false
+  #   language: it
+
+  # - name: google mobile ui
+  #   engine: google
+  #   shortcut: gomui
+  #   use_mobile_ui: true
 
   - name: google images
     engine: google_images
@@ -882,26 +736,31 @@ engines:
   - name: google scholar
     engine: google_scholar
     shortcut: gos
+    disabled: true
 
   - name: google play apps
-    engine: google_play
-    categories: [files, apps]
+    engine: google_play_apps
     shortcut: gpa
-    play_categ: apps
     disabled: true
 
   - name: google play movies
-    engine: google_play
+    engine: xpath
+    search_url: https://play.google.com/store/search?q={query}&c=movies
+    results_xpath: '//div[@class="ImZGtf mpg5gc"]'
+    title_xpath: './/div[@class="RZEgze"]//div[@class="kCSSQe"]//a'
+    url_xpath: './/div[@class="RZEgze"]//div[@class="kCSSQe"]//a/@href'
+    content_xpath: './/div[@class="kCSSQe"]'
+    thumbnail_xpath: './/div[@class="uzcko"]/div/span[1]//img/@data-src'
     categories: videos
     shortcut: gpm
-    play_categ: movies
     disabled: true
-
-  - name: material icons
-    engine: material_icons
-    categories: images
-    shortcut: mi
-    disabled: true
+    about:
+      website: https://play.google.com/
+      wikidata_id: Q79576
+      official_api_documentation:
+      use_official_api: false
+      require_api_key: false
+      results: HTML
 
   - name: gpodder
     engine: json_engine
@@ -926,11 +785,10 @@ engines:
   - name: habrahabr
     engine: xpath
     paging: true
-    search_url: https://habr.com/en/search/page{pageno}/?q={query}
-    results_xpath: //article[contains(@class, "tm-articles-list__item")]
-    url_xpath: .//a[@class="tm-title__link"]/@href
-    title_xpath: .//a[@class="tm-title__link"]
-    content_xpath: .//div[contains(@class, "article-formatted-body")]
+    search_url: https://habrahabr.ru/search/page{pageno}/?q={query}
+    url_xpath: //article[contains(@class, "post")]//a[@class="post__title_link"]/@href
+    title_xpath: //article[contains(@class, "post")]//a[@class="post__title_link"]
+    content_xpath: //article[contains(@class, "post")]//div[contains(@class, "post__text")]
     categories: it
     timeout: 4.0
     disabled: true
@@ -943,28 +801,10 @@ engines:
       require_api_key: false
       results: HTML
 
-  - name: hackernews
-    engine: hackernews
-    shortcut: hn
-    disabled: true
-
-  - name: hex
-    engine: hex
-    shortcut: hex
-    disabled: true
-    # Valid values: name inserted_at updated_at total_downloads recent_downloads
-    sort_criteria: "recent_downloads"
-    page_size: 10
-
-  - name: crates.io
-    engine: crates
-    shortcut: crates
-    disabled: true
-    timeout: 6.0
-
   - name: hoogle
     engine: xpath
-    search_url: https://hoogle.haskell.org/?hoogle={query}
+    paging: true
+    search_url: https://hoogle.haskell.org/?hoogle={query}&start={pageno}
     results_xpath: '//div[@class="result"]'
     title_xpath: './/div[@class="ans"]//a'
     url_xpath: './/div[@class="ans"]//a/@href'
@@ -986,11 +826,6 @@ engines:
     timeout: 6.0
     disabled: true
 
-  - name: imgur
-    engine: imgur
-    shortcut: img
-    disabled: true
-
   - name: ina
     engine: ina
     shortcut: in
@@ -1002,14 +837,11 @@ engines:
     # Instanes will be selected randomly, see https://api.invidious.io/ for
     # instances that are stable (good uptime) and close to you.
     base_url:
-      - https://invidious.io.lol
-      - https://invidious.fdn.fr
-      - https://yt.artemislena.eu
-      - https://invidious.tiekoetter.com
-      - https://invidious.flokinet.to
+      - https://invidious.snopyta.org
       - https://vid.puffyan.us
-      - https://invidious.privacydev.net
-      - https://inv.tux.pizza
+      # - https://invidious.kavin.rocks  # Error 1020 // Access denied by Cloudflare
+      - https://invidio.xamh.de
+      - https://inv.riverside.rocks
     shortcut: iv
     timeout: 3.0
     disabled: true
@@ -1022,43 +854,14 @@ engines:
 
   - name: kickass
     engine: kickass
-    base_url:
-      - https://kickasstorrents.to
-      - https://kickasstorrents.cr
-      - https://kickasstorrent.cr
-      - https://kickass.sx
-      - https://kat.am
     shortcut: kc
     timeout: 4.0
-
-  - name: lemmy communities
-    engine: lemmy
-    lemmy_type: Communities
-    shortcut: leco
-
-  - name: lemmy users
-    engine: lemmy
-    network: lemmy communities
-    lemmy_type: Users
-    shortcut: leus
-
-  - name: lemmy posts
-    engine: lemmy
-    network: lemmy communities
-    lemmy_type: Posts
-    shortcut: lepo
-
-  - name: lemmy comments
-    engine: lemmy
-    network: lemmy communities
-    lemmy_type: Comments
-    shortcut: lecom
+    disabled: true
 
   - name: library genesis
     engine: xpath
-    # search_url: https://libgen.is/search.php?req={query}
-    search_url: https://libgen.rs/search.php?req={query}
-    url_xpath: //a[contains(@href,"book/index.php?md5")]/@href
+    search_url: https://libgen.fun/search.php?req={query}
+    url_xpath: //a[contains(@href,"get.php?md5")]/@href
     title_xpath: //a[contains(@href,"book/")]/text()[1]
     content_xpath: //td/a[1][contains(@href,"=author")]/text()
     categories: files
@@ -1077,32 +880,22 @@ engines:
     engine: zlibrary
     shortcut: zlib
     categories: files
-    timeout: 7.0
+    timeout: 3.0
+    disabled: true
+    # choose base_url, otherwise engine will do it at initialization time
+    # base_url: https://b-ok.cc
+    # base_url: https://de1lib.org
+    # base_url: https://booksc.eu   # does not have cover preview
+    # base_url: https://booksc.org  # does not have cover preview
 
   - name: library of congress
     engine: loc
     shortcut: loc
     categories: images
 
-  - name: libretranslate
-    engine: libretranslate
-    # https://github.com/LibreTranslate/LibreTranslate?tab=readme-ov-file#mirrors
-    base_url:
-      - https://translate.terraprint.co
-      - https://trans.zillyhuhn.com
-    # api_key: abc123
-    shortcut: lt
-    disabled: true
-
-  - name: lingva
-    engine: lingva
-    shortcut: lv
-    # set lingva instance in url, by default it will use the official instance
-    # url: https://lingva.thedaviddelta.com
-
   - name: lobste.rs
     engine: xpath
-    search_url: https://lobste.rs/search?q={query}&what=stories&order=relevance
+    search_url: https://lobste.rs/search?utf8=%E2%9C%93&q={query}&what=stories&order=relevance
     results_xpath: //li[contains(@class, "story")]
     url_xpath: .//a[@class="u-url"]/@href
     title_xpath: .//a[@class="u-url"]
@@ -1119,49 +912,24 @@ engines:
       require_api_key: false
       results: HTML
 
-  - name: mastodon users
-    engine: mastodon
-    mastodon_type: accounts
-    base_url: https://mastodon.social
-    shortcut: mau
-
-  - name: mastodon hashtags
-    engine: mastodon
-    mastodon_type: hashtags
-    base_url: https://mastodon.social
-    shortcut: mah
-
-  # - name: matrixrooms
-  #   engine: mrs
-  #   # https://docs.searxng.org/dev/engines/online/mrs.html
-  #   # base_url: https://mrs-api-host
-  #   shortcut: mtrx
-  #   disabled: true
-
-  - name: mdn
-    shortcut: mdn
-    engine: json_engine
-    categories: [it]
+  - name: azlyrics
+    shortcut: lyrics
+    engine: xpath
+    timeout: 4.0
+    disabled: true
+    categories: [music, lyrics]
     paging: true
-    search_url: https://developer.mozilla.org/api/v1/search?q={query}&page={pageno}
-    results_query: documents
-    url_query: mdn_url
-    url_prefix: https://developer.mozilla.org
-    title_query: title
-    content_query: summary
+    search_url: https://search.azlyrics.com/search.php?q={query}&w=lyrics&p={pageno}
+    url_xpath: //td[@class="text-left visitedlyr"]/a/@href
+    title_xpath: //span/b/text()
+    content_xpath: //td[@class="text-left visitedlyr"]/a/small
     about:
-      website: https://developer.mozilla.org
-      wikidata_id: Q3273508
-      official_api_documentation: null
+      website: https://azlyrics.com
+      wikidata_id: Q66372542
+      official_api_documentation:
       use_official_api: false
       require_api_key: false
-      results: JSON
-
-  - name: metacpan
-    engine: metacpan
-    shortcut: cpan
-    disabled: true
-    number_of_results: 20
+      results: HTML
 
   # - name: meilisearch
   #   engine: meilisearch
@@ -1188,28 +956,27 @@ engines:
   #   collection: 'reviews'  # name of the db collection
   #   key: 'name'  # key in the collection to search for
 
-  - name: mozhi
-    engine: mozhi
-    base_url:
-      - https://mozhi.aryak.me
-      - https://translate.bus-hit.me
-      - https://nyc1.mz.ggtyler.dev
-    # mozhi_engine: google - see https://mozhi.aryak.me for supported engines
-    timeout: 4.0
-    shortcut: mz
-    disabled: true
-
-  - name: mwmbl
-    engine: mwmbl
-    # api_url: https://api.mwmbl.org
-    shortcut: mwm
-    disabled: true
-
   - name: npm
-    engine: npm
-    shortcut: npm
-    timeout: 5.0
+    engine: json_engine
+    paging: true
+    first_page_num: 0
+    search_url: https://api.npms.io/v2/search?q={query}&size=25&from={pageno}
+    results_query: results
+    url_query: package/links/npm
+    title_query: package/name
+    content_query: package/description
+    page_size: 25
+    categories: [it, packages]
     disabled: true
+    timeout: 5.0
+    shortcut: npm
+    about:
+      website: https://npms.io/
+      wikidata_id: Q7067518
+      official_api_documentation: https://api-docs.npms.io/
+      use_official_api: false
+      require_api_key: false
+      results: JSON
 
   - name: nyaa
     engine: nyaa
@@ -1232,20 +999,6 @@ engines:
       require_api_key: false
       results: JSON
 
-  # read https://docs.searxng.org/dev/engines/online/mullvad_leta.html
-  # - name: mullvadleta
-  #   engine: mullvad_leta
-  #   leta_engine: google # choose one of the following: google, brave
-  #   use_cache: true  # Only 100 non-cache searches per day, suggested only for private instances
-  #   search_url: https://leta.mullvad.net
-  #   categories: [general, web]
-  #   shortcut: ml
-
-  - name: odysee
-    engine: odysee
-    shortcut: od
-    disabled: true
-
   - name: openairedatasets
     engine: json_engine
     paging: true
@@ -1255,7 +1008,7 @@ engines:
     title_query: metadata/oaf:entity/oaf:result/title/$
     content_query: metadata/oaf:entity/oaf:result/description/$
     content_html_to_text: true
-    categories: "science"
+    categories: science
     shortcut: oad
     timeout: 5.0
     about:
@@ -1285,11 +1038,6 @@ engines:
       use_official_api: false
       require_api_key: false
       results: JSON
-
-  - name: openmeteo
-    engine: open_meteo
-    shortcut: om
-    disabled: true
 
   # - name: opensemanticsearch
   #   engine: opensemantic
@@ -1349,33 +1097,6 @@ engines:
     engine: photon
     shortcut: ph
 
-  - name: pinterest
-    engine: pinterest
-    shortcut: pin
-
-  - name: piped
-    engine: piped
-    shortcut: ppd
-    categories: videos
-    piped_filter: videos
-    timeout: 3.0
-
-    # URL to use as link and for embeds
-    frontend_url: https://srv.piped.video
-    # Instance will be selected randomly, for more see https://piped-instances.kavin.rocks/
-    backend_url:
-      - https://pipedapi.kavin.rocks
-      - https://pipedapi-libre.kavin.rocks
-      - https://pipedapi.adminforge.de
-
-  - name: piped.music
-    engine: piped
-    network: piped
-    shortcut: ppdm
-    categories: music
-    piped_filter: music_songs
-    timeout: 3.0
-
   - name: piratebay
     engine: piratebay
     shortcut: tpb
@@ -1383,35 +1104,6 @@ engines:
     # country
     url: https://thepiratebay.org/
     timeout: 3.0
-
-  - name: pixiv
-    shortcut: pv
-    engine: pixiv
-    disabled: true
-    inactive: true
-    pixiv_image_proxies:
-      - https://pximg.example.org
-      # A proxy is required to load the images. Hosting an image proxy server
-      # for Pixiv:
-      #    --> https://pixivfe.pages.dev/hosting-image-proxy-server/
-      # Proxies from public instances.  Ask the public instances owners if they
-      # agree to receive traffic from SearXNG!
-      #    --> https://codeberg.org/VnPower/PixivFE#instances
-      #    --> https://github.com/searxng/searxng/pull/3192#issuecomment-1941095047
-      # image proxy of https://pixiv.cat
-      # - https://i.pixiv.cat
-      # image proxy of https://www.pixiv.pics
-      # - https://pximg.cocomi.eu.org
-      # image proxy of https://pixivfe.exozy.me
-      # - https://pximg.exozy.me
-      # image proxy of https://pixivfe.ducks.party
-      # - https://pixiv.ducks.party
-      # image proxy of https://pixiv.perennialte.ch
-      # - https://pximg.perennialte.ch
-
-  - name: podcastindex
-    engine: podcastindex
-    shortcut: podcast
 
   # Required dependency: psychopg2
   #  - name: postgresql
@@ -1423,50 +1115,15 @@ engines:
   #    query_str: 'SELECT * from my_table WHERE my_column = %(query)s'
   #    shortcut : psql
 
-  - name: presearch
-    engine: presearch
-    search_type: search
-    categories: [general, web]
-    shortcut: ps
-    timeout: 4.0
-    disabled: true
-
-  - name: presearch images
-    engine: presearch
-    network: presearch
-    search_type: images
-    categories: [images, web]
-    timeout: 4.0
-    shortcut: psimg
-    disabled: true
-
-  - name: presearch videos
-    engine: presearch
-    network: presearch
-    search_type: videos
-    categories: [general, web]
-    timeout: 4.0
-    shortcut: psvid
-    disabled: true
-
-  - name: presearch news
-    engine: presearch
-    network: presearch
-    search_type: news
-    categories: [news, web]
-    timeout: 4.0
-    shortcut: psnews
-    disabled: true
-
   - name: pub.dev
     engine: xpath
     shortcut: pd
     search_url: https://pub.dev/packages?q={query}&page={pageno}
     paging: true
-    results_xpath: //div[contains(@class,"packages-item")]
+    results_xpath: /html/body/main/div/div[@class="search-results"]/div[@class="packages"]/div
     url_xpath: ./div/h3/a/@href
     title_xpath: ./div/h3/a
-    content_xpath: ./div/div/div[contains(@class,"packages-description")]/span
+    content_xpath: ./p[@class="packages-description"]
     categories: [packages, it]
     timeout: 3.0
     disabled: true
@@ -1481,39 +1138,56 @@ engines:
   - name: pubmed
     engine: pubmed
     shortcut: pub
+    categories: science
     timeout: 3.0
 
   - name: pypi
     shortcut: pypi
-    engine: pypi
+    engine: xpath
+    paging: true
+    search_url: https://pypi.org/search?q={query}&page={pageno}
+    results_xpath: /html/body/main/div/div/div/form/div/ul/li/a[@class="package-snippet"]
+    url_xpath: ./@href
+    title_xpath: ./h3/span[@class="package-snippet__name"]
+    content_xpath: ./p
+    suggestion_xpath: /html/body/main/div/div/div/form/div/div[@class="callout-block"]/p/span/a[@class="link"]
+    first_page_num: 1
+    categories: [it, packages]
+    about:
+      website: https://pypi.org
+      wikidata_id: Q2984686
+      official_api_documentation: https://warehouse.readthedocs.io/api-reference/index.html
+      use_official_api: false
+      require_api_key: false
+      results: HTML
 
   - name: qwant
-    qwant_categ: web
     engine: qwant
     shortcut: qw
     categories: [general, web]
+    disabled: false
     additional_tests:
       rosebud: *test_rosebud
 
   - name: qwant news
-    qwant_categ: news
     engine: qwant
     shortcut: qwn
     categories: news
+    disabled: false
     network: qwant
 
   - name: qwant images
-    qwant_categ: images
     engine: qwant
     shortcut: qwi
     categories: [images, web]
+    disabled: false
     network: qwant
 
   - name: qwant videos
-    qwant_categ: videos
     engine: qwant
     shortcut: qwv
     categories: [videos, web]
+    disabled: false
     network: qwant
 
   # - name: library
@@ -1538,38 +1212,10 @@ engines:
   #   categories: files
   #   disabled: true
 
-  - name: radio browser
-    engine: radio_browser
-    shortcut: rb
-
   - name: reddit
     engine: reddit
     shortcut: re
     page_size: 25
-    disabled: true
-
-  - name: right dao
-    engine: xpath
-    paging: true
-    page_size: 12
-    search_url: https://rightdao.com/search?q={query}&start={pageno}
-    results_xpath: //div[contains(@class, "description")]
-    url_xpath: ../div[contains(@class, "title")]/a/@href
-    title_xpath: ../div[contains(@class, "title")]
-    content_xpath: .
-    categories: general
-    shortcut: rd
-    disabled: true
-    about:
-      website: https://rightdao.com/
-      use_official_api: false
-      require_api_key: false
-      results: HTML
-
-  - name: rottentomatoes
-    engine: rottentomatoes
-    shortcut: rt
-    disabled: true
 
   # Required dependency: redis
   # - name: myredis
@@ -1587,20 +1233,6 @@ engines:
   #    shortcut: scs
   #    engine: scanr_structures
   #    disabled: true
-
-  - name: searchmysite
-    engine: xpath
-    shortcut: sms
-    categories: general
-    paging: true
-    search_url: https://searchmysite.net/search/?q={query}&page={pageno}
-    results_xpath: //div[contains(@class,'search-result')]
-    url_xpath: .//a[contains(@class,'result-link')]/@href
-    title_xpath: .//span[contains(@class,'result-title-txt')]/text()
-    content_xpath: ./p[@id='result-hightlight']
-    disabled: true
-    about:
-      website: https://searchmysite.net
 
   - name: sepiasearch
     engine: sepiasearch
@@ -1622,41 +1254,20 @@ engines:
     api_site: 'askubuntu'
     categories: [it, q&a]
 
-  - name: internetarchivescholar
-    engine: internet_archive_scholar
-    shortcut: ias
-    timeout: 15.0
-
   - name: superuser
     engine: stackexchange
     shortcut: su
     api_site: 'superuser'
     categories: [it, q&a]
 
-  - name: discuss.python
-    engine: discourse
-    shortcut: dpy
-    base_url: 'https://discuss.python.org'
-    categories: [it, q&a]
-    disabled: true
-
-  - name: caddy.community
-    engine: discourse
-    shortcut: caddy
-    base_url: 'https://caddy.community'
-    categories: [it, q&a]
-    disabled: true
-
-  - name: pi-hole.community
-    engine: discourse
-    shortcut: pi
-    categories: [it, q&a]
-    base_url: 'https://discourse.pi-hole.net'
-    disabled: true
-
   - name: searchcode code
     engine: searchcode_code
     shortcut: scc
+    disabled: true
+
+  - name: framalibre
+    engine: framalibre
+    shortcut: frl
     disabled: true
 
   # - name: searx
@@ -1671,6 +1282,7 @@ engines:
     engine: semantic_scholar
     disabled: true
     shortcut: se
+    categories: science
 
   # Spotify needs API credentials
   # - name: spotify
@@ -1696,7 +1308,8 @@ engines:
   #   # working API key, for test & debug: "a69685087d07eca9f13db62f65b8f601"
   #   api_key: 'unset'
   #   shortcut: springer
-  #   timeout: 15.0
+  #   categories: science
+  #   timeout: 6.0
 
   - name: startpage
     engine: startpage
@@ -1716,7 +1329,10 @@ engines:
     engine: solidtorrents
     shortcut: solid
     timeout: 4.0
+    disabled: true
     base_url:
+      - https://solidtorrents.net
+      - https://solidtorrents.eu
       - https://solidtorrents.to
       - https://bitsearch.to
 
@@ -1738,27 +1354,7 @@ engines:
   #       FROM film
   #      WHERE title LIKE :wildcard OR description LIKE :wildcard
   #      ORDER BY duration DESC
-
-  - name: tagesschau
-    engine: tagesschau
-    # when set to false, display URLs from Tagesschau, and not the actual source
-    # (e.g. NDR, WDR, SWR, HR, ...)
-    use_source_url: true
-    shortcut: ts
-    disabled: true
-
-  - name: tmdb
-    engine: xpath
-    paging: true
-    categories: movies
-    search_url: https://www.themoviedb.org/search?page={pageno}&query={query}
-    results_xpath: //div[contains(@class,"movie") or contains(@class,"tv")]//div[contains(@class,"card")]
-    url_xpath: .//div[contains(@class,"poster")]/a/@href
-    thumbnail_xpath: .//img/@src
-    title_xpath: .//div[contains(@class,"title")]//h2
-    content_xpath: .//div[contains(@class,"overview")]
-    shortcut: tm
-    disabled: true
+  #   disabled: false
 
   # Requires Tor
   - name: torch
@@ -1775,22 +1371,26 @@ engines:
     shortcut: tch
 
   # torznab engine lets you query any torznab compatible indexer.  Using this
-  # engine in combination with Jackett opens the possibility to query a lot of
-  # public and private indexers directly from SearXNG. More details at:
-  # https://docs.searxng.org/dev/engines/online/torznab.html
-  #
-  # - name: Torznab EZTV
+  # engine in combination with Jackett (https://github.com/Jackett/Jackett)
+  # opens the possibility to query a lot of public and private indexers directly
+  # from Otto.
+  # - name: torznab
   #   engine: torznab
-  #   shortcut: eztv
-  #   base_url: http://localhost:9117/api/v2.0/indexers/eztv/results/torznab
+  #   shortcut: trz
+  #   base_url: http://localhost:9117/api/v2.0/indexers/all/results/torznab
   #   enable_http: true  # if using localhost
   #   api_key: xxxxxxxxxxxxxxx
-  #   show_magnet_links: true
-  #   show_torrent_files: false
   #   # https://github.com/Jackett/Jackett/wiki/Jackett-Categories
   #   torznab_categories:  # optional
   #     - 2000
   #     - 5000
+
+  # maybe in a fun category
+  #  - name: uncyclopedia
+  #    engine: mediawiki
+  #    shortcut: unc
+  #    base_url: https://uncyclopedia.wikia.com/
+  #    number_of_results: 5
 
   # tmp suspended - too slow, too many errors
   #  - name: urbandictionary
@@ -1805,33 +1405,10 @@ engines:
     engine: unsplash
     shortcut: us
 
-  - name: yandex
-    engine: yandex
-    categories: general
-    search_type: web
-    shortcut: yd
-    disabled: true
-    inactive: true
-
-  - name: yandex images
-    engine: yandex
-    categories: images
-    search_type: images
-    shortcut: ydi
-    disabled: true
-    inactive: true
-
-  - name: yandex music
-    engine: yandex_music
-    shortcut: ydm
-    disabled: true
-    # https://yandex.com/support/music/access.html
-    inactive: true
-
   - name: yahoo
     engine: yahoo
     shortcut: yh
-    disabled: true
+
 
   - name: yahoo news
     engine: yahoo_news
@@ -1855,11 +1432,11 @@ engines:
   - name: vimeo
     engine: vimeo
     shortcut: vm
+    disabled: true
 
   - name: wiby
     engine: json_engine
-    paging: true
-    search_url: https://wiby.me/json/?q={query}&p={pageno}
+    search_url: https://wiby.me/json/?q={query}
     url_query: URL
     title_query: Title
     content_query: Snippet
@@ -1890,10 +1467,10 @@ engines:
 
   - name: wikibooks
     engine: mediawiki
-    weight: 0.5
     shortcut: wb
-    categories: [general, wikimedia]
+    categories: general
     base_url: "https://{language}.wikibooks.org/"
+    number_of_results: 5
     search_type: text
     disabled: true
     about:
@@ -1903,20 +1480,21 @@ engines:
   - name: wikinews
     engine: mediawiki
     shortcut: wn
-    categories: [news, wikimedia]
+    categories: news
     base_url: "https://{language}.wikinews.org/"
+    number_of_results: 5
     search_type: text
-    srsort: create_timestamp_desc
+    disabled: true
     about:
       website: https://www.wikinews.org/
       wikidata_id: Q964
 
   - name: wikiquote
     engine: mediawiki
-    weight: 0.5
     shortcut: wq
-    categories: [general, wikimedia]
+    categories: general
     base_url: "https://{language}.wikiquote.org/"
+    number_of_results: 5
     search_type: text
     disabled: true
     additional_tests:
@@ -1927,53 +1505,34 @@ engines:
 
   - name: wikisource
     engine: mediawiki
-    weight: 0.5
     shortcut: ws
-    categories: [general, wikimedia]
+    categories: general
     base_url: "https://{language}.wikisource.org/"
+    number_of_results: 5
     search_type: text
     disabled: true
     about:
       website: https://www.wikisource.org/
       wikidata_id: Q263
 
-  - name: wikispecies
-    engine: mediawiki
-    shortcut: wsp
-    categories: [general, science, wikimedia]
-    base_url: "https://species.wikimedia.org/"
-    search_type: text
-    disabled: true
-    about:
-      website: https://species.wikimedia.org/
-      wikidata_id: Q13679
-    tests:
-      wikispecies:
-        matrix:
-          query: "Campbell, L.I. et al. 2011: MicroRNAs"
-          lang: en
-        result_container:
-          - not_empty
-          - ['one_title_contains', 'Tardigrada']
-        test:
-          - unique_results
-
   - name: wiktionary
     engine: mediawiki
     shortcut: wt
-    categories: [dictionaries, wikimedia]
+    categories: [dictionaries]
     base_url: "https://{language}.wiktionary.org/"
+    number_of_results: 5
     search_type: text
+    disabled: false
     about:
       website: https://www.wiktionary.org/
       wikidata_id: Q151
 
   - name: wikiversity
     engine: mediawiki
-    weight: 0.5
     shortcut: wv
-    categories: [general, wikimedia]
+    categories: general
     base_url: "https://{language}.wikiversity.org/"
+    number_of_results: 5
     search_type: text
     disabled: true
     about:
@@ -1982,43 +1541,15 @@ engines:
 
   - name: wikivoyage
     engine: mediawiki
-    weight: 0.5
     shortcut: wy
-    categories: [general, wikimedia]
+    categories: general
     base_url: "https://{language}.wikivoyage.org/"
+    number_of_results: 5
     search_type: text
     disabled: true
     about:
       website: https://www.wikivoyage.org/
       wikidata_id: Q373
-
-  - name: wikicommons.images
-    engine: wikicommons
-    shortcut: wc
-    categories: images
-    search_type: images
-    number_of_results: 10
-
-  - name: wikicommons.videos
-    engine: wikicommons
-    shortcut: wcv
-    categories: videos
-    search_type: videos
-    number_of_results: 10
-
-  - name: wikicommons.audio
-    engine: wikicommons
-    shortcut: wca
-    categories: music
-    search_type: audio
-    number_of_results: 10
-
-  - name: wikicommons.files
-    engine: wikicommons
-    shortcut: wcf
-    categories: files
-    search_type: files
-    number_of_results: 10
 
   - name: wolframalpha
     shortcut: wa
@@ -2031,8 +1562,7 @@ engines:
     # Or you can use the html non-stable engine, activated by default
     engine: wolframalpha_noapi
     timeout: 6.0
-    categories: general
-    disabled: true
+    categories: []
 
   - name: dictzone
     engine: dictzone
@@ -2042,6 +1572,7 @@ engines:
     engine: translated
     shortcut: tl
     timeout: 5.0
+    disabled: false
     # You can use without an API key, but you are limited to 1000 words/day
     # See: https://mymemory.translated.net/doc/usagelimits.php
     # api_key: ''
@@ -2071,41 +1602,27 @@ engines:
     engine: seznam
     disabled: true
 
-  # - name: deepl
-  #   engine: deepl
-  #   shortcut: dpl
-  #   # You can use the engine using the official stable API, but you need an API key
-  #   # See: https://www.deepl.com/pro-api?cta=header-pro-api
-  #   api_key: ''  # required!
-  #   timeout: 5.0
-  #   disabled: true
-
   - name: mojeek
     shortcut: mjk
-    engine: mojeek
+    engine: xpath
+    paging: true
     categories: [general, web]
+    search_url: https://www.mojeek.com/search?q={query}&s={pageno}
+    results_xpath: //a[@class="ob"]
+    url_xpath: ./@href
+    title_xpath: ./h2
+    content_xpath: ../p[@class="s"]
+    suggestion_xpath: /html/body//div[@class="top-info"]/p[@class="top-info spell"]/a
+    first_page_num: 0
+    page_size: 10
     disabled: true
-
-  - name: mojeek images
-    shortcut: mjkimg
-    engine: mojeek
-    categories: [images, web]
-    search_type: images
-    paging: false
-    disabled: true
-
-  - name: mojeek news
-    shortcut: mjknews
-    engine: mojeek
-    categories: [news, web]
-    search_type: news
-    paging: false
-    disabled: true
-
-  - name: moviepilot
-    engine: moviepilot
-    shortcut: mp
-    disabled: true
+    about:
+      website: https://www.mojeek.com/
+      wikidata_id: Q60747299
+      official_api_documentation: https://www.mojeek.com/services/api.html/
+      use_official_api: false
+      require_api_key: false
+      results: HTML
 
   - name: naver
     shortcut: nvr
@@ -2115,7 +1632,7 @@ engines:
     search_url: https://search.naver.com/search.naver?where=webkr&sm=osp_hty&ie=UTF-8&query={query}&start={pageno}
     url_xpath: //a[@class="link_tit"]/@href
     title_xpath: //a[@class="link_tit"]
-    content_xpath: //div[@class="total_dsc_wrap"]/a
+    content_xpath: //a[@class="total_dsc"]/div
     first_page_num: 1
     page_size: 10
     disabled: true
@@ -2153,8 +1670,9 @@ engines:
     engine: peertube
     shortcut: ptb
     paging: true
-    # alternatives see: https://instances.joinpeertube.org/instances
-    # base_url: https://tube.4aem.com
+    # https://instances.joinpeertube.org/instances
+    base_url: https://peertube.biz/
+    # base_url: https://tube.tardis.world/
     categories: videos
     disabled: true
     timeout: 6.0
@@ -2164,36 +1682,14 @@ engines:
     shortcut: mvw
     disabled: true
 
-  - name: yacy
-    # https://docs.searxng.org/dev/engines/online/yacy.html
-    engine: yacy
-    categories: general
-    search_type: text
-    base_url:
-      - https://yacy.searchlab.eu
-      # see https://github.com/searxng/searxng/pull/3631#issuecomment-2240903027
-      # - https://search.kyun.li
-      # - https://yacy.securecomcorp.eu
-      # - https://yacy.myserv.ca
-      # - https://yacy.nsupdate.info
-      # - https://yacy.electroncash.de
-    shortcut: ya
-    disabled: true
-    # if you aren't using HTTPS for your local yacy instance disable https
-    # enable_http: false
-    search_mode: 'global'
-    # timeout can be reduced in 'local' search mode
-    timeout: 5.0
-
-  - name: yacy images
-    engine: yacy
-    network: yacy
-    categories: images
-    search_type: image
-    shortcut: yai
-    disabled: true
-    # timeout can be reduced in 'local' search mode
-    timeout: 5.0
+  # - name: yacy
+  #   engine: yacy
+  #   shortcut: ya
+  #   base_url: http://localhost:8090
+  # required if you aren't using HTTPS for your local yacy instance'
+  #   enable_http: true
+  #   number_of_results: 5
+  #   timeout: 3.0
 
   - name: rumble
     engine: rumble
@@ -2203,19 +1699,13 @@ engines:
     categories: videos
     disabled: true
 
-  - name: livespace
-    engine: livespace
-    shortcut: ls
-    categories: videos
-    disabled: true
-    timeout: 5.0
-
   - name: wordnik
     engine: wordnik
     shortcut: def
     base_url: https://www.wordnik.com/
     categories: [dictionaries]
     timeout: 5.0
+    disabled: false
 
   - name: woxikon.de synonyme
     engine: xpath
@@ -2227,7 +1717,6 @@ engines:
     url_xpath: //div[@class="upper-synonyms"]/a/@href
     content_xpath: //div[@class="synonyms-list-group"]
     title_xpath: //div[@class="upper-synonyms"]/a
-    no_result_for_http_status: [404]
     about:
       website: https://www.woxikon.de/
       wikidata_id:  # No Wikidata ID
@@ -2236,60 +1725,12 @@ engines:
       results: HTML
       language: de
 
-  - name: seekr news
-    engine: seekr
-    shortcut: senews
-    categories: news
-    seekr_category: news
-    disabled: true
-
-  - name: seekr images
-    engine: seekr
-    network: seekr news
-    shortcut: seimg
-    categories: images
-    seekr_category: images
-    disabled: true
-
-  - name: seekr videos
-    engine: seekr
-    network: seekr news
-    shortcut: sevid
-    categories: videos
-    seekr_category: videos
-    disabled: true
-
-  - name: sjp.pwn
+  - name: słownik języka polskiego
     engine: sjp
     shortcut: sjp
     base_url: https://sjp.pwn.pl/
     timeout: 5.0
     disabled: true
-
-  - name: stract
-    engine: stract
-    shortcut: str
-    disabled: true
-
-  - name: svgrepo
-    engine: svgrepo
-    shortcut: svg
-    timeout: 10.0
-    disabled: true
-
-  - name: tootfinder
-    engine: tootfinder
-    shortcut: toot
-
-  - name: voidlinux
-    engine: voidlinux
-    shortcut: void
-    disabled: true
-
-  - name: wallhaven
-    engine: wallhaven
-    # api_key: abcdefghijklmnopqrstuvwxyz
-    shortcut: wh
 
     # wikimini: online encyclopedia for children
     # The fulltext and title parameter is necessary for Wikimini because
@@ -2311,109 +1752,69 @@ engines:
       results: HTML
       language: fr
 
-  - name: wttr.in
-    engine: wttr
-    shortcut: wttr
-    timeout: 9.0
-
-  - name: yummly
-    engine: yummly
-    shortcut: yum
-    disabled: true
-
   - name: brave
-    engine: brave
-    shortcut: br
-    time_range_support: true
-    paging: true
-    categories: [general, web]
-    brave_category: search
-    # brave_spellcheck: true
-
-  - name: brave.images
-    engine: brave
-    network: brave
-    shortcut: brimg
-    categories: [images, web]
-    brave_category: images
-
-  - name: brave.videos
-    engine: brave
-    network: brave
-    shortcut: brvid
-    categories: [videos, web]
-    brave_category: videos
-
-  - name: brave.news
-    engine: brave
-    network: brave
-    shortcut: brnews
-    categories: news
-    brave_category: news
-
-  # - name: brave.goggles
-  #   engine: brave
-  #   network: brave
-  #   shortcut: brgog
-  #   time_range_support: true
-  #   paging: true
-  #   categories: [general, web]
-  #   brave_category: goggles
-  #   Goggles: # required! This should be a URL ending in .goggle
-
-  - name: lib.rs
-    shortcut: lrs
-    engine: lib_rs
-    disabled: true
-
-  - name: sourcehut
-    shortcut: srht
+    shortcut: brave
     engine: xpath
     paging: true
-    search_url: https://sr.ht/projects?page={pageno}&search={query}
-    results_xpath: (//div[@class="event-list"])[1]/div[@class="event"]
-    url_xpath: ./h4/a[2]/@href
-    title_xpath: ./h4/a[2]
-    content_xpath: ./p
-    first_page_num: 1
-    categories: [it, repos]
     disabled: true
-    about:
-      website: https://sr.ht
-      wikidata_id: Q78514485
-      official_api_documentation: https://man.sr.ht/
-      use_official_api: false
-      require_api_key: false
-      results: HTML
-
-  - name: goo
-    shortcut: goo
-    engine: xpath
-    paging: true
-    search_url: https://search.goo.ne.jp/web.jsp?MT={query}&FR={pageno}0
-    url_xpath: //div[@class="result"]/p[@class='title fsL1']/a/@href
-    title_xpath: //div[@class="result"]/p[@class='title fsL1']/a
-    content_xpath: //p[contains(@class,'url fsM')]/following-sibling::p
     first_page_num: 0
+    search_url: https://search.brave.com/search?q={query}&offset={pageno}&spellcheck=1
+    url_xpath: //a[@class="result-header"]/@href
+    title_xpath: //span[@class="snippet-title"]
+    content_xpath: //p[1][@class="snippet-description"]
+    suggestion_xpath: //div[@class="text-gray h6"]/a
     categories: [general, web]
-    disabled: true
-    timeout: 4.0
     about:
-      website: https://search.goo.ne.jp
-      wikidata_id: Q249044
+      website: https://brave.com/search/
+      wikidata_id: Q107355971
       use_official_api: false
       require_api_key: false
       results: HTML
-      language: ja
 
-  - name: bt4g
-    engine: bt4g
-    shortcut: bt4g
-
-  - name: pkg.go.dev
-    engine: pkg_go_dev
-    shortcut: pgo
+  - name: petalsearch
+    shortcut: pts
+    engine: xpath
+    paging: true
+    search_url: https://petalsearch.com/search?query={query}&pn={pageno}
+    results_xpath: //div[@class="webpage-content"]/div[@class="title-cont"]/a
+    url_xpath: ./@href
+    title_xpath: .
+    content_xpath: ../../div[@class="webpage-text"]
+    suggestion_xpath: //div[@class="related-search-items"]/a
+    first_page_num: 1
     disabled: true
+    about:
+      website: https://petalsearch.com/
+      wikidata_id: Q104399280
+      use_official_api: false
+      require_api_key: false
+      results: HTML
+
+  - name: petalsearch images
+    engine: petal_images
+    shortcut: ptsi
+    disabled: true
+    timeout: 3.0
+
+  - name: petalsearch news
+    shortcut: ptsn
+    categories: news
+    engine: xpath
+    paging: true
+    search_url: https://petalsearch.com/search?channel=news&query={query}&pn={pageno}
+    results_xpath: //div[@class="news-container"]/div/div/div/a
+    url_xpath: ./@href
+    title_xpath: ./div
+    content_xpath: ../div[@class="news-text"]
+    thumbnail_xpath: ../../../../img/@src
+    first_page_num: 1
+    disabled: true
+    about:
+      website: https://petalsearch.com/
+      wikidata_id: Q104399280
+      use_official_api: false
+      require_api_key: false
+      results: HTML
 
 # Doku engine lets you access to any Doku wiki instance:
 # A public one or a privete/corporate one.
@@ -2498,7 +1899,10 @@ doi_resolvers:
   doi.org: 'https://doi.org/'
   doai.io: 'https://dissem.in/'
   sci-hub.se: 'https://sci-hub.se/'
+  sci-hub.do: 'https://sci-hub.do/'
+  scihubtw.tw: 'https://scihubtw.tw/'
   sci-hub.st: 'https://sci-hub.st/'
-  sci-hub.ru: 'https://sci-hub.ru/'
+  sci-hub.bar: 'https://sci-hub.bar/'
+  sci-hub.it.nf: 'https://sci-hub.it.nf/'
 
 default_doi_resolver: 'oadoi.org'

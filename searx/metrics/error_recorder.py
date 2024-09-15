@@ -1,6 +1,3 @@
-# SPDX-License-Identifier: AGPL-3.0-or-later
-# pylint: disable=missing-module-docstring, invalid-name
-
 import typing
 import inspect
 from json import JSONDecodeError
@@ -19,7 +16,7 @@ from searx.engines import engines
 errors_per_engines = {}
 
 
-class ErrorContext:  # pylint: disable=missing-class-docstring
+class ErrorContext:
 
     __slots__ = (
         'filename',
@@ -32,9 +29,7 @@ class ErrorContext:  # pylint: disable=missing-class-docstring
         'secondary',
     )
 
-    def __init__(  # pylint: disable=too-many-arguments
-        self, filename, function, line_no, code, exception_classname, log_message, log_parameters, secondary
-    ):
+    def __init__(self, filename, function, line_no, code, exception_classname, log_message, log_parameters, secondary):
         self.filename = filename
         self.function = function
         self.line_no = line_no
@@ -44,7 +39,7 @@ class ErrorContext:  # pylint: disable=missing-class-docstring
         self.log_parameters = log_parameters
         self.secondary = secondary
 
-    def __eq__(self, o) -> bool:  # pylint: disable=invalid-name
+    def __eq__(self, o) -> bool:
         if not isinstance(o, ErrorContext):
             return False
         return (
@@ -114,7 +109,7 @@ def get_request_exception_messages(
     status_code = None
     reason = None
     hostname = None
-    if hasattr(exc, '_request') and exc._request is not None:  # pylint: disable=protected-access
+    if hasattr(exc, '_request') and exc._request is not None:
         # exc.request is property that raise an RuntimeException
         # if exc._request is not defined.
         url = exc.request.url
@@ -128,7 +123,7 @@ def get_request_exception_messages(
     return (status_code, reason, hostname)
 
 
-def get_messages(exc, filename) -> typing.Tuple:  # pylint: disable=too-many-return-statements
+def get_messages(exc, filename) -> typing.Tuple:
     if isinstance(exc, JSONDecodeError):
         return (exc.msg,)
     if isinstance(exc, TypeError):

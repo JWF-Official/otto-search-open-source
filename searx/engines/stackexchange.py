@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
 """Stack Exchange API v2.3
 
 * https://api.stackexchange.com/

@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""Processors for engine-type: ``online_url_search``
+# lint: pylint
+"""Processores for engine-type: ``online_url_search``
 
 """
 
@@ -19,10 +20,6 @@ class OnlineUrlSearchProcessor(OnlineProcessor):
     engine_type = 'online_url_search'
 
     def get_params(self, search_query, engine_category):
-        """Returns a set of :ref:`request params <engine request online>` or ``None`` if
-        search query does not match to :py:obj:`re_search_urls`.
-        """
-
         params = super().get_params(search_query, engine_category)
         if params is None:
             return None

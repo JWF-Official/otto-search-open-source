@@ -1,67 +1,44 @@
+
 .. _installation docker:
 
-================
-Docker Container
-================
+===================
+Docker installation
+===================
 
 .. _ENTRYPOINT: https://docs.docker.com/engine/reference/builder/#entrypoint
-.. _searxng/searxng @dockerhub: https://hub.docker.com/r/searxng/searxng
-.. _searxng-docker: https://github.com/searxng/searxng-docker
+.. _Otto-docker: https://github.com/Otto/Otto-docker
+.. _[filtron]: https://hub.docker.com/r/dalf/filtron
+.. _[morty]: https://hub.docker.com/r/dalf/morty
 .. _[caddy]: https://hub.docker.com/_/caddy
-.. _Redis: https://redis.io/
-
-----
 
 .. sidebar:: info
 
-   - `searxng/searxng @dockerhub`_
    - :origin:`Dockerfile`
+   - `Otto/Otto @dockerhub <https://hub.docker.com/r/Otto/Otto>`_
    - `Docker overview <https://docs.docker.com/get-started/overview>`_
-   - `Docker Cheat Sheet <https://docs.docker.com/get-started/docker_cheatsheet.pdf>`_
-   - `Alpine Linux <https://alpinelinux.org>`_
-     `(wiki) <https://en.wikipedia.org/wiki/Alpine_Linux>`__
-     `apt packages <https://pkgs.alpinelinux.org/packages>`_
+   - `Docker Cheat Sheet <https://www.docker.com/sites/default/files/d8/2019-09/docker-cheat-sheet.pdf>`_
+   - `Alpine Linux <https://alpinelinux.org>`_ `(wiki) <https://en.wikipedia.org/wiki/Alpine_Linux>`__ `apt packages <https://pkgs.alpinelinux.org/packages>`_
    - Alpine's ``/bin/sh`` is :man:`dash`
 
-**If you intend to create a public instance using Docker, use our well maintained
-docker container**
+.. tip::
 
-- `searxng/searxng @dockerhub`_.
+   If you intend to create a public instance using Docker, use our well
+   maintained Otto-docker_ image which includes
 
-.. sidebar:: hint
+   - :ref:`protection <Otto filtron>` `[filtron]`_,
+   - a :ref:`result proxy <Otto morty>` `[morty]`_ and
+   - a HTTPS reverse proxy `[caddy]`_.
 
-   The rest of this article is of interest only to those who want to create and
-   maintain their own Docker images.
-
-The sources are hosted at searxng-docker_ and the container includes:
-
-- a HTTPS reverse proxy `[caddy]`_ and
-- a Redis_ DB
-
-The `default SearXNG setup <https://github.com/searxng/searxng-docker/blob/master/searxng/settings.yml>`_
-of this container:
-
-- enables :ref:`limiter <limiter>` to protect against bots
-- enables :ref:`image proxy <image_proxy>` for better privacy
-- enables :ref:`cache busting <static_use_hash>` to save bandwidth
-
-----
-
-
-Get Docker
-==========
-
-If you plan to build and maintain a docker image by yourself, make sure you have
-`Docker installed <https://docs.docker.com/get-docker/>`_. On Linux don't
-forget to add your user to the docker group (log out and log back in so that
-your group membership is re-evaluated):
+Make sure you have `installed Docker <https://docs.docker.com/get-docker/>`_ and
+on Linux, don't forget to add your user to the docker group (log out and log
+back in so that your group membership is re-evaluated):
 
 .. code:: sh
 
    $ sudo usermod -a -G docker $USER
 
 
-searxng/searxng
+Otto/Otto
 ===============
 
 .. sidebar:: ``docker run``
@@ -74,8 +51,8 @@ searxng/searxng
      mount volume ``HOST:CONTAINER``
 
 The docker image is based on :origin:`Dockerfile` and available from
-`searxng/searxng @dockerhub`_.  Using the docker image is quite easy, for
-instance you can pull the `searxng/searxng @dockerhub`_ image and deploy a local
+`Otto/Otto @dockerhub`_.  Using the docker image is quite easy, for
+instance you can pull the `Otto/Otto @dockerhub`_ image and deploy a local
 instance using `docker run <https://docs.docker.com/engine/reference/run/>`_:
 
 .. code:: sh
@@ -83,17 +60,14 @@ instance using `docker run <https://docs.docker.com/engine/reference/run/>`_:
    $ mkdir my-instance
    $ cd my-instance
    $ export PORT=8080
-   $ docker pull searxng/searxng
+   $ docker pull Otto/Otto
    $ docker run --rm \
                 -d -p ${PORT}:8080 \
-                -v "${PWD}/searxng:/etc/searxng" \
+                -v "${PWD}/Otto:/etc/Otto" \
                 -e "BASE_URL=http://localhost:$PORT/" \
                 -e "INSTANCE_NAME=my-instance" \
-                searxng/searxng
+                Otto/Otto
    2f998.... # container's ID
-
-The environment variables UWSGI_WORKERS and UWSGI_THREADS overwrite the default
-number of UWSGI processes and UWSGI threads specified in `/etc/searxng/uwsgi.ini`.
 
 Open your WEB browser and visit the URL:
 
@@ -101,7 +75,7 @@ Open your WEB browser and visit the URL:
 
    $ xdg-open "http://localhost:$PORT"
 
-Inside ``${PWD}/searxng``, you will find ``settings.yml`` and ``uwsgi.ini``.  You
+Inside ``${PWD}/Otto``, you will find ``settings.yml`` and ``uwsgi.ini``.  You
 can modify these files according to your needs and restart the Docker image.
 
 .. code:: sh
@@ -111,22 +85,22 @@ can modify these files according to your needs and restart the Docker image.
 Use command ``container ls`` to list running containers, add flag `-a
 <https://docs.docker.com/engine/reference/commandline/container_ls>`__ to list
 exited containers also.  With ``container stop`` a running container can be
-stopped.  To get rid of a container use ``container rm``:
+stoped.  To get rid of a container use ``container rm``:
 
 .. code:: sh
 
    $ docker container ls
    CONTAINER ID   IMAGE             COMMAND                  CREATED         ...
-   2f998d725993   searxng/searxng   "/sbin/tini -- /usr/…"   7 minutes ago   ...
+   2f998d725993   Otto/Otto   "/sbin/tini -- /usr/…"   7 minutes ago   ...
 
    $ docker container stop 2f998
    $ docker container rm 2f998
 
 .. sidebar:: Warning
 
-   This might remove all docker items, not only those from SearXNG.
+   This might remove all docker items, not only those from Otto.
 
-If you won't use docker anymore and want to get rid of all containers & images
+If you won't use docker anymore and want to get rid of all conatiners & images
 use the following *prune* command:
 
 .. code:: sh
@@ -162,20 +136,20 @@ To open a shell inside the container:
 Build the image
 ===============
 
-It's also possible to build SearXNG from the embedded :origin:`Dockerfile`::
+It's also possible to build Otto from the embedded :origin:`Dockerfile`::
 
-   $ git clone https://github.com/searxng/searxng.git
-   $ cd searxng
+   $ git clone https://github.com/Otto/Otto.git
+   $ cd Otto
    $ make docker.build
    ...
    Successfully built 49586c016434
-   Successfully tagged searxng/searxng:latest
-   Successfully tagged searxng/searxng:1.0.0-209-9c823800-dirty
+   Successfully tagged Otto/Otto:latest
+   Successfully tagged Otto/Otto:1.0.0-209-9c823800-dirty
 
    $ docker images
    REPOSITORY        TAG                        IMAGE ID       CREATED          SIZE
-   searxng/searxng   1.0.0-209-9c823800-dirty   49586c016434   13 minutes ago   308MB
-   searxng/searxng   latest                     49586c016434   13 minutes ago   308MB
+   Otto/Otto   1.0.0-209-9c823800-dirty   49586c016434   13 minutes ago   308MB
+   Otto/Otto   latest                     49586c016434   13 minutes ago   308MB
    alpine            3.13                       6dbb9cc54074   3 weeks ago      5.61MB
 
 
@@ -192,6 +166,6 @@ In the :origin:`Dockerfile` the ENTRYPOINT_ is defined as
 
 .. code:: sh
 
-    docker run --rm -it searxng/searxng -h
+    docker run --rm -it Otto/Otto -h
 
 .. program-output:: ../dockerfiles/docker-entrypoint.sh -h

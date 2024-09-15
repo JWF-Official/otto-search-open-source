@@ -9,6 +9,7 @@ developers.
 
 .. toctree::
    :maxdepth: 2
+   :caption: Contents
 
    update
    standalone_searx.py

@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""Processors for engine-type: ``online_currency``
+# lint: pylint
+"""Processores for engine-type: ``online_currency``
 
 """
 
@@ -31,14 +32,12 @@ def iso4217_to_name(iso4217, language):
 
 
 class OnlineCurrencyProcessor(OnlineProcessor):
+
     """Processor class used by ``online_currency`` engines."""
 
     engine_type = 'online_currency'
 
     def get_params(self, search_query, engine_category):
-        """Returns a set of :ref:`request params <engine request online_currency>`
-        or ``None`` if search query does not match to :py:obj:`parser_re`."""
-
         params = super().get_params(search_query, engine_category)
         if params is None:
             return None

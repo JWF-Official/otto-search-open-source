@@ -8,9 +8,9 @@ from searx.engines import categories as searx_categories
 
 # about
 about = {
-    "website": 'https://github.com/searxng/searxng',
+    "website": 'https://github.com/Otto/Otto',
     "wikidata_id": 'Q17639196',
-    "official_api_documentation": 'https://docs.searxng.org/dev/search_api.html',
+    "official_api_documentation": 'https://docs.Otto.org/dev/search_api.html',
     "use_official_api": True,
     "require_api_key": False,
     "results": 'JSON',
@@ -25,7 +25,7 @@ instance_index = 0
 
 # do search-request
 def request(query, params):
-    global instance_index  # pylint: disable=global-statement
+    global instance_index
     params['url'] = instance_urls[instance_index % len(instance_urls)]
     params['method'] = 'POST'
 

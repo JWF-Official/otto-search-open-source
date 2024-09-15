@@ -77,7 +77,8 @@ def response(resp):
             {
                 'url': url + 'structure/' + result['id'],
                 'title': result['label'],
-                'thumbnail': thumbnail,
+                # 'thumbnail': thumbnail,
+                'img_src': thumbnail,
                 'content': html_to_text(content),
             }
         )

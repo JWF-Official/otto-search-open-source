@@ -1,11 +1,8 @@
-# SPDX-License-Identifier: AGPL-3.0-or-later
-# pylint: disable=missing-module-docstring
-
-import re
 from urllib.parse import urlparse, parse_qsl
-
 from flask_babel import gettext
+import re
 from searx import settings
+
 
 regex = re.compile(r'10\.\d{4,9}/[^\s]+')
 
@@ -34,7 +31,7 @@ def get_doi_resolver(preferences):
     return doi_resolvers[selected_resolver]
 
 
-def on_result(request, _search, result):
+def on_result(request, search, result):
     if 'parsed_url' not in result:
         return True
 
@@ -45,6 +42,4 @@ def on_result(request, _search, result):
                 doi = doi[: -len(suffix)]
         result['url'] = get_doi_resolver(request.preferences) + doi
         result['parsed_url'] = urlparse(result['url'])
-        if 'doi' not in result:
-            result['doi'] = doi
     return True

@@ -1,31 +1,21 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""
-DuckDuckGo Instant Answer API
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The `DDG-API <https://duckduckgo.com/api>`__ is no longer documented but from
-reverse engineering we can see that some services (e.g. instant answers) still
-in use from the DDG search engine.
-
-As far we can say the *instant answers* API does not support languages, or at
-least we could not find out how language support should work.  It seems that
-most of the features are based on English terms.
+# lint: pylint
+"""DuckDuckGo (Instant Answer API)
 
 """
 
-from typing import TYPE_CHECKING
-
+import json
 from urllib.parse import urlencode, urlparse, urljoin
 from lxml import html
 
 from searx.data import WIKIDATA_UNITS
-from searx.utils import extract_text, html_to_text, get_string_replaces_function
+from searx.engines.duckduckgo import language_aliases
+from searx.engines.duckduckgo import (  # pylint: disable=unused-import
+    _fetch_supported_languages,
+    supported_languages_url,
+)
+from searx.utils import extract_text, html_to_text, match_language, get_string_replaces_function
 from searx.external_urls import get_external_url, get_earth_coordinates_url, area_to_osm_zoom
-
-if TYPE_CHECKING:
-    import logging
-
-    logger: logging.Logger
 
 # about
 about = {
@@ -37,8 +27,6 @@ about = {
     "results": 'JSON',
 }
 
-send_accept_language_header = True
-
 URL = 'https://api.duckduckgo.com/' + '?{query}&format=json&pretty=0&no_redirect=1&d=1'
 
 WIKIDATA_PREFIX = ['http://www.wikidata.org/entity/', 'https://www.wikidata.org/entity/']
@@ -47,7 +35,7 @@ replace_http_by_https = get_string_replaces_function({'http:': 'https:'})
 
 
 def is_broken_text(text):
-    """duckduckgo may return something like ``<a href="xxxx">http://somewhere Related website<a/>``
+    """duckduckgo may return something like "<a href="xxxx">http://somewhere Related website<a/>"
 
     The href URL is broken, the "Related website" may contains some HTML.
 
@@ -72,6 +60,9 @@ def result_to_text(text, htmlResult):
 
 def request(query, params):
     params['url'] = URL.format(query=urlencode({'q': query}))
+    language = match_language(params['language'], supported_languages, language_aliases)
+    language = language.split('-')[0]
+    params['headers']['Accept-Language'] = language
     return params
 
 
@@ -79,7 +70,7 @@ def response(resp):
     # pylint: disable=too-many-locals, too-many-branches, too-many-statements
     results = []
 
-    search_res = resp.json()
+    search_res = json.loads(resp.text)
 
     # search_res.get('Entity') possible values (not exhaustive) :
     # * continent / country / department / location / waterfall
@@ -87,7 +78,7 @@ def response(resp):
     # * book / performing art / film / television  / media franchise / concert tour / playwright
     # * prepared food
     # * website / software / os / programming language / file format / software engineer
-    # * company
+    # * compagny
 
     content = ''
     heading = search_res.get('Heading', '')
@@ -101,7 +92,7 @@ def response(resp):
     if answer:
         logger.debug('AnswerType="%s" Answer="%s"', search_res.get('AnswerType'), answer)
         if search_res.get('AnswerType') not in ['calc', 'ip']:
-            results.append({'answer': html_to_text(answer), 'url': search_res.get('AbstractURL', '')})
+            results.append({'answer': html_to_text(answer)})
 
     # add infobox
     if 'Definition' in search_res:
@@ -238,15 +229,12 @@ def unit_to_str(unit):
     for prefix in WIKIDATA_PREFIX:
         if unit.startswith(prefix):
             wikidata_entity = unit[len(prefix) :]
-            real_unit = WIKIDATA_UNITS.get(wikidata_entity)
-            if real_unit is None:
-                return unit
-            return real_unit['symbol']
+            return WIKIDATA_UNITS.get(wikidata_entity, unit)
     return unit
 
 
 def area_to_str(area):
-    """parse ``{'unit': 'https://www.wikidata.org/entity/Q712226', 'amount': '+20.99'}``"""
+    """parse {'unit': 'http://www.wikidata.org/entity/Q712226', 'amount': '+20.99'}"""
     unit = unit_to_str(area.get('unit'))
     if unit is not None:
         try:

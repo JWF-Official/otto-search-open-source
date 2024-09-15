@@ -1,7 +1,7 @@
+# -*- coding: utf-8 -*-
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 import  sys, os
-from pathlib import Path
 from pallets_sphinx_themes import ProjectLink
 
 from searx import get_setting
@@ -9,20 +9,18 @@ from searx.version import VERSION_STRING, GIT_URL, GIT_BRANCH
 
 # Project --------------------------------------------------------------
 
-project = 'SearXNG'
-copyright = 'SearXNG team'
-author = 'SearXNG team'
+project = 'Otto'
+copyright = '2021 Otto team, 2015-2021 Adam Tauber, Noémi Ványi'
+author = '2021 Otto team, 2015-2021 Adam Tauber'
 release, version = VERSION_STRING, VERSION_STRING
-SEARXNG_URL = get_setting('server.base_url') or 'https://example.org/searxng'
+
+Otto_URL = get_setting('server.base_url') or 'https://example.org/Otto'
 ISSUE_URL = get_setting('brand.issue_url')
 DOCS_URL = get_setting('brand.docs_url')
 PUBLIC_INSTANCES = get_setting('brand.public_instances')
 PRIVACYPOLICY_URL = get_setting('general.privacypolicy_url')
 CONTACT_URL = get_setting('general.contact_url')
 WIKI_URL = get_setting('brand.wiki_url')
-
-SOURCEDIR = Path(__file__).parent.parent / "searx"
-os.environ['SOURCEDIR'] = str(SOURCEDIR)
 
 # hint: sphinx.ext.viewcode won't highlight when 'highlight_language' [1] is set
 #       to string 'none' [2]
@@ -70,7 +68,7 @@ jinja_filters = {
 # Let the Jinja template in configured_engines.rst access documented_modules
 # to automatically link documentation for modules if it exists.
 def setup(app):
-    ENGINES_DOCNAME = 'user/configured_engines'
+    ENGINES_DOCNAME = 'admin/engines/configured_engines'
 
     def before_read_docs(app, env, docnames):
         assert ENGINES_DOCNAME in docnames
@@ -90,26 +88,26 @@ def setup(app):
 extlinks = {}
 
 # upstream links
-extlinks['wiki'] = ('https://github.com/searxng/searxng/wiki/%s', ' %s')
-extlinks['pull'] = ('https://github.com/searxng/searxng/pull/%s', 'PR %s')
-extlinks['pull-searx'] = ('https://github.com/searx/searx/pull/%s', 'PR %s')
+extlinks['wiki'] = ('https://github.com/Otto/Otto/wiki/%s', ' ')
+extlinks['pull'] = ('https://github.com/Otto/Otto/pull/%s', 'PR ')
+extlinks['pull-searx'] = ('https://github.com/searx/searx/pull/%s', 'PR ')
 
 # links to custom brand
-extlinks['origin'] = (GIT_URL + '/blob/' + GIT_BRANCH + '/%s', 'git://%s')
-extlinks['patch'] = (GIT_URL + '/commit/%s', '#%s')
-extlinks['docs'] = (DOCS_URL + '/%s', 'docs: %s')
-extlinks['pypi'] = ('https://pypi.org/project/%s', 'PyPi: %s')
-extlinks['man'] = ('https://manpages.debian.org/jump?q=%s', '%s')
+extlinks['origin'] = (GIT_URL + '/blob/' + GIT_BRANCH + '/%s', 'git://')
+extlinks['patch'] = (GIT_URL + '/commit/%s', '#')
+extlinks['docs'] = (DOCS_URL + '/%s', 'docs: ')
+extlinks['pypi'] = ('https://pypi.org/project/%s', 'PyPi: ')
+extlinks['man'] = ('https://manpages.debian.org/jump?q=%s', '')
 #extlinks['role'] = (
 #    'https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#role-%s', '')
 extlinks['duref'] = (
-    'https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#%s', '%s')
+    'https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#%s', '')
 extlinks['durole'] = (
-    'https://docutils.sourceforge.io/docs/ref/rst/roles.html#%s', '%s')
+    'https://docutils.sourceforge.io/docs/ref/rst/roles.html#%s', '')
 extlinks['dudir'] =  (
-    'https://docutils.sourceforge.io/docs/ref/rst/directives.html#%s', '%s')
+    'https://docutils.sourceforge.io/docs/ref/rst/directives.html#%s', '')
 extlinks['ctan'] =  (
-    'https://ctan.org/pkg/%s', 'CTAN: %s')
+    'https://ctan.org/pkg/%s', 'CTAN: ')
 
 extensions = [
     'sphinx.ext.imgmath',
@@ -129,10 +127,6 @@ extensions = [
     'notfound.extension',  # https://github.com/readthedocs/sphinx-notfound-page
 ]
 
-autodoc_default_options = {
-    'member-order': 'groupwise',
-}
-
 myst_enable_extensions = [
   "replacements", "smartquotes"
 ]
@@ -141,7 +135,6 @@ suppress_warnings = ['myst.domains']
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3/", None),
-    "babel" : ("https://babel.readthedocs.io/en/latest/", None),
     "flask": ("https://flask.palletsprojects.com/", None),
     "flask_babel": ("https://python-babel.github.io/flask-babel/", None),
     # "werkzeug": ("https://werkzeug.palletsprojects.com/", None),
@@ -151,18 +144,18 @@ intersphinx_mapping = {
     "redis": ('https://redis.readthedocs.io/en/stable/', None),
 }
 
-issues_github_path = "searxng/searxng"
+issues_github_path = "Otto/Otto"
 
 # HTML -----------------------------------------------------------------
 
-# https://searxng.github.io/searxng --> '/searxng/'
-# https://docs.searxng.org --> '/'
+# https://Otto.github.io/Otto --> '/Otto/'
+# https://docs.Otto.org --> '/'
 notfound_urls_prefix = '/'
 
 sys.path.append(os.path.abspath('_themes'))
 sys.path.insert(0, os.path.abspath("../utils/"))
 html_theme_path = ['_themes']
-html_theme = "searxng"
+html_theme = "Otto"
 
 # sphinx.ext.imgmath setup
 html_math_renderer = 'imgmath'
@@ -170,7 +163,6 @@ imgmath_image_format = 'svg'
 imgmath_font_size = 14
 # sphinx.ext.imgmath setup END
 
-html_show_sphinx = False
 html_theme_options = {"index_sidebar_logo": True}
 html_context = {"project_links": [] }
 html_context["project_links"].append(ProjectLink("Source", GIT_URL + '/tree/' + GIT_BRANCH))
@@ -196,12 +188,12 @@ html_sidebars = {
     ],
 }
 singlehtml_sidebars = {"index": ["project.html", "localtoc.html"]}
-html_logo = "../src/brand/searxng-wordmark.svg"
-html_title = "SearXNG Documentation ({})".format(VERSION_STRING)
+html_logo = "../src/brand/Otto-wordmark.svg"
+html_title = "Otto Documentation ({})".format(VERSION_STRING)
 html_show_sourcelink = True
 
 # LaTeX ----------------------------------------------------------------
 
 latex_documents = [
-    (master_doc, "searxng-{}.tex".format(VERSION_STRING), html_title, author, "manual")
+    (master_doc, "searx-{}.tex".format(VERSION_STRING), html_title, author, "manual")
 ]

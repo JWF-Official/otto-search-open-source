@@ -20,6 +20,9 @@
 # shellcheck source=utils/lib.sh
 . /dev/null
 
+# shellcheck disable=SC2034
+declare main_cmd
+
 # configure golang environment
 # ----------------------------
 

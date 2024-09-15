@@ -1,5 +1,4 @@
-# SPDX-License-Identifier: AGPL-3.0-or-later
-# pylint: disable=missing-module-docstring
+# -*- coding: utf-8 -*-
 
 from mock import Mock
 
@@ -7,7 +6,7 @@ from searx.answerers import answerers
 from tests import SearxTestCase
 
 
-class AnswererTest(SearxTestCase):  # pylint: disable=missing-class-docstring
+class AnswererTest(SearxTestCase):
     def test_unicode_input(self):
         query = Mock()
         unicode_payload = 'árvíztűrő tükörfúrógép'

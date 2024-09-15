@@ -9,436 +9,244 @@
 # Nazigai Kallan <arn1291@gmail.com>, 2019
 # POORAJITH ST <gokulkannanst@gmail.com>, 2019
 # Prasanna Venkadesh <prasmailme@gmail.com>, 2019
-# Markus Heiser <markus.heiser@darmarit.de>, 2022.
-# return42 <markus.heiser@darmarit.de>, 2023.
-# jenishngl <jenishngl+codeberg@gmail.com>, 2023.
-# sriramsekar <srirams_24@yahoo.com>, 2023.
-# Eshan-K-I <2027eiyer@tjhsst.edu>, 2024.
-# ecevinoth <ecevinoth@users.noreply.translate.codeberg.org>, 2024.
-# mukmckenzie <mukmckenzie@users.noreply.translate.codeberg.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version:  searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-06-17 12:15+0000\n"
-"PO-Revision-Date: 2024-06-11 21:30+0000\n"
-"Last-Translator: mukmckenzie "
-"<mukmckenzie@users.noreply.translate.codeberg.org>\n"
+"POT-Creation-Date: 2022-07-02 08:59+0000\n"
+"PO-Revision-Date: 2022-06-25 15:49+0000\n"
+"Last-Translator: Alexandre Flament <alex@al-f.net>\n"
 "Language: ta\n"
 "Language-Team: Tamil "
-"<https://translate.codeberg.org/projects/searxng/searxng/ta/>\n"
+"<https://weblate.bubu1.eu/projects/Otto/Otto/ta/>\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.15.0\n"
+"Generated-By: Babel 2.10.3\n"
 
-#. CONSTANT_NAMES['NO_SUBGROUPING']
-#: searx/searxng.msg
-msgid "without further subgrouping"
-msgstr "மேலும் துணைக்குழு இல்லாமல்"
+#. CONSTANT_NAMES['DEFAULT_GROUP_NAME']
+#: searx/Otto.msg
+msgid "others"
+msgstr "மற்றவைகள்"
 
-#. CONSTANT_NAMES['DEFAULT_CATEGORY']
-#: searx/searxng.msg
+#. CONSTANT_NAMES['OTHER_CATEGORY']
+#: searx/Otto.msg
 msgid "other"
 msgstr "மற்றவை"
 
 #. CATEGORY_NAMES['FILES']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "files"
-msgstr "தரவுகள்"
+msgstr "கோப்புகள்"
 
 #. CATEGORY_NAMES['GENERAL']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "general"
 msgstr "பொதுத் தேடல்"
 
 #. CATEGORY_NAMES['MUSIC']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "music"
 msgstr "இசை"
 
 #. CATEGORY_NAMES['SOCIAL_MEDIA']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "social media"
 msgstr "சமூக தளங்கள்"
 
 #. CATEGORY_NAMES['IMAGES']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "images"
 msgstr "படங்கள்"
 
 #. CATEGORY_NAMES['VIDEOS']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "videos"
 msgstr "காணொளிகள்"
 
-#. CATEGORY_NAMES['RADIO']
-#: searx/engines/radio_browser.py:103 searx/searxng.msg
-msgid "radio"
-msgstr "வானொலி"
-
-#. CATEGORY_NAMES['TV']
-#: searx/searxng.msg
-msgid "tv"
-msgstr "தொலைக்காட்சி"
-
 #. CATEGORY_NAMES['IT']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "it"
-msgstr "தகவல் தொழில்நுட்பம்"
+msgstr "அது"
 
 #. CATEGORY_NAMES['NEWS']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "news"
 msgstr "செய்திகள்"
 
 #. CATEGORY_NAMES['MAP']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "map"
 msgstr "வரைப்படம்"
 
 #. CATEGORY_NAMES['ONIONS']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "onions"
 msgstr "வெங்காயம்"
 
 #. CATEGORY_NAMES['SCIENCE']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "science"
 msgstr "அறிவியல்"
 
 #. CATEGORY_GROUPS['APPS']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "apps"
 msgstr "செயலிகள்"
 
 #. CATEGORY_GROUPS['DICTIONARIES']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "dictionaries"
-msgstr "அகராதிகள்"
+msgstr "அகராதி"
 
 #. CATEGORY_GROUPS['LYRICS']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "lyrics"
 msgstr "பாடல் வரிகள்"
 
 #. CATEGORY_GROUPS['PACKAGES']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "packages"
-msgstr "தொகுப்புகள்"
+msgstr ""
 
 #. CATEGORY_GROUPS['Q_A']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "q&a"
-msgstr "வினா விடை"
+msgstr "கேள்வி பதில்"
 
 #. CATEGORY_GROUPS['REPOS']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "repos"
 msgstr "கிடங்கு"
 
 #. CATEGORY_GROUPS['SOFTWARE_WIKIS']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "software wikis"
 msgstr "மென்பொருள் விகி"
 
 #. CATEGORY_GROUPS['WEB']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "web"
 msgstr "இணயம்"
 
-#. CATEGORY_GROUPS['SCIENTIFIC PUBLICATIONS']
-#: searx/searxng.msg
-msgid "scientific publications"
-msgstr "அறிவியல் வெளியீடுகள்"
-
 #. STYLE_NAMES['AUTO']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "auto"
 msgstr "ஆட்டோ"
 
 #. STYLE_NAMES['LIGHT']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "light"
 msgstr "ஒளி"
 
 #. STYLE_NAMES['DARK']
-#: searx/searxng.msg
+#: searx/Otto.msg
 msgid "dark"
 msgstr "இருள்"
 
-#. BRAND_CUSTOM_LINKS['UPTIME']
-#: searx/searxng.msg
-msgid "Uptime"
-msgstr ""
-
-#. BRAND_CUSTOM_LINKS['ABOUT']
-#: searx/searxng.msg searx/templates/simple/base.html:50
-msgid "About"
-msgstr "பற்றி"
-
-#. WEATHER_TERMS['AVERAGE TEMP.']
-#: searx/searxng.msg
-msgid "Average temp."
-msgstr "சராசரி வெப்பநிலை."
-
-#. WEATHER_TERMS['CLOUD COVER']
-#: searx/searxng.msg
-msgid "Cloud cover"
-msgstr "மேக மூட்டம்"
-
-#. WEATHER_TERMS['CONDITION']
-#: searx/searxng.msg
-msgid "Condition"
-msgstr ""
-
-#. WEATHER_TERMS['CURRENT CONDITION']
-#: searx/searxng.msg
-msgid "Current condition"
-msgstr ""
-
-#. WEATHER_TERMS['EVENING']
-#: searx/engines/wttr.py:100 searx/searxng.msg
-msgid "Evening"
-msgstr "மாலை"
-
-#. WEATHER_TERMS['FEELS LIKE']
-#: searx/searxng.msg
-msgid "Feels like"
-msgstr ""
-
-#. WEATHER_TERMS['HUMIDITY']
-#: searx/searxng.msg
-msgid "Humidity"
-msgstr "ஈரப்பதம்"
-
-#. WEATHER_TERMS['MAX TEMP.']
-#: searx/searxng.msg
-msgid "Max temp."
-msgstr "அதிகபட்ச வெப்பநிலை."
-
-#. WEATHER_TERMS['MIN TEMP.']
-#: searx/searxng.msg
-msgid "Min temp."
-msgstr "குறைந்தபட்ச வெப்பநிலை."
-
-#. WEATHER_TERMS['MORNING']
-#: searx/engines/wttr.py:100 searx/searxng.msg
-msgid "Morning"
-msgstr "காலை"
-
-#. WEATHER_TERMS['NIGHT']
-#: searx/engines/wttr.py:100 searx/searxng.msg
-msgid "Night"
-msgstr "இரவு"
-
-#. WEATHER_TERMS['NOON']
-#: searx/engines/wttr.py:100 searx/searxng.msg
-msgid "Noon"
-msgstr "நண்பகல்"
-
-#. WEATHER_TERMS['PRESSURE']
-#: searx/searxng.msg
-msgid "Pressure"
-msgstr "அழுத்தம்"
-
-#. WEATHER_TERMS['SUNRISE']
-#: searx/searxng.msg
-msgid "Sunrise"
-msgstr "சூரிய உதயம்"
-
-#. WEATHER_TERMS['SUNSET']
-#: searx/searxng.msg
-msgid "Sunset"
-msgstr "சூரிய அஸ்தமனம்"
-
-#. WEATHER_TERMS['TEMPERATURE']
-#: searx/searxng.msg
-msgid "Temperature"
-msgstr "வெப்ப நிலை"
-
-#. WEATHER_TERMS['UV INDEX']
-#: searx/searxng.msg
-msgid "UV index"
-msgstr "புற ஊதா குறியீடு"
-
-#. WEATHER_TERMS['VISIBILITY']
-#: searx/searxng.msg
-msgid "Visibility"
-msgstr "தெரிவுநிலை"
-
-#. WEATHER_TERMS['WIND']
-#: searx/searxng.msg
-msgid "Wind"
-msgstr "காற்று"
-
-#. SOCIAL_MEDIA_TERMS['SUBSCRIBERS']
-#: searx/searxng.msg
-msgid "subscribers"
-msgstr "சந்தாதாரர்கள்"
-
-#. SOCIAL_MEDIA_TERMS['POSTS']
-#: searx/searxng.msg
-msgid "posts"
-msgstr "பதிவுகள்"
-
-#. SOCIAL_MEDIA_TERMS['ACTIVE USERS']
-#: searx/searxng.msg
-msgid "active users"
-msgstr "செயலில் உள்ள பயனர்கள்"
-
-#. SOCIAL_MEDIA_TERMS['COMMENTS']
-#: searx/searxng.msg
-msgid "comments"
-msgstr "கருத்துக்கள்"
-
-#. SOCIAL_MEDIA_TERMS['USER']
-#: searx/searxng.msg
-msgid "user"
-msgstr ""
-
-#. SOCIAL_MEDIA_TERMS['COMMUNITY']
-#: searx/searxng.msg
-msgid "community"
-msgstr ""
-
-#. SOCIAL_MEDIA_TERMS['POINTS']
-#: searx/searxng.msg
-msgid "points"
-msgstr ""
-
-#. SOCIAL_MEDIA_TERMS['TITLE']
-#: searx/searxng.msg
-msgid "title"
-msgstr "தலைப்பு"
-
-#. SOCIAL_MEDIA_TERMS['AUTHOR']
-#: searx/searxng.msg
-msgid "author"
-msgstr "நூலாசிரியர்"
-
-#. SOCIAL_MEDIA_TERMS['THREAD OPEN']
-#: searx/engines/discourse.py:121 searx/searxng.msg
-msgid "open"
-msgstr ""
-
-#. SOCIAL_MEDIA_TERMS['THREAD CLOSED']
-#: searx/engines/discourse.py:121 searx/searxng.msg
-msgid "closed"
-msgstr ""
-
-#. SOCIAL_MEDIA_TERMS['THREAD ANSWERED']
-#: searx/engines/discourse.py:132 searx/searxng.msg
-msgid "answered"
-msgstr "பதில் அளிக்கப்பட்டது"
-
-#: searx/webapp.py:330
-msgid "No item found"
-msgstr "எதுவும் கிடைக்கவில்லை"
-
-#: searx/engines/qwant.py:281
-#: searx/templates/simple/result_templates/images.html:23 searx/webapp.py:332
-msgid "Source"
-msgstr "ஆதாரம்"
-
-#: searx/webapp.py:334
-msgid "Error loading the next page"
-msgstr "அடுத்த பக்கத்தை திறப்பதில் தவறு நிகழ்ந்துவிட்டது."
-
-#: searx/webapp.py:491 searx/webapp.py:887
-msgid "Invalid settings, please edit your preferences"
-msgstr "ஏற்க முடியாத அமைப்பு,உங்கள் விருப்பத்தை தொகுக்கவும்"
-
-#: searx/webapp.py:507
-msgid "Invalid settings"
-msgstr "ஏற்கமுடியாத அமைப்பு"
-
-#: searx/webapp.py:584 searx/webapp.py:666
-msgid "search error"
-msgstr "தேடல் பிழை"
-
-#: searx/webutils.py:36
+#: searx/webapp.py:165
 msgid "timeout"
 msgstr "நேரம் முடிந்தது"
 
-#: searx/webutils.py:37
+#: searx/webapp.py:166
 msgid "parsing error"
 msgstr "பாகுபடுத்தும் பிழை"
 
-#: searx/webutils.py:38
+#: searx/webapp.py:167
 msgid "HTTP protocol error"
 msgstr "HTTP நெறிமுறை பிழை"
 
-#: searx/webutils.py:39
+#: searx/webapp.py:168
 msgid "network error"
 msgstr "பிணைய பிழை"
 
-#: searx/webutils.py:40
-msgid "SSL error: certificate validation has failed"
-msgstr "SSL பிழை: சான்றிதழ் சரிபார்ப்பு தோல்வியடைந்தது"
-
-#: searx/webutils.py:42
+#: searx/webapp.py:170
 msgid "unexpected crash"
 msgstr "எதிர்பாராத விபத்து"
 
-#: searx/webutils.py:49
+#: searx/webapp.py:177
 msgid "HTTP error"
 msgstr "HTTP பிழை"
 
-#: searx/webutils.py:50
+#: searx/webapp.py:178
 msgid "HTTP connection error"
 msgstr "HTTP இணைப்பு பிழை"
 
-#: searx/webutils.py:56
+#: searx/webapp.py:184
 msgid "proxy error"
 msgstr "ப்ராக்ஸி பிழை"
 
-#: searx/webutils.py:57
+#: searx/webapp.py:185
 msgid "CAPTCHA"
 msgstr "கேப்ட்சா"
 
-#: searx/webutils.py:58
+#: searx/webapp.py:186
 msgid "too many requests"
 msgstr "பல கோரிக்கைகள்"
 
-#: searx/webutils.py:59
+#: searx/webapp.py:187
 msgid "access denied"
 msgstr "அணுகல் மறுக்கப்பட்டது"
 
-#: searx/webutils.py:60
+#: searx/webapp.py:188
 msgid "server API error"
 msgstr "சேவையக API பிழை"
 
-#: searx/webutils.py:79
-msgid "Suspended"
-msgstr "இடைநிறுத்தப்பட்டது"
+#: searx/webapp.py:363
+msgid "No item found"
+msgstr "எதுவும் கிடைக்கவில்லை"
 
-#: searx/webutils.py:314
+#: searx/engines/qwant.py:212
+#: searx/templates/simple/result_templates/images.html:20 searx/webapp.py:365
+msgid "Source"
+msgstr "ஆதாரம்"
+
+#: searx/webapp.py:367
+msgid "Error loading the next page"
+msgstr ""
+
+#: searx/webapp.py:510 searx/webapp.py:954
+msgid "Invalid settings, please edit your preferences"
+msgstr "ஏற்க முடியாத அமைப்பு,உங்கள் விருப்பத்தை தொகுக்கவும்"
+
+#: searx/webapp.py:526
+msgid "Invalid settings"
+msgstr "ஏற்கமுடியாத அமைப்பு"
+
+#: searx/webapp.py:603 searx/webapp.py:679
+msgid "search error"
+msgstr "தேடல் பிழை"
+
+#: searx/webapp.py:725
 msgid "{minutes} minute(s) ago"
 msgstr "{minutes} நிமிடங்களுக்கு முன்னால்"
 
-#: searx/webutils.py:315
+#: searx/webapp.py:727
 msgid "{hours} hour(s), {minutes} minute(s) ago"
 msgstr "{hours} மணிநேரம், {minutes} நிமிடங்களுக்கு முன்னால்"
 
-#: searx/answerers/random/answerer.py:75
+#: searx/webapp.py:853
+msgid "Suspended"
+msgstr "இடைநிறுத்தப்பட்டது"
+
+#: searx/answerers/random/answerer.py:67
 msgid "Random value generator"
 msgstr "சீரற்ற மதிப்பு உருவாக்கி"
 
-#: searx/answerers/random/answerer.py:76
+#: searx/answerers/random/answerer.py:68
 msgid "Generate different random values"
 msgstr "வெவ்வாறான சீரற்ற மதிப்புகளை உருவாக்கு"
 
-#: searx/answerers/statistics/answerer.py:48
+#: searx/answerers/statistics/answerer.py:47
 msgid "Statistics functions"
 msgstr "புள்ளியியல் செயல்பாடுகள்"
 
-#: searx/answerers/statistics/answerer.py:49
+#: searx/answerers/statistics/answerer.py:48
 msgid "Compute {functions} of the arguments"
 msgstr "வாதங்களின் {functions} கணக்கிடவும்"
 
-#: searx/engines/openstreetmap.py:159
+#: searx/engines/openstreetmap.py:156
 msgid "Get directions"
 msgstr "திசைகளைப் பெறுங்கள்"
 
@@ -450,94 +258,37 @@ msgstr "{title} (காலாவதியானது)"
 msgid "This entry has been superseded by"
 msgstr "இந்த நுழைவு மாற்றப்பட்டது"
 
-#: searx/engines/qwant.py:283
+#: searx/engines/pubmed.py:78
+msgid "No abstract is available for this publication."
+msgstr "இந்த பிரசுரத்திற்கு சுருக்கம் இல்லை."
+
+#: searx/engines/qwant.py:214
 msgid "Channel"
 msgstr "சேனல்"
 
-#: searx/engines/radio_browser.py:105
-msgid "bitrate"
-msgstr "தகவல் விகிதம்"
-
-#: searx/engines/radio_browser.py:106
-msgid "votes"
-msgstr "வாக்குகள்"
-
-#: searx/engines/radio_browser.py:107
-#, fuzzy
-msgid "clicks"
-msgstr "சொடுக்குகள்"
-
-#: searx/engines/seekr.py:193 searx/engines/yummly.py:71
-#: searx/engines/zlibrary.py:128
-msgid "Language"
-msgstr "மொழி"
-
-#: searx/engines/semantic_scholar.py:78
-msgid ""
-"{numCitations} citations from the year {firstCitationVelocityYear} to "
-"{lastCitationVelocityYear}"
-msgstr ""
-
-#: searx/engines/tineye.py:39
-msgid ""
-"Could not read that image url. This may be due to an unsupported file "
-"format. TinEye only supports images that are JPEG, PNG, GIF, BMP, TIFF or"
-" WebP."
-msgstr ""
-"அந்தப் பட URLஐப் படிக்க முடியவில்லை. இது ஆதரிக்கப்படாத கோப்பு வடிவத்தின் "
-"காரணமாக இருக்கலாம். TinEye JPEG, PNG, GIF, BMP, TIFF அல்லது WebP போன்ற "
-"படங்களை மட்டுமே ஆதரிக்கிறது."
-
-#: searx/engines/tineye.py:45
-msgid ""
-"The image is too simple to find matches. TinEye requires a basic level of"
-" visual detail to successfully identify matches."
-msgstr ""
-"பொருத்தங்களைக் கண்டறிய இப்படம் மிகவும் எளிமையானது. பொருத்தங்களை "
-"வெற்றிகரமாக அடையாளம் காண TinEye க்கு அடிப்படை அளவிலான காட்சி விவரம் "
-"தேவைப்படுகிறது."
-
-#: searx/engines/tineye.py:51
-msgid "The image could not be downloaded."
-msgstr "இப்படத்தைப் பதிவிறக்க முடியவில்லை."
-
-#: searx/engines/zlibrary.py:129
-msgid "Book rating"
-msgstr "புத்தகத்தின் மதிப்பீடு"
-
-#: searx/engines/zlibrary.py:130
-msgid "File quality"
-msgstr "கோப்பின் தரம்"
-
-#: searx/plugins/calculator.py:12
-msgid "Calculate mathematical expressions via the search bar"
-msgstr ""
-
-#: searx/plugins/hash_plugin.py:10
+#: searx/plugins/hash_plugin.py:24
 msgid "Converts strings to different hash digests."
 msgstr "சரங்களை வெவ்வேறு ஹாஷ் டைஜெஸ்ட்களாக மாற்றுகிறது."
 
-#: searx/plugins/hash_plugin.py:38
+#: searx/plugins/hash_plugin.py:52
 msgid "hash digest"
 msgstr "ஹாஷ் டைஜெஸ்ட்"
 
-#: searx/plugins/hostname_replace.py:7
+#: searx/plugins/hostname_replace.py:9
 msgid "Hostname replace"
 msgstr "ஹோஸ்ட்பெயர் மாற்றீடு"
 
-#: searx/plugins/hostnames.py:68
-msgid "Hostnames plugin"
+#: searx/plugins/hostname_replace.py:10
+msgid "Rewrite result hostnames or remove results based on the hostname"
 msgstr ""
+"முடிவு ஹோஸ்ட்பெயர்களை மீண்டும் எழுதவும் அல்லது ஹோஸ்ட்பெயரின் அடிப்படையில்"
+" முடிவுகளை அகற்றவும்"
 
-#: searx/plugins/hostnames.py:69
-msgid "Rewrite hostnames, remove results or prioritize them based on the hostname"
-msgstr ""
-
-#: searx/plugins/oa_doi_rewrite.py:12
+#: searx/plugins/oa_doi_rewrite.py:9
 msgid "Open Access DOI rewrite"
 msgstr "Open Access DOI-யை திரும்ப எழுது"
 
-#: searx/plugins/oa_doi_rewrite.py:13
+#: searx/plugins/oa_doi_rewrite.py:10
 msgid ""
 "Avoid paywalls by redirecting to open-access versions of publications "
 "when available"
@@ -545,11 +296,23 @@ msgstr ""
 "பணம் பறிக்கும் தளங்களை தவிர்த்து முடிந்த வரையில் open-access பதிப்புகளை "
 "வழங்கும் தளங்களுக்கு செல்லவும்"
 
-#: searx/plugins/self_info.py:9
-msgid "Self Information"
-msgstr "சுய தகவல்"
+#: searx/plugins/search_on_category_select.py:19
+msgid "Search on category select"
+msgstr "தேர்ந்தெடுத்தப் பிரிவில் தேடுக"
 
-#: searx/plugins/self_info.py:10
+#: searx/plugins/search_on_category_select.py:20
+msgid ""
+"Perform search immediately if a category selected. Disable to select "
+"multiple categories. (JavaScript required)"
+msgstr ""
+"பிரிவு தேர்வு செய்யப்பட்டால் தேடல் உடனடியாகச் செயற்படுத்தும். பல "
+"பிரிவுகளைத் தேர்வு செய்ய முடக்கவும். (ஜாவா ஸ்கிரிப்ட் தேவைப்படும்)"
+
+#: searx/plugins/self_info.py:20
+msgid "Self Informations"
+msgstr "சுய தகவல்கள்"
+
+#: searx/plugins/self_info.py:21
 msgid ""
 "Displays your IP if the query is \"ip\" and your user agent if the query "
 "contains \"user agent\"."
@@ -557,53 +320,28 @@ msgstr ""
 "\"ip\" என்று தேடினால் உங்கள் ip முகவரியையும், \"user agent\" என்று "
 "தேடினால் உங்கள் user-agent-ம் காட்டப்படும்."
 
-#: searx/plugins/self_info.py:28
-msgid "Your IP is: "
-msgstr ""
-
-#: searx/plugins/self_info.py:31
-msgid "Your user-agent is: "
-msgstr ""
-
-#: searx/plugins/tor_check.py:24
-msgid "Tor check plugin"
-msgstr ""
-
-#: searx/plugins/tor_check.py:27
-msgid ""
-"This plugin checks if the address of the request is a Tor exit-node, and "
-"informs the user if it is; like check.torproject.org, but from SearXNG."
-msgstr ""
-
-#: searx/plugins/tor_check.py:61
-msgid ""
-"Could not download the list of Tor exit-nodes from: "
-"https://check.torproject.org/exit-addresses"
-msgstr ""
-
-#: searx/plugins/tor_check.py:77
-msgid ""
-"You are using Tor and it looks like you have this external IP address: "
-"{ip_address}"
-msgstr ""
-
-#: searx/plugins/tor_check.py:85
-msgid "You are not using Tor and you have this external IP address: {ip_address}"
-msgstr ""
-
-#: searx/plugins/tracker_url_remover.py:16
+#: searx/plugins/tracker_url_remover.py:29
 msgid "Tracker URL remover"
 msgstr "உளவுப் பார்க்கும் வலைதள முகவரி நீக்கி"
 
-#: searx/plugins/tracker_url_remover.py:17
+#: searx/plugins/tracker_url_remover.py:30
 msgid "Remove trackers arguments from the returned URL"
 msgstr ""
 "உங்களை உளவு பார்த்து பின்தொடர பயன்படும் எழுத்துக்களை வலைதள "
 "முகவரியிலிருந்து நீக்குக"
 
-#: searx/plugins/unit_converter.py:29
-msgid "Convert between units"
+#: searx/plugins/vim_hotkeys.py:3
+msgid "Vim-like hotkeys"
+msgstr "Vim போன்ற hotkeys"
+
+#: searx/plugins/vim_hotkeys.py:4
+msgid ""
+"Navigate search results with Vim-like hotkeys (JavaScript required). "
+"Press \"h\" key on main or result page to get help."
 msgstr ""
+"Vim போன்ற ஹாட்ஸ்கிகள் மூலம் தேடல் முடிவுகளை வழிசெலுத்தவும் "
+"(ஜாவாஸ்கிரிப்ட் தேவை). உதவியைப் பெற, பிரதான அல்லது முடிவுப் பக்கத்தில் "
+"\"h\" விசையை அழுத்தவும்."
 
 #: searx/templates/simple/404.html:4
 msgid "Page not found"
@@ -612,225 +350,527 @@ msgstr "பக்கம் கிடைக்கவில்லை"
 #: searx/templates/simple/404.html:6
 #, python-format
 msgid "Go to %(search_page)s."
-msgstr "%(search_page)s-க்கு செல்."
+msgstr "%(search_page)s-க்கு செல்"
 
 #: searx/templates/simple/404.html:6
 msgid "search page"
 msgstr "தேடல் பக்கம்"
 
-#: searx/templates/simple/base.html:54
-msgid "Donate"
-msgstr "நன்கொடை"
+#: searx/templates/simple/base.html:46
+msgid "About"
+msgstr ""
 
-#: searx/templates/simple/base.html:58
-#: searx/templates/simple/preferences.html:156
+#: searx/templates/simple/base.html:49
+msgid "Donate"
+msgstr ""
+
+#: searx/templates/simple/base.html:52
+#: searx/templates/simple/preferences.html:99
 msgid "Preferences"
 msgstr "விருப்பத்தேர்வு"
 
-#: searx/templates/simple/base.html:68
+#: searx/templates/simple/base.html:62
 msgid "Powered by"
 msgstr "மூலம் இயக்கப்படுகிறது"
 
-#: searx/templates/simple/base.html:68
-msgid "a privacy-respecting, open metasearch engine"
-msgstr ""
+#: searx/templates/simple/base.html:62
+msgid "a privacy-respecting, hackable metasearch engine"
+msgstr "உங்கள் அகவுரிமையை மதிக்கும் மாற்றியமைக்ககூடிய ஒரு தேடல் எந்திரம்"
 
-#: searx/templates/simple/base.html:69
-#: searx/templates/simple/result_templates/packages.html:59
+#: searx/templates/simple/base.html:63
 msgid "Source code"
 msgstr "மூல குறியீடு"
 
-#: searx/templates/simple/base.html:70
+#: searx/templates/simple/base.html:64
 msgid "Issue tracker"
 msgstr "பிரச்சினை டிராக்கர்"
 
-#: searx/templates/simple/base.html:71 searx/templates/simple/stats.html:18
+#: searx/templates/simple/base.html:65 searx/templates/simple/stats.html:18
 msgid "Engine stats"
 msgstr "எந்திரத்தின் புள்ளி விவரங்கள்"
 
-#: searx/templates/simple/base.html:73
+#: searx/templates/simple/base.html:66
+#: searx/templates/simple/messages/no_results.html:15
 msgid "Public instances"
 msgstr "பொது நிகழ்வுகள்"
 
-#: searx/templates/simple/base.html:76
+#: searx/templates/simple/base.html:68
 msgid "Privacy policy"
-msgstr "தனியுரிமைக் கொள்கை"
+msgstr ""
 
-#: searx/templates/simple/base.html:79
+#: searx/templates/simple/base.html:71
 msgid "Contact instance maintainer"
 msgstr "நிகழ்வு பராமரிப்பாளரைத் தொடர்பு கொள்ளவும்"
 
-#: searx/templates/simple/categories.html:26
+#: searx/templates/simple/categories.html:24
 msgid "Click on the magnifier to perform search"
 msgstr "உருப்பெருக்கியைச் சொடுக்கி தேடலைத் தொடங்கவும்"
 
-#: searx/templates/simple/macros.html:35
+#: searx/templates/simple/macros.html:36
 msgid "Length"
 msgstr "நீளம்"
 
-#: searx/templates/simple/macros.html:36
-#: searx/templates/simple/result_templates/files.html:34
-#: searx/templates/simple/result_templates/images.html:19
-#: searx/templates/simple/result_templates/paper.html:6
+#: searx/templates/simple/macros.html:37
+#: searx/templates/simple/result_templates/images.html:18
 msgid "Author"
 msgstr "நூலாசிரியர்"
 
-#: searx/templates/simple/macros.html:44
+#: searx/templates/simple/macros.html:45
 msgid "cached"
 msgstr "தற்காலிக சேமிப்பு"
 
-#: searx/templates/simple/macros.html:44
+#: searx/templates/simple/macros.html:45
 msgid "proxied"
 msgstr "ப்ராக்ஸி"
 
-#: searx/templates/simple/new_issue.html:64
-msgid "Start submiting a new issue on GitHub"
-msgstr ""
-
-#: searx/templates/simple/new_issue.html:66
-msgid "Please check for existing bugs about this engine on GitHub"
-msgstr ""
-
-#: searx/templates/simple/new_issue.html:69
-msgid "I confirm there is no existing bug about the issue I encounter"
-msgstr ""
-
-#: searx/templates/simple/new_issue.html:71
-msgid "If this is a public instance, please specify the URL in the bug report"
-msgstr ""
-
-#: searx/templates/simple/new_issue.html:72
+#: searx/templates/simple/new_issue.html:63
 msgid "Submit a new issue on Github including the above information"
 msgstr ""
 
-#: searx/templates/simple/preferences.html:65
+#: searx/templates/simple/preferences.html:29
 msgid "No HTTPS"
 msgstr "HTTPS இல்லை"
 
-#: searx/templates/simple/elements/engines_msg.html:18
-#: searx/templates/simple/preferences.html:69
-#: searx/templates/simple/preferences.html:70
+#: searx/templates/simple/messages/no_results.html:10
+#: searx/templates/simple/preferences.html:31
+#: searx/templates/simple/preferences.html:32
+#: searx/templates/simple/results.html:49
 msgid "View error logs and submit a bug report"
 msgstr "பிழைப் பதிவுகளைப் பார்த்து, பிழை அறிக்கையைச் சமர்ப்பிக்கவும்"
 
-#: searx/templates/simple/preferences.html:74
-msgid "!bang for this engine"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:80
-msgid "!bang for its categories"
-msgstr ""
-
-#: searx/templates/simple/preferences.html:102
-#: searx/templates/simple/stats.html:64
+#: searx/templates/simple/preferences.html:53
+#: searx/templates/simple/stats.html:67
 msgid "Median"
 msgstr "இடைநிலை"
 
-#: searx/templates/simple/preferences.html:103
-#: searx/templates/simple/stats.html:70
+#: searx/templates/simple/preferences.html:54
+#: searx/templates/simple/stats.html:73
 msgid "P80"
 msgstr "P80"
 
-#: searx/templates/simple/preferences.html:104
-#: searx/templates/simple/stats.html:76
+#: searx/templates/simple/preferences.html:55
+#: searx/templates/simple/stats.html:79
 msgid "P95"
 msgstr "P95"
 
-#: searx/templates/simple/preferences.html:136
+#: searx/templates/simple/preferences.html:83
 msgid "Failed checker test(s): "
 msgstr "தோல்வியடைந்த சரிபார்ப்பு சோதனை(கள்): "
 
-#: searx/templates/simple/preferences.html:138
+#: searx/templates/simple/preferences.html:85
 msgid "Errors:"
 msgstr "பிழைகள்:"
 
-#: searx/templates/simple/preferences.html:162
+#: searx/templates/simple/preferences.html:105
 msgid "General"
 msgstr "பொது"
 
-#: searx/templates/simple/preferences.html:165
+#: searx/templates/simple/preferences.html:108
 msgid "Default categories"
 msgstr "இயல்புநிலை பிரிவுகள்"
 
-#: searx/templates/simple/preferences.html:187
+#: searx/templates/simple/filters/languages.html:1
+#: searx/templates/simple/preferences.html:115
+msgid "Search language"
+msgstr "தேடல் மொழி"
+
+#: searx/templates/simple/filters/languages.html:2
+#: searx/templates/simple/preferences.html:118
+msgid "Default language"
+msgstr "இயல்புநிலை மொழி"
+
+#: searx/templates/simple/preferences.html:124
+msgid "What language do you prefer for search?"
+msgstr "தேடலுக்கு எந்த மொழியை விரும்புகிறீர்கள்?"
+
+#: searx/templates/simple/preferences.html:129
+msgid "Autocomplete"
+msgstr "நிறைவுத் தானியக்கம்"
+
+#: searx/templates/simple/preferences.html:138
+msgid "Find stuff as you type"
+msgstr "உள்ளிடும் போதே தேடு"
+
+#: searx/templates/simple/filters/safesearch.html:1
+#: searx/templates/simple/filters/safesearch.html:2
+#: searx/templates/simple/filters/safesearch.html:3
+#: searx/templates/simple/filters/safesearch.html:4
+#: searx/templates/simple/preferences.html:143
+#: searx/templates/simple/preferences.html:311
+msgid "SafeSearch"
+msgstr "பாதுகாப்பன தேடல்"
+
+#: searx/templates/simple/filters/safesearch.html:2
+#: searx/templates/simple/preferences.html:146
+msgid "Strict"
+msgstr "கண்டிப்பான"
+
+#: searx/templates/simple/filters/safesearch.html:3
+#: searx/templates/simple/preferences.html:147
+msgid "Moderate"
+msgstr "மிதமான"
+
+#: searx/templates/simple/filters/safesearch.html:4
+#: searx/templates/simple/preferences.html:148
+msgid "None"
+msgstr "எதுவுமில்லை"
+
+#: searx/templates/simple/preferences.html:151
+msgid "Filter content"
+msgstr "வடிகட்டி உள்ளடக்கம்"
+
+#: searx/templates/simple/preferences.html:157
+msgid "Open Access DOI resolver"
+msgstr "அணுகல் DOI தீர்வைத் திறக்கவும்"
+
+#: searx/templates/simple/preferences.html:167
+msgid ""
+"Redirect to open-access versions of publications when available (plugin "
+"required)"
+msgstr ""
+"கிடைக்கும் போது வெளியீடுகளின் திறந்த அணுகல் பதிப்புகளுக்குத் "
+"திருப்பிவிடவும் (சொருகி தேவை)"
+
+#: searx/templates/simple/preferences.html:171
+msgid "Engine tokens"
+msgstr "எஞ்சின் டோக்கன்கள்"
+
+#: searx/templates/simple/preferences.html:175
+msgid "Access tokens for private engines"
+msgstr "தனியார் இயந்திரங்களுக்கான அணுகல் டோக்கன்கள்"
+
+#: searx/templates/simple/preferences.html:179
 msgid "User interface"
 msgstr "பயனர் இடைமுகப்பு"
 
-#: searx/templates/simple/preferences.html:208
+#: searx/templates/simple/preferences.html:182
+msgid "Interface language"
+msgstr "முகப்பின் மொழி"
+
+#: searx/templates/simple/preferences.html:190
+msgid "Change the language of the layout"
+msgstr "வடிவமைப்பின் மொழியை மாற்று"
+
+#: searx/templates/simple/preferences.html:195
+msgid "Theme"
+msgstr "தீம்"
+
+#: searx/templates/simple/preferences.html:203
+msgid "Change Otto layout"
+msgstr "Otto தளவமைப்பை மாற்றவும்"
+
+#: searx/templates/simple/preferences.html:206
+msgid "Theme style"
+msgstr "தீம் பாணி"
+
+#: searx/templates/simple/preferences.html:214
+msgid "Choose auto to follow your browser settings"
+msgstr "உங்கள் உலாவி அமைப்புகளைப் பின்பற்ற தானாகத் தேர்ந்தெடுக்கவும்"
+
+#: searx/templates/simple/preferences.html:217
+msgid "Center Alignment"
+msgstr ""
+
+#: searx/templates/simple/preferences.html:220
+#: searx/templates/simple/preferences.html:232
+#: searx/templates/simple/preferences.html:244
+msgid "On"
+msgstr "இயக்கு"
+
+#: searx/templates/simple/preferences.html:221
+#: searx/templates/simple/preferences.html:233
+#: searx/templates/simple/preferences.html:245
+msgid "Off"
+msgstr "அமர்த்து"
+
+#: searx/templates/simple/preferences.html:224
+msgid "Displays results in the center of the page (Oscar layout)."
+msgstr ""
+
+#: searx/templates/simple/preferences.html:229
+msgid "Results on new tabs"
+msgstr "தேடல் முடிவுகள் புதிய Tab-ல்"
+
+#: searx/templates/simple/preferences.html:236
+msgid "Open result links on new browser tabs"
+msgstr "இணைப்புகளை புதிய Tab-ல் திறக்கவும்"
+
+#: searx/templates/simple/preferences.html:241
+msgid "Infinite scroll"
+msgstr "தொடர் பட்டியல்"
+
+#: searx/templates/simple/preferences.html:248
+msgid "Automatically load next page when scrolling to bottom of current page"
+msgstr "பக்கத்தின் முடிவை அடைந்தவுடன் தானாக அடுத்த பக்கததிற்கு செல்லவும்"
+
+#: searx/templates/simple/preferences.html:254
 msgid "Privacy"
 msgstr "தனியுரிமை"
 
-#: searx/templates/simple/preferences.html:221
+#: searx/templates/simple/preferences.html:257
+msgid "HTTP Method"
+msgstr ""
+
+#: searx/templates/simple/preferences.html:264
+msgid ""
+"Change how forms are submited, <a "
+"href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
+" rel=\"external\">learn more about request methods</a>"
+msgstr ""
+"படிவங்கள் எவ்வாறு சமர்ப்பிக்கப்படுகின்றன என்பதை மாற்றவும், <a "
+"href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
+" rel=\"external\">கோரிக்கை முறைகள் பற்றி மேலும் அறிக</a>"
+
+#: searx/templates/simple/preferences.html:269
+msgid "Image proxy"
+msgstr "பட நிகராளி"
+
+#: searx/templates/simple/preferences.html:272
+#: searx/templates/simple/preferences.html:284
+msgid "Enabled"
+msgstr "செயல்படுத்து"
+
+#: searx/templates/simple/preferences.html:273
+#: searx/templates/simple/preferences.html:285
+msgid "Disabled"
+msgstr "நிறுத்தப்பட்டது"
+
+#: searx/templates/simple/preferences.html:276
+msgid "Proxying image results through Otto"
+msgstr "Otto மூலம் படத்தின் முடிவுகளைப் பதிலீடு செய்கிறது"
+
+#: searx/templates/simple/preferences.html:281
+msgid "Query in the page's title"
+msgstr "பக்கத்தின் தலைப்பில் வினவல்"
+
+#: searx/templates/simple/preferences.html:288
+msgid ""
+"When enabled, the result page's title contains your query. Your browser "
+"can record this title"
+msgstr ""
+"இயக்கப்பட்டால், முடிவுப் பக்கத்தின் தலைப்பில் உங்கள் வினவல் இருக்கும். "
+"உங்கள் உலாவி இந்தத் தலைப்பைப் பதிவுசெய்ய முடியும்"
+
+#: searx/templates/simple/preferences.html:294
 msgid "Engines"
 msgstr "எந்திரங்கள்"
 
-#: searx/templates/simple/preferences.html:223
+#: searx/templates/simple/preferences.html:295
 msgid "Currently used search engines"
 msgstr "தற்போது பயன்படுத்திய தேடுபொறிகள்"
 
-#: searx/templates/simple/preferences.html:231
+#: searx/templates/simple/preferences.html:302
+msgid ""
+"This tab does not show up for search results, but you can search the "
+"engines listed here via bangs."
+msgstr ""
+
+#: searx/templates/simple/preferences.html:307
+#: searx/templates/simple/preferences.html:358
+msgid "Allow"
+msgstr "அனுமதி"
+
+#: searx/templates/simple/preferences.html:308
+#: searx/templates/simple/stats.html:25
+msgid "Engine name"
+msgstr "எந்திரத்தின் பெயர்"
+
+#: searx/templates/simple/preferences.html:309
+msgid "Shortcut"
+msgstr "குறுக்குவழி"
+
+#: searx/templates/simple/preferences.html:310
+msgid "Supports selected language"
+msgstr "தேர்ந்தெடுத்த மொழிக்கு ஆதரவு உள்ளது."
+
+#: searx/templates/simple/filters/time_range.html:1
+#: searx/templates/simple/preferences.html:312
+msgid "Time range"
+msgstr "நேர வரம்பு"
+
+#: searx/templates/simple/preferences.html:313
+#: searx/templates/simple/stats.html:28
+msgid "Response time"
+msgstr "பதில் நேரம்"
+
+#: searx/templates/simple/preferences.html:314
+msgid "Max time"
+msgstr "அதிகபட்ச நேரம்"
+
+#: searx/templates/simple/preferences.html:315
+#: searx/templates/simple/stats.html:29
+msgid "Reliability"
+msgstr "நம்பகத்தன்மை"
+
+#: searx/templates/simple/preferences.html:353
 msgid "Special Queries"
 msgstr "சிறப்பு வினாக்கள்"
 
-#: searx/templates/simple/preferences.html:237
+#: searx/templates/simple/preferences.html:359
+msgid "Keywords"
+msgstr "குறிப்புச்சொற்கள்"
+
+#: searx/templates/simple/preferences.html:360
+msgid "Name"
+msgstr "பெயர்"
+
+#: searx/templates/simple/preferences.html:361
+msgid "Description"
+msgstr "விளக்கம்"
+
+#: searx/templates/simple/preferences.html:362
+msgid "Examples"
+msgstr "எடுத்துக்காட்டுகள்"
+
+#: searx/templates/simple/preferences.html:365
+msgid "This is the list of Otto's instant answering modules."
+msgstr "இது Otto இன் உடனடி பதில் தொகுதிகளின் பட்டியல்."
+
+#: searx/templates/simple/preferences.html:376
+msgid "This is the list of plugins."
+msgstr "இது செருகுநிரல்களின் பட்டியல்."
+
+#: searx/templates/simple/preferences.html:393
 msgid "Cookies"
 msgstr "நினைவிகள்"
+
+#: searx/templates/simple/preferences.html:395
+msgid ""
+"This is the list of cookies and their values Otto is storing on your "
+"computer."
+msgstr ""
+"இது உங்கள் கணினியில் Otto சேமிக்கும் குக்கீகளின் பட்டியல் மற்றும் "
+"அவற்றின் மதிப்புகள்."
+
+#: searx/templates/simple/preferences.html:396
+msgid "With that list, you can assess Otto transparency."
+msgstr "அந்த பட்டியலின் மூலம், நீங்கள் Otto வெளிப்படைத்தன்மையை மதிப்பிடலாம்."
+
+#: searx/templates/simple/preferences.html:401
+msgid "Cookie name"
+msgstr "நினைவியின் பெயர்"
+
+#: searx/templates/simple/preferences.html:402
+msgid "Value"
+msgstr "மதிப்பு"
+
+#: searx/templates/simple/preferences.html:414
+msgid "Search URL of the currently saved preferences"
+msgstr "தற்போது சேமிக்கப்பட்ட விருப்பத்தேர்வுகளில் வலைதள முகவரியைத் தேடு"
+
+#: searx/templates/simple/preferences.html:418
+msgid ""
+"Note: specifying custom settings in the search URL can reduce privacy by "
+"leaking data to the clicked result sites."
+msgstr ""
+"குறிப்பு : தேடல் வலைதள முகவரியில் குறிப்பிட்ட விருப்ப அமைப்புகள், "
+"கிடைத்தத் தளங்களை சொடுக்குவதன் மூலம் தரவுகள் கசிவதால் அகவுரிமை குறையும்."
+
+#: searx/templates/simple/preferences.html:419
+msgid "URL to restore your preferences in another browser"
+msgstr ""
+
+#: searx/templates/simple/preferences.html:423
+msgid ""
+"Specifying custom settings in the preferences URL can be used to sync "
+"preferences across devices."
+msgstr ""
+
+#: searx/templates/simple/preferences.html:428
+msgid ""
+"These settings are stored in your cookies, this allows us not to store "
+"this data about you."
+msgstr ""
+"இந்த அமைப்புகள் உங்கள் குக்கீகளில் சேமிக்கப்பட்டுள்ளன, இது உங்களைப் "
+"பற்றிய இந்தத் தரவைச் சேமிக்காமல் இருக்க அனுமதிக்கிறது."
+
+#: searx/templates/simple/preferences.html:430
+msgid ""
+"These cookies serve your sole convenience, we don't use these cookies to "
+"track you."
+msgstr ""
+"இந்த நினைவிகள் உங்களின் வசதிக்காக மட்டுமே. இந்த நினைவிகள் உங்களை உளவு "
+"பார்க்காது."
+
+#: searx/templates/simple/preferences.html:433
+msgid "Save"
+msgstr ""
+
+#: searx/templates/simple/preferences.html:434
+msgid "Reset defaults"
+msgstr "இயல்புநிலைக்குத் திருப்பவும்"
+
+#: searx/templates/simple/preferences.html:435
+msgid "Back"
+msgstr ""
 
 #: searx/templates/simple/results.html:23
 msgid "Answers"
 msgstr "பதில்கள்"
 
-#: searx/templates/simple/results.html:42
+#: searx/templates/simple/results.html:39
 msgid "Number of results"
 msgstr "முடிவுகளின் எண்ணிக்கை"
 
-#: searx/templates/simple/results.html:48
-msgid "Info"
-msgstr "தகவல்"
+#: searx/templates/simple/messages/no_results.html:6
+#: searx/templates/simple/results.html:46
+msgid "Error!"
+msgstr "பிழை!"
 
-#: searx/templates/simple/results.html:77
+#: searx/templates/simple/results.html:46
+msgid "Engines cannot retrieve results"
+msgstr "எந்திரங்களால் பதில்களை பெற முடியவில்லை"
+
+#: searx/templates/simple/results.html:68
+msgid "Suggestions"
+msgstr "பரிந்துரைகள்"
+
+#: searx/templates/simple/results.html:90
+msgid "Search URL"
+msgstr "இத்தேடலின் முகவரி"
+
+#: searx/templates/simple/results.html:96
+msgid "Download results"
+msgstr "தேடல் பதில்களை தரவிறக்கு"
+
+#: searx/templates/simple/results.html:120
 msgid "Try searching for:"
 msgstr "இதுபோல் தேடி பார்க்கவும்"
 
-#: searx/templates/simple/results.html:109
+#: searx/templates/simple/results.html:152
 msgid "Back to top"
 msgstr ""
 
-#: searx/templates/simple/results.html:127
+#: searx/templates/simple/results.html:170
 msgid "Previous page"
-msgstr "முந்தைய பக்கம்"
+msgstr ""
 
-#: searx/templates/simple/results.html:145
+#: searx/templates/simple/results.html:187
 msgid "Next page"
-msgstr "அடுத்த பக்கம்"
+msgstr ""
 
 #: searx/templates/simple/search.html:3
 msgid "Display the front page"
-msgstr "முன் பக்கத்தைக் காட்டு"
+msgstr ""
 
 #: searx/templates/simple/search.html:9
 #: searx/templates/simple/simple_search.html:5
-msgid "What's on your mind?"
-msgstr "எதைப்பற்றி தேட வேண்டும..."
+msgid "Search for..."
+msgstr "எதைப்பற்றி தேட வேண்டும்?"
 
 #: searx/templates/simple/search.html:10
 #: searx/templates/simple/simple_search.html:6
 msgid "clear"
-msgstr "அழி"
+msgstr "தெளிவானது"
 
 #: searx/templates/simple/search.html:11
 #: searx/templates/simple/simple_search.html:7
 msgid "search"
-msgstr "தேடு"
+msgstr "தேடுக"
 
 #: searx/templates/simple/stats.html:21
 msgid "There is currently no data available. "
 msgstr "தற்போது தரவுகள் ஏதும் இல்லை."
-
-#: searx/templates/simple/preferences/engines.html:24
-#: searx/templates/simple/stats.html:25
-msgid "Engine name"
-msgstr "எந்திரத்தின் பெயர்"
 
 #: searx/templates/simple/stats.html:26
 msgid "Scores"
@@ -840,154 +880,69 @@ msgstr "மதிப்புகள்"
 msgid "Result count"
 msgstr "முடிவு எண்ணிக்கை"
 
-#: searx/templates/simple/preferences/engines.html:31
-#: searx/templates/simple/stats.html:28
-msgid "Response time"
-msgstr "பதில் நேரம்"
+#: searx/templates/simple/stats.html:38
+msgid "Scores per result"
+msgstr "தேடல் மதிப்பு"
 
-#: searx/templates/simple/preferences/engines.html:35
-#: searx/templates/simple/stats.html:29
-msgid "Reliability"
-msgstr "நம்பகத்தன்மை"
-
-#: searx/templates/simple/stats.html:59
+#: searx/templates/simple/stats.html:62
 msgid "Total"
 msgstr "மொத்தம்"
 
-#: searx/templates/simple/stats.html:60
+#: searx/templates/simple/stats.html:63
 msgid "HTTP"
 msgstr "HTTP"
 
-#: searx/templates/simple/stats.html:61
+#: searx/templates/simple/stats.html:64
 msgid "Processing"
 msgstr "செயலாக்கம்"
 
-#: searx/templates/simple/stats.html:99
+#: searx/templates/simple/stats.html:102
 msgid "Warnings"
 msgstr "எச்சரிக்கைகள்"
 
-#: searx/templates/simple/stats.html:99
+#: searx/templates/simple/stats.html:102
 msgid "Errors and exceptions"
 msgstr "பிழைகள் மற்றும் விதிவிலக்குகள்"
 
-#: searx/templates/simple/stats.html:105
+#: searx/templates/simple/stats.html:108
 msgid "Exception"
 msgstr "விதிவிலக்கு"
 
-#: searx/templates/simple/stats.html:107
+#: searx/templates/simple/stats.html:110
 msgid "Message"
 msgstr "செய்தி"
 
-#: searx/templates/simple/stats.html:109
+#: searx/templates/simple/stats.html:112
 msgid "Percentage"
 msgstr "சதவிதம்"
 
-#: searx/templates/simple/stats.html:111
+#: searx/templates/simple/stats.html:114
 msgid "Parameter"
 msgstr "அளவுரு"
 
-#: searx/templates/simple/result_templates/files.html:36
-#: searx/templates/simple/stats.html:119
+#: searx/templates/simple/stats.html:122
 msgid "Filename"
 msgstr "கோப்பு பெயர்"
 
-#: searx/templates/simple/stats.html:120
+#: searx/templates/simple/stats.html:123
 msgid "Function"
 msgstr "செயல்பாடு"
 
-#: searx/templates/simple/stats.html:121
+#: searx/templates/simple/stats.html:124
 msgid "Code"
 msgstr "குறியீடு"
 
-#: searx/templates/simple/stats.html:128
+#: searx/templates/simple/stats.html:131
 msgid "Checker"
 msgstr "செக்கர்"
 
-#: searx/templates/simple/stats.html:131
+#: searx/templates/simple/stats.html:134
 msgid "Failed test"
 msgstr "சோதனை தோல்வி"
 
-#: searx/templates/simple/stats.html:132
+#: searx/templates/simple/stats.html:135
 msgid "Comment(s)"
 msgstr "கருத்து(கள்)"
-
-#: searx/templates/simple/elements/apis.html:3
-msgid "Download results"
-msgstr "தேடல் பதில்களை தரவிறக்கு"
-
-#: searx/templates/simple/elements/engines_msg.html:7
-msgid "Messages from the search engines"
-msgstr ""
-
-#: searx/templates/simple/elements/engines_msg.html:12
-msgid "Error!"
-msgstr "பிழை!"
-
-#: searx/templates/simple/elements/engines_msg.html:13
-msgid "Engines cannot retrieve results"
-msgstr "எந்திரங்களால் பதில்களை பெற முடியவில்லை"
-
-#: searx/templates/simple/elements/search_url.html:3
-msgid "Search URL"
-msgstr "இத்தேடலின் முகவரி"
-
-#: searx/templates/simple/elements/search_url.html:4
-#: searx/templates/simple/preferences/cookies.html:54
-msgid "Copied"
-msgstr ""
-
-#: searx/templates/simple/elements/search_url.html:4
-#: searx/templates/simple/preferences/cookies.html:54
-msgid "Copy"
-msgstr ""
-
-#: searx/templates/simple/elements/suggestions.html:3
-msgid "Suggestions"
-msgstr "பரிந்துரைகள்"
-
-#: searx/templates/simple/filters/languages.html:1
-#: searx/templates/simple/preferences/language.html:2
-msgid "Search language"
-msgstr "தேடல் மொழி"
-
-#: searx/templates/simple/filters/languages.html:2
-#: searx/templates/simple/preferences/language.html:7
-msgid "Default language"
-msgstr "இயல்புநிலை மொழி"
-
-#: searx/templates/simple/filters/languages.html:4
-#: searx/templates/simple/preferences/language.html:11
-msgid "Auto-detect"
-msgstr ""
-
-#: searx/templates/simple/filters/safesearch.html:1
-#: searx/templates/simple/filters/safesearch.html:2
-#: searx/templates/simple/filters/safesearch.html:3
-#: searx/templates/simple/filters/safesearch.html:4
-#: searx/templates/simple/preferences/engines.html:27
-#: searx/templates/simple/preferences/safesearch.html:2
-msgid "SafeSearch"
-msgstr "பாதுகாப்பன தேடல்"
-
-#: searx/templates/simple/filters/safesearch.html:2
-#: searx/templates/simple/preferences/safesearch.html:7
-msgid "Strict"
-msgstr "கண்டிப்பான"
-
-#: searx/templates/simple/filters/safesearch.html:3
-#: searx/templates/simple/preferences/safesearch.html:11
-msgid "Moderate"
-msgstr "மிதமான"
-
-#: searx/templates/simple/filters/safesearch.html:4
-#: searx/templates/simple/preferences/safesearch.html:15
-msgid "None"
-msgstr "எதுவுமில்லை"
-
-#: searx/templates/simple/filters/time_range.html:1
-#: searx/templates/simple/preferences/engines.html:28
-msgid "Time range"
-msgstr "நேர வரம்பு"
 
 #: searx/templates/simple/filters/time_range.html:3
 msgid "Anytime"
@@ -1018,331 +973,32 @@ msgid "currently, there are no cookies defined."
 msgstr "தற்போது எந்தவொரு நினைவிகளும் வரையறுக்கப்படவில்லை."
 
 #: searx/templates/simple/messages/no_results.html:6
+msgid "Engines cannot retrieve results."
+msgstr "எந்திரத்தால் பதில்களை மீட்டெடுக்க இயலவில்லை."
+
+#: searx/templates/simple/messages/no_results.html:15
+msgid "Please, try again later or find another Otto instance."
+msgstr ""
+"தயவுசெய்து, பிறகு முயற்சிக்கவும் அல்லது மற்றொரு Otto நிகழ்வைக் "
+"கண்டறியவும்."
+
+#: searx/templates/simple/messages/no_results.html:20
 msgid "Sorry!"
 msgstr "மன்னிக்கவும்!"
 
-#: searx/templates/simple/messages/no_results.html:12
-msgid "No results were found. You can try to:"
-msgstr ""
-
-#: searx/templates/simple/messages/no_results.html:14
-msgid "There are no more results. You can try to:"
-msgstr ""
-
-#: searx/templates/simple/messages/no_results.html:19
-msgid "Refresh the page."
-msgstr ""
-
-#: searx/templates/simple/messages/no_results.html:20
-msgid "Search for another query or select another category (above)."
-msgstr ""
-
 #: searx/templates/simple/messages/no_results.html:21
-msgid "Change the search engine used in the preferences:"
-msgstr ""
-
-#: searx/templates/simple/messages/no_results.html:22
-msgid "Switch to another instance:"
-msgstr ""
-
-#: searx/templates/simple/messages/no_results.html:24
-msgid "Search for another query or select another category."
-msgstr ""
-
-#: searx/templates/simple/messages/no_results.html:25
-msgid "Go back to the previous page using the previous page button."
-msgstr ""
-
-#: searx/templates/simple/preferences/answerers.html:4
-#: searx/templates/simple/preferences/engines.html:23
-msgid "Allow"
-msgstr "அனுமதி"
-
-#: searx/templates/simple/preferences/answerers.html:5
-msgid "Keywords"
-msgstr "குறிப்புச்சொற்கள்"
-
-#: searx/templates/simple/preferences/answerers.html:6
-#: searx/templates/simple/result_templates/packages.html:7
-msgid "Name"
-msgstr "பெயர்"
-
-#: searx/templates/simple/preferences/answerers.html:7
-msgid "Description"
-msgstr "விளக்கம்"
-
-#: searx/templates/simple/preferences/answerers.html:8
-msgid "Examples"
-msgstr "எடுத்துக்காட்டுகள்"
-
-#: searx/templates/simple/preferences/answerers.html:13
-msgid "This is the list of SearXNG's instant answering modules."
-msgstr "இது SearXNG இன் உடனடி பதில் தொகுதிகளின் பட்டியல்."
-
-#: searx/templates/simple/preferences/answerers.html:29
-msgid "This is the list of plugins."
-msgstr "இது செருகுநிரல்களின் பட்டியல்."
-
-#: searx/templates/simple/preferences/autocomplete.html:2
-msgid "Autocomplete"
-msgstr "நிறைவுத் தானியக்கம்"
-
-#: searx/templates/simple/preferences/autocomplete.html:15
-msgid "Find stuff as you type"
-msgstr "உள்ளிடும் போதே தேடு"
-
-#: searx/templates/simple/preferences/center_alignment.html:2
-msgid "Center Alignment"
-msgstr ""
-
-#: searx/templates/simple/preferences/center_alignment.html:14
-msgid "Displays results in the center of the page (Oscar layout)."
-msgstr ""
-
-#: searx/templates/simple/preferences/cookies.html:2
 msgid ""
-"This is the list of cookies and their values SearXNG is storing on your "
-"computer."
+"we didn't find any results. Please use another query or search in more "
+"categories."
 msgstr ""
-"இது உங்கள் கணினியில் SearXNG சேமிக்கும் குக்கீகளின் பட்டியல் மற்றும் "
-"அவற்றின் மதிப்புகள்."
-
-#: searx/templates/simple/preferences/cookies.html:3
-msgid "With that list, you can assess SearXNG transparency."
-msgstr "அந்த பட்டியலின் மூலம், நீங்கள் SearXNG வெளிப்படைத்தன்மையை மதிப்பிடலாம்."
-
-#: searx/templates/simple/preferences/cookies.html:9
-msgid "Cookie name"
-msgstr "நினைவியின் பெயர்"
-
-#: searx/templates/simple/preferences/cookies.html:10
-msgid "Value"
-msgstr "மதிப்பு"
-
-#: searx/templates/simple/preferences/cookies.html:23
-msgid "Search URL of the currently saved preferences"
-msgstr "தற்போது சேமிக்கப்பட்ட விருப்பத்தேர்வுகளில் வலைதள முகவரியைத் தேடு"
-
-#: searx/templates/simple/preferences/cookies.html:32
-msgid ""
-"Note: specifying custom settings in the search URL can reduce privacy by "
-"leaking data to the clicked result sites."
-msgstr ""
-"குறிப்பு : தேடல் வலைதள முகவரியில் குறிப்பிட்ட விருப்ப அமைப்புகள், "
-"கிடைத்தத் தளங்களை சொடுக்குவதன் மூலம் தரவுகள் கசிவதால் அகவுரிமை குறையும்."
-
-#: searx/templates/simple/preferences/cookies.html:35
-msgid "URL to restore your preferences in another browser"
-msgstr "மற்றொரு உலாவியில் உங்கள் விருப்பங்களை மீட்டமைப்பதற்கான URL"
-
-#: searx/templates/simple/preferences/cookies.html:43
-msgid ""
-"Specifying custom settings in the preferences URL can be used to sync "
-"preferences across devices."
-msgstr ""
-
-#: searx/templates/simple/preferences/cookies.html:46
-msgid "Copy preferences hash"
-msgstr ""
-
-#: searx/templates/simple/preferences/cookies.html:57
-msgid "Insert copied preferences hash (without URL) to restore"
-msgstr ""
-
-#: searx/templates/simple/preferences/cookies.html:59
-msgid "Preferences hash"
-msgstr ""
-
-#: searx/templates/simple/preferences/doi_resolver.html:2
-msgid "Open Access DOI resolver"
-msgstr "அணுகல் DOI தீர்வைத் திறக்கவும்"
-
-#: searx/templates/simple/preferences/doi_resolver.html:14
-msgid "Select service used by DOI rewrite"
-msgstr ""
-
-#: searx/templates/simple/preferences/engines.html:9
-msgid ""
-"This tab does not exists in the user interface, but you can search in "
-"these engines by its !bangs."
-msgstr ""
-
-#: searx/templates/simple/preferences/engines.html:15
-msgid "Enable all"
-msgstr ""
-
-#: searx/templates/simple/preferences/engines.html:16
-msgid "Disable all"
-msgstr ""
-
-#: searx/templates/simple/preferences/engines.html:25
-msgid "!bang"
-msgstr ""
-
-#: searx/templates/simple/preferences/engines.html:26
-msgid "Supports selected language"
-msgstr "தேர்ந்தெடுத்த மொழிக்கு ஆதரவு உள்ளது."
-
-#: searx/templates/simple/preferences/engines.html:29
-msgid "Weight"
-msgstr ""
-
-#: searx/templates/simple/preferences/engines.html:33
-msgid "Max time"
-msgstr "அதிகபட்ச நேரம்"
-
-#: searx/templates/simple/preferences/footer.html:2
-msgid ""
-"These settings are stored in your cookies, this allows us not to store "
-"this data about you."
-msgstr ""
-"இந்த அமைப்புகள் உங்கள் குக்கீகளில் சேமிக்கப்பட்டுள்ளன, இது உங்களைப் "
-"பற்றிய இந்தத் தரவைச் சேமிக்காமல் இருக்க அனுமதிக்கிறது."
-
-#: searx/templates/simple/preferences/footer.html:3
-msgid ""
-"These cookies serve your sole convenience, we don't use these cookies to "
-"track you."
-msgstr ""
-"இந்த நினைவிகள் உங்களின் வசதிக்காக மட்டுமே. இந்த நினைவிகள் உங்களை உளவு "
-"பார்க்காது."
-
-#: searx/templates/simple/preferences/footer.html:6
-msgid "Save"
-msgstr "சேமி"
-
-#: searx/templates/simple/preferences/footer.html:9
-msgid "Reset defaults"
-msgstr "இயல்புநிலைக்குத் திருப்பவும்"
-
-#: searx/templates/simple/preferences/footer.html:13
-msgid "Back"
-msgstr "பின்"
-
-#: searx/templates/simple/preferences/hotkeys.html:2
-msgid "Hotkeys"
-msgstr ""
-
-#: searx/templates/simple/preferences/hotkeys.html:13
-msgid "Vim-like"
-msgstr ""
-
-#: searx/templates/simple/preferences/hotkeys.html:18
-msgid ""
-"Navigate search results with hotkeys (JavaScript required). Press \"h\" "
-"key on main or result page to get help."
-msgstr ""
-
-#: searx/templates/simple/preferences/image_proxy.html:2
-msgid "Image proxy"
-msgstr "பட நிகராளி"
-
-#: searx/templates/simple/preferences/image_proxy.html:14
-msgid "Proxying image results through SearXNG"
-msgstr "SearXNG மூலம் படத்தின் முடிவுகளைப் பதிலீடு செய்கிறது"
-
-#: searx/templates/simple/preferences/infinite_scroll.html:2
-msgid "Infinite scroll"
-msgstr "தொடர் பட்டியல்"
-
-#: searx/templates/simple/preferences/infinite_scroll.html:14
-msgid "Automatically load next page when scrolling to bottom of current page"
-msgstr "பக்கத்தின் முடிவை அடைந்தவுடன் தானாக அடுத்த பக்கததிற்கு செல்லவும்"
-
-#: searx/templates/simple/preferences/language.html:24
-msgid "What language do you prefer for search?"
-msgstr "தேடலுக்கு எந்த மொழியை விரும்புகிறீர்கள்?"
-
-#: searx/templates/simple/preferences/language.html:25
-msgid "Choose Auto-detect to let SearXNG detect the language of your query."
-msgstr ""
-
-#: searx/templates/simple/preferences/method.html:2
-msgid "HTTP Method"
-msgstr ""
-
-#: searx/templates/simple/preferences/method.html:14
-msgid "Change how forms are submitted"
-msgstr ""
-
-#: searx/templates/simple/preferences/query_in_title.html:2
-msgid "Query in the page's title"
-msgstr "பக்கத்தின் தலைப்பில் வினவல்"
-
-#: searx/templates/simple/preferences/query_in_title.html:14
-msgid ""
-"When enabled, the result page's title contains your query. Your browser "
-"can record this title"
-msgstr ""
-"இயக்கப்பட்டால், முடிவுப் பக்கத்தின் தலைப்பில் உங்கள் வினவல் இருக்கும். "
-"உங்கள் உலாவி இந்தத் தலைப்பைப் பதிவுசெய்ய முடியும்"
-
-#: searx/templates/simple/preferences/results_on_new_tab.html:2
-msgid "Results on new tabs"
-msgstr "தேடல் முடிவுகள் புதிய Tab-ல்"
-
-#: searx/templates/simple/preferences/results_on_new_tab.html:14
-msgid "Open result links on new browser tabs"
-msgstr "இணைப்புகளை புதிய Tab-ல் திறக்கவும்"
-
-#: searx/templates/simple/preferences/safesearch.html:20
-msgid "Filter content"
-msgstr "வடிகட்டி உள்ளடக்கம்"
-
-#: searx/templates/simple/preferences/search_on_category_select.html:2
-msgid "Search on category select"
-msgstr "தேர்ந்தெடுத்தப் பிரிவில் தேடுக"
-
-#: searx/templates/simple/preferences/search_on_category_select.html:14
-msgid ""
-"Perform search immediately if a category selected. Disable to select "
-"multiple categories"
-msgstr ""
-
-#: searx/templates/simple/preferences/theme.html:2
-msgid "Theme"
-msgstr "தீம்"
-
-#: searx/templates/simple/preferences/theme.html:14
-msgid "Change SearXNG layout"
-msgstr "SearXNG தளவமைப்பை மாற்றவும்"
-
-#: searx/templates/simple/preferences/theme.html:19
-msgid "Theme style"
-msgstr "தீம் பாணி"
-
-#: searx/templates/simple/preferences/theme.html:31
-msgid "Choose auto to follow your browser settings"
-msgstr "உங்கள் உலாவி அமைப்புகளைப் பின்பற்ற தானாகத் தேர்ந்தெடுக்கவும்"
-
-#: searx/templates/simple/preferences/tokens.html:2
-msgid "Engine tokens"
-msgstr "எஞ்சின் டோக்கன்கள்"
-
-#: searx/templates/simple/preferences/tokens.html:9
-msgid "Access tokens for private engines"
-msgstr "தனியார் இயந்திரங்களுக்கான அணுகல் டோக்கன்கள்"
-
-#: searx/templates/simple/preferences/ui_locale.html:2
-msgid "Interface language"
-msgstr "முகப்பின் மொழி"
-
-#: searx/templates/simple/preferences/ui_locale.html:14
-msgid "Change the language of the layout"
-msgstr "வடிவமைப்பின் மொழியை மாற்று"
-
-#: searx/templates/simple/result_templates/code.html:13
-msgid "repo"
-msgstr ""
+"எங்களால் எந்ததொரு பதில்களையும் தேட இயலவில்லை. தயவு செய்து வேறொரு வினவலில்"
+" அல்லது கூடுதலானப் பிரிவுகளில் தேடவும்."
 
 #: searx/templates/simple/result_templates/default.html:6
-#: searx/templates/simple/result_templates/files.html:8
-#: searx/templates/simple/result_templates/files.html:11
 msgid "show media"
 msgstr "ஊடகத்தைக் காட்டு"
 
 #: searx/templates/simple/result_templates/default.html:6
-#: searx/templates/simple/result_templates/files.html:8
 msgid "hide media"
 msgstr "ஊடகத்தை மறை"
 
@@ -1351,34 +1007,15 @@ msgstr "ஊடகத்தை மறை"
 msgid "This site did not provide any description."
 msgstr "இந்த தளம் எந்த விளக்கத்தையும் வழங்கவில்லை."
 
-#: searx/templates/simple/result_templates/files.html:38
-#: searx/templates/simple/result_templates/images.html:22
-#: searx/templates/simple/result_templates/torrent.html:11
-msgid "Filesize"
-msgstr "கோப்பளவு"
-
-#: searx/templates/simple/result_templates/files.html:40
-msgid "Date"
-msgstr "தேதி"
-
-#: searx/templates/simple/result_templates/files.html:42
-#: searx/templates/simple/result_templates/paper.html:24
-msgid "Type"
-msgstr ""
-
-#: searx/templates/simple/result_templates/images.html:20
-msgid "Resolution"
-msgstr ""
-
-#: searx/templates/simple/result_templates/images.html:21
+#: searx/templates/simple/result_templates/images.html:19
 msgid "Format"
 msgstr "வடிவம்"
 
-#: searx/templates/simple/result_templates/images.html:24
+#: searx/templates/simple/result_templates/images.html:21
 msgid "Engine"
 msgstr "இயந்திரம்"
 
-#: searx/templates/simple/result_templates/images.html:25
+#: searx/templates/simple/result_templates/images.html:22
 msgid "View source"
 msgstr "மூலத்தைப் பார்"
 
@@ -1393,75 +1030,6 @@ msgstr "வரைபடத்தை காண்பி"
 #: searx/templates/simple/result_templates/map.html:43
 msgid "hide map"
 msgstr "வரைபடத்தை மறை"
-
-#: searx/templates/simple/result_templates/packages.html:12
-msgid "Version"
-msgstr ""
-
-#: searx/templates/simple/result_templates/packages.html:18
-msgid "Maintainer"
-msgstr ""
-
-#: searx/templates/simple/result_templates/packages.html:24
-msgid "Updated at"
-msgstr ""
-
-#: searx/templates/simple/result_templates/packages.html:30
-#: searx/templates/simple/result_templates/paper.html:25
-msgid "Tags"
-msgstr ""
-
-#: searx/templates/simple/result_templates/packages.html:36
-msgid "Popularity"
-msgstr "பிரபலம்"
-
-#: searx/templates/simple/result_templates/packages.html:42
-msgid "License"
-msgstr "உரிமம்"
-
-#: searx/templates/simple/result_templates/packages.html:52
-msgid "Project"
-msgstr ""
-
-#: searx/templates/simple/result_templates/packages.html:55
-msgid "Project homepage"
-msgstr ""
-
-#: searx/templates/simple/result_templates/paper.html:5
-msgid "Published date"
-msgstr "வெளியிடப்பட்ட தேதி"
-
-#: searx/templates/simple/result_templates/paper.html:9
-msgid "Journal"
-msgstr "பத்திரிகை"
-
-#: searx/templates/simple/result_templates/paper.html:22
-msgid "Editor"
-msgstr "பதிப்பாசிரியர்"
-
-#: searx/templates/simple/result_templates/paper.html:23
-msgid "Publisher"
-msgstr "வெளியீட்டாளர்"
-
-#: searx/templates/simple/result_templates/paper.html:26
-msgid "DOI"
-msgstr "DOI"
-
-#: searx/templates/simple/result_templates/paper.html:27
-msgid "ISSN"
-msgstr "ISSN"
-
-#: searx/templates/simple/result_templates/paper.html:28
-msgid "ISBN"
-msgstr "ISBN"
-
-#: searx/templates/simple/result_templates/paper.html:33
-msgid "PDF"
-msgstr "PDF"
-
-#: searx/templates/simple/result_templates/paper.html:34
-msgid "HTML"
-msgstr "HTML"
 
 #: searx/templates/simple/result_templates/torrent.html:6
 msgid "magnet link"
@@ -1479,7 +1047,31 @@ msgstr "பகிர்பவர்"
 msgid "Leecher"
 msgstr "எடுப்பவர்"
 
+#: searx/templates/simple/result_templates/torrent.html:11
+msgid "Filesize"
+msgstr "கோப்பளவு"
+
+#: searx/templates/simple/result_templates/torrent.html:12
+msgid "Bytes"
+msgstr "பைட்டுகள்"
+
 #: searx/templates/simple/result_templates/torrent.html:13
+msgid "kiB"
+msgstr "kiB"
+
+#: searx/templates/simple/result_templates/torrent.html:14
+msgid "MiB"
+msgstr "MiB"
+
+#: searx/templates/simple/result_templates/torrent.html:15
+msgid "GiB"
+msgstr "GiB"
+
+#: searx/templates/simple/result_templates/torrent.html:16
+msgid "TiB"
+msgstr "TiB"
+
+#: searx/templates/simple/result_templates/torrent.html:20
 msgid "Number of Files"
 msgstr "மொத்த கோப்புகள்"
 
@@ -1700,8 +1292,8 @@ msgstr "காணொளிகளை மறை"
 #~ msgid "Heads up!"
 #~ msgstr "வாழ்த்துக்கள்!"
 
-#~ msgid "It look like you are using SearXNG first time."
-#~ msgstr "நீங்கள் முதல் முறையாக SearXNG ஐப் பயன்படுத்துகிறீர்கள் போல் தெரிகிறது."
+#~ msgid "It look like you are using Otto first time."
+#~ msgstr "நீங்கள் முதல் முறையாக Otto ஐப் பயன்படுத்துகிறீர்கள் போல் தெரிகிறது."
 
 #~ msgid "Well done!"
 #~ msgstr "சபாஷ்!"
@@ -1732,180 +1324,4 @@ msgstr "காணொளிகளை மறை"
 
 #~ msgid "preferences"
 #~ msgstr "விருப்பத்தேர்வு"
-
-#~ msgid "Scores per result"
-#~ msgstr "தேடல் மதிப்பு"
-
-#~ msgid "a privacy-respecting, hackable metasearch engine"
-#~ msgstr "உங்கள் அகவுரிமையை மதிக்கும் மாற்றியமைக்ககூடிய ஒரு தேடல் எந்திரம்"
-
-#~ msgid "No abstract is available for this publication."
-#~ msgstr "இந்த பிரசுரத்திற்கு சுருக்கம் இல்லை."
-
-#~ msgid "Self Informations"
-#~ msgstr "சுய தகவல்கள்"
-
-#~ msgid ""
-#~ "Change how forms are submited, <a "
-#~ "href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
-#~ " rel=\"external\">learn more about request "
-#~ "methods</a>"
-#~ msgstr ""
-#~ "படிவங்கள் எவ்வாறு சமர்ப்பிக்கப்படுகின்றன என்பதை "
-#~ "மாற்றவும், <a "
-#~ "href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
-#~ " rel=\"external\">கோரிக்கை முறைகள் பற்றி மேலும்"
-#~ " அறிக</a>"
-
-#~ msgid ""
-#~ "This plugin checks if the address "
-#~ "of the request is a TOR exit "
-#~ "node, and informs the user if it"
-#~ " is, like check.torproject.org but from "
-#~ "searxng."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The TOR exit node list "
-#~ "(https://check.torproject.org/exit-addresses) is "
-#~ "unreachable."
-#~ msgstr ""
-
-#~ msgid "You are using TOR. Your IP address seems to be: {ip_address}."
-#~ msgstr ""
-
-#~ msgid "You are not using TOR. Your IP address seems to be: {ip_address}."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The could not download the list of"
-#~ " Tor exit-nodes from "
-#~ "https://check.torproject.org/exit-addresses."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "You are using Tor. It looks like"
-#~ " you have this external IP address:"
-#~ " {ip_address}."
-#~ msgstr ""
-
-#~ msgid "You are not using Tor. You have this external IP address: {ip_address}."
-#~ msgstr ""
-
-#~ msgid "Autodetect search language"
-#~ msgstr ""
-
-#~ msgid "Automatically detect the query search language and switch to it."
-#~ msgstr ""
-
-#~ msgid "others"
-#~ msgstr "மற்றவைகள்"
-
-#~ msgid ""
-#~ "This tab does not show up for "
-#~ "search results, but you can search "
-#~ "the engines listed here via bangs."
-#~ msgstr ""
-
-#~ msgid "Shortcut"
-#~ msgstr "குறுக்குவழி"
-
-#~ msgid "!bang"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "This tab dues not exists in the"
-#~ " user interface, but you can search"
-#~ " in these engines by its !bangs."
-#~ msgstr ""
-
-#~ msgid "Engines cannot retrieve results."
-#~ msgstr "எந்திரத்தால் பதில்களை மீட்டெடுக்க இயலவில்லை."
-
-#~ msgid "Please, try again later or find another SearXNG instance."
-#~ msgstr ""
-#~ "தயவுசெய்து, பிறகு முயற்சிக்கவும் அல்லது "
-#~ "மற்றொரு SearXNG நிகழ்வைக் கண்டறியவும்."
-
-#~ msgid ""
-#~ "Redirect to open-access versions of "
-#~ "publications when available (plugin required)"
-#~ msgstr ""
-#~ "கிடைக்கும் போது வெளியீடுகளின் திறந்த அணுகல்"
-#~ " பதிப்புகளுக்குத் திருப்பிவிடவும் (சொருகி தேவை)"
-
-#~ msgid "Bang"
-#~ msgstr "!bang"
-
-#~ msgid ""
-#~ "Change how forms are submitted, <a "
-#~ "href=\"http://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol#Request_methods\""
-#~ " rel=\"external\">learn more about request "
-#~ "methods</a>"
-#~ msgstr ""
-
-#~ msgid "On"
-#~ msgstr "இயக்கு"
-
-#~ msgid "Off"
-#~ msgstr "அமர்த்து"
-
-#~ msgid "Enabled"
-#~ msgstr "செயல்படுத்து"
-
-#~ msgid "Disabled"
-#~ msgstr "நிறுத்தப்பட்டது"
-
-#~ msgid ""
-#~ "Perform search immediately if a category"
-#~ " selected. Disable to select multiple "
-#~ "categories. (JavaScript required)"
-#~ msgstr ""
-#~ "பிரிவு தேர்வு செய்யப்பட்டால் தேடல் உடனடியாகச்"
-#~ " செயற்படுத்தும். பல பிரிவுகளைத் தேர்வு "
-#~ "செய்ய முடக்கவும். (ஜாவா ஸ்கிரிப்ட் "
-#~ "தேவைப்படும்)"
-
-#~ msgid "Vim-like hotkeys"
-#~ msgstr "Vim போன்ற hotkeys"
-
-#~ msgid ""
-#~ "Navigate search results with Vim-like"
-#~ " hotkeys (JavaScript required). Press \"h\""
-#~ " key on main or result page to"
-#~ " get help."
-#~ msgstr ""
-#~ "Vim போன்ற ஹாட்ஸ்கிகள் மூலம் தேடல் "
-#~ "முடிவுகளை வழிசெலுத்தவும் (ஜாவாஸ்கிரிப்ட் தேவை). "
-#~ "உதவியைப் பெற, பிரதான அல்லது முடிவுப் "
-#~ "பக்கத்தில் \"h\" விசையை அழுத்தவும்."
-
-#~ msgid ""
-#~ "we didn't find any results. Please "
-#~ "use another query or search in "
-#~ "more categories."
-#~ msgstr ""
-#~ "எங்களால் எந்ததொரு பதில்களையும் தேட இயலவில்லை."
-#~ " தயவு செய்து வேறொரு வினவலில் அல்லது "
-#~ "கூடுதலானப் பிரிவுகளில் தேடவும்."
-
-#~ msgid "Rewrite result hostnames or remove results based on the hostname"
-#~ msgstr ""
-#~ "முடிவு ஹோஸ்ட்பெயர்களை மீண்டும் எழுதவும் அல்லது"
-#~ " ஹோஸ்ட்பெயரின் அடிப்படையில் முடிவுகளை அகற்றவும்"
-
-#~ msgid "Bytes"
-#~ msgstr "பைட்டுகள்"
-
-#~ msgid "kiB"
-#~ msgstr "kiB"
-
-#~ msgid "MiB"
-#~ msgstr "MiB"
-
-#~ msgid "GiB"
-#~ msgstr "GiB"
-
-#~ msgid "TiB"
-#~ msgstr "TiB"
 

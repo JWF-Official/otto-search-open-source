@@ -1,5 +1,4 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# pylint: disable=missing-module-docstring, invalid-name
 
 import gc
 import typing
@@ -11,10 +10,12 @@ from timeit import default_timer
 from urllib.parse import urlparse
 
 import re
+from langdetect import detect_langs
+from langdetect.lang_detect_exception import LangDetectException
 import httpx
 
 from searx import network, logger
-from searx.utils import gen_useragent, detect_language
+from searx.utils import gen_useragent
 from searx.results import ResultContainer
 from searx.search.models import SearchQuery, EngineRef
 from searx.search.processors import EngineProcessor
@@ -37,7 +38,7 @@ HTML_TAGS = [
 
 
 def get_check_no_html():
-    rep = ['<' + tag + r'[^\>]*>' for tag in HTML_TAGS]
+    rep = ['<' + tag + '[^\>]*>' for tag in HTML_TAGS]
     rep += ['</' + tag + '>' for tag in HTML_TAGS]
     pattern = re.compile('|'.join(rep))
 
@@ -150,7 +151,7 @@ def _search_query_diff(
     return (common, diff)
 
 
-class TestResults:  # pylint: disable=missing-class-docstring
+class TestResults:
 
     __slots__ = 'errors', 'logs', 'languages'
 
@@ -173,7 +174,7 @@ class TestResults:  # pylint: disable=missing-class-docstring
         self.languages.add(language)
 
     @property
-    def successful(self):
+    def succesfull(self):
         return len(self.errors) == 0
 
     def __iter__(self):
@@ -182,7 +183,7 @@ class TestResults:  # pylint: disable=missing-class-docstring
                 yield (test_name, error)
 
 
-class ResultContainerTests:  # pylint: disable=missing-class-docstring
+class ResultContainerTests:
 
     __slots__ = 'test_name', 'search_query', 'result_container', 'languages', 'stop_test', 'test_results'
 
@@ -207,10 +208,15 @@ class ResultContainerTests:  # pylint: disable=missing-class-docstring
         self.test_results.add_error(self.test_name, message, *args, '(' + sqstr + ')')
 
     def _add_language(self, text: str) -> typing.Optional[str]:
-        langStr = detect_language(text)
-        if langStr:
-            self.languages.add(langStr)
-            self.test_results.add_language(langStr)
+        try:
+            r = detect_langs(str(text))  # pylint: disable=E1101
+        except LangDetectException:
+            return None
+
+        if len(r) > 0 and r[0].prob > 0.95:
+            self.languages.add(r[0].lang)
+            self.test_results.add_language(r[0].lang)
+        return None
 
     def _check_result(self, result):
         if not _check_no_html(result.get('title', '')):
@@ -311,7 +317,7 @@ class ResultContainerTests:  # pylint: disable=missing-class-docstring
             self._record_error('No result')
 
     def one_title_contains(self, title: str):
-        """Check one of the title contains `title` (case insensitive comparison)"""
+        """Check one of the title contains `title` (case insensitive comparaison)"""
         title = title.lower()
         for result in self.result_container.get_ordered_results():
             if title in result['title'].lower():
@@ -319,7 +325,7 @@ class ResultContainerTests:  # pylint: disable=missing-class-docstring
         self._record_error(('{!r} not found in the title'.format(title)))
 
 
-class CheckerTests:  # pylint: disable=missing-class-docstring, too-few-public-methods
+class CheckerTests:
 
     __slots__ = 'test_results', 'test_name', 'result_container_tests_list'
 
@@ -347,11 +353,11 @@ class CheckerTests:  # pylint: disable=missing-class-docstring, too-few-public-m
                         diff2_str = ', '.join(['{}={!r}'.format(k, v2) for (k, (v1, v2)) in diff.items()])
                         self.test_results.add_error(
                             self.test_name,
-                            'results are identical for {} and {} ({})'.format(diff1_str, diff2_str, common_str),
+                            'results are identitical for {} and {} ({})'.format(diff1_str, diff2_str, common_str),
                         )
 
 
-class Checker:  # pylint: disable=missing-class-docstring
+class Checker:
 
     __slots__ = 'processor', 'tests', 'test_results'
 
@@ -377,7 +383,7 @@ class Checker:  # pylint: disable=missing-class-docstring
             p.append(l)
 
         for kwargs in itertools.product(*p):
-            kwargs = dict(kwargs)
+            kwargs = {k: v for k, v in kwargs}
             query = kwargs['query']
             params = dict(kwargs)
             del params['query']

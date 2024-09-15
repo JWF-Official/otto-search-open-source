@@ -65,18 +65,18 @@ def construct_body(result):
                 page='',
                 year=result['release_year'],
             )
-        thumbnail = pdbe_preview_url.format(pdb_id=result['pdb_id'])
-    except KeyError:
+        img_src = pdbe_preview_url.format(pdb_id=result['pdb_id'])
+    except (KeyError):
         content = None
-        thumbnail = None
+        img_src = None
 
     # construct url for preview image
     try:
-        thumbnail = pdbe_preview_url.format(pdb_id=result['pdb_id'])
-    except KeyError:
-        thumbnail = None
+        img_src = pdbe_preview_url.format(pdb_id=result['pdb_id'])
+    except (KeyError):
+        img_src = None
 
-    return [title, content, thumbnail]
+    return [title, content, img_src]
 
 
 def response(resp):
@@ -96,7 +96,7 @@ def response(resp):
             title = gettext('{title} (OBSOLETE)').format(title=result['title'])
             try:
                 superseded_url = pdbe_entry_url.format(pdb_id=result['superseded_by'])
-            except:  # pylint: disable=bare-except
+            except:
                 continue
 
             # since we can't construct a proper body from the response, we'll make up our own
@@ -106,16 +106,16 @@ def response(resp):
             )
 
             # obsoleted entries don't have preview images
-            thumbnail = None
+            img_src = None
         else:
-            title, content, thumbnail = construct_body(result)
+            title, content, img_src = construct_body(result)
 
         results.append(
             {
                 'url': pdbe_entry_url.format(pdb_id=result['pdb_id']),
                 'title': title,
                 'content': content,
-                'thumbnail': thumbnail,
+                'img_src': img_src,
             }
         )
 

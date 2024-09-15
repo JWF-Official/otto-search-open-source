@@ -1,39 +1,51 @@
 #!/usr/bin/env python
+# lint: pylint
 # SPDX-License-Identifier: AGPL-3.0-or-later
 """Update :origin:`searx/data/external_bangs.json` using the duckduckgo bangs
-from :py:obj:`BANGS_URL`.
+(:origin:`CI Update data ... <.github/workflows/data-update.yml>`).
 
-- :origin:`CI Update data ... <.github/workflows/data-update.yml>`
+https://duckduckgo.com/newbang loads:
+
+* a javascript which provides the bang version ( https://duckduckgo.com/bv1.js )
+* a JSON file which contains the bangs ( https://duckduckgo.com/bang.v260.js for example )
+
+This script loads the javascript, then the bangs.
+
+The javascript URL may change in the future ( for example
+https://duckduckgo.com/bv2.js ), but most probably it will requires to update
+RE_BANG_VERSION
 
 """
+# pylint: disable=C0116
 
 import json
+import re
+from os.path import join
+
 import httpx
 
+from searx import searx_dir  # pylint: disable=E0401 C0413
 from searx.external_bang import LEAF_KEY
-from searx.data import data_dir
 
-DATA_FILE = data_dir / 'external_bangs.json'
-
-BANGS_URL = 'https://duckduckgo.com/bang.js'
-"""JSON file which contains the bangs."""
-
+# from https://duckduckgo.com/newbang
+URL_BV1 = 'https://duckduckgo.com/bv1.js'
+RE_BANG_VERSION = re.compile(r'\/bang\.v([0-9]+)\.js')
 HTTPS_COLON = 'https:'
 HTTP_COLON = 'http:'
 
 
-def main():
-    print(f'fetch bangs from {BANGS_URL}')
-    response = httpx.get(BANGS_URL)
+def get_bang_url():
+    response = httpx.get(URL_BV1)
     response.raise_for_status()
-    ddg_bangs = json.loads(response.content.decode())
-    trie = parse_ddg_bangs(ddg_bangs)
-    output = {
-        'version': 0,
-        'trie': trie,
-    }
-    with DATA_FILE.open('w', encoding="utf8") as f:
-        json.dump(output, f, indent=4, sort_keys=True, ensure_ascii=False)
+
+    r = RE_BANG_VERSION.findall(response.text)
+    return f'https://duckduckgo.com/bang.v{r[0]}.js', r[0]
+
+
+def fetch_ddg_bangs(url):
+    response = httpx.get(url)
+    response.raise_for_status()
+    return json.loads(response.content.decode())
 
 
 def merge_when_no_leaf(node):
@@ -50,7 +62,7 @@ def merge_when_no_leaf(node):
       d -> d -> g -> <LEAF_KEY> (ddg)
         -> i -> g -> <LEAF_KEY> (dig)
 
-    becomes (3 nodes)::
+    becomes (3 noodes)::
 
       d -> dg -> <LEAF_KEY>
         -> ig -> <LEAF_KEY>
@@ -139,5 +151,13 @@ def parse_ddg_bangs(ddg_bangs):
     return bang_trie
 
 
+def get_bangs_filename():
+    return join(join(searx_dir, "data"), "external_bangs.json")
+
+
 if __name__ == '__main__':
-    main()
+    bangs_url, bangs_version = get_bang_url()
+    print(f'fetch bangs from {bangs_url}')
+    output = {'version': bangs_version, 'trie': parse_ddg_bangs(fetch_ddg_bangs(bangs_url))}
+    with open(get_bangs_filename(), 'w', encoding="utf8") as fp:
+        json.dump(output, fp, ensure_ascii=False, indent=4)

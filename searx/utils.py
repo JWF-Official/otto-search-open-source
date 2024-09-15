@@ -1,14 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
+# pyright: basic
 """Utility functions for the engines
 
 """
-
-from __future__ import annotations
-
 import re
 import importlib
 import importlib.util
-import json
 import types
 
 from typing import Optional, Union, Any, Set, List, Dict, MutableMapping, Tuple, Callable
@@ -16,17 +14,17 @@ from numbers import Number
 from os.path import splitext, join
 from random import choice
 from html.parser import HTMLParser
-from html import escape
 from urllib.parse import urljoin, urlparse
-from markdown_it import MarkdownIt
 
 from lxml import html
-from lxml.etree import ElementBase, XPath, XPathError, XPathSyntaxError
+from lxml.etree import ElementBase, XPath, XPathError, XPathSyntaxError, _ElementStringResult, _ElementUnicodeResult
+from babel.core import get_global
+
 
 from searx import settings
-from searx.data import USER_AGENTS, data_dir
+from searx.data import USER_AGENTS
 from searx.version import VERSION_TAG
-from searx.sxng_locales import sxng_locales
+from searx.languages import language_codes
 from searx.exceptions import SearxXPathSyntaxException, SearxEngineXPathException
 from searx import logger
 
@@ -40,28 +38,17 @@ _BLOCKED_TAGS = ('script', 'style')
 _ECMA_UNESCAPE4_RE = re.compile(r'%u([0-9a-fA-F]{4})', re.UNICODE)
 _ECMA_UNESCAPE2_RE = re.compile(r'%([0-9a-fA-F]{2})', re.UNICODE)
 
-_JS_QUOTE_KEYS_RE = re.compile(r'([\{\s,])(\w+)(:)')
-_JS_VOID_RE = re.compile(r'void\s+[0-9]+|void\s*\([0-9]+\)')
-_JS_DECIMAL_RE = re.compile(r":\s*\.")
-
 _STORAGE_UNIT_VALUE: Dict[str, int] = {
     'TB': 1024 * 1024 * 1024 * 1024,
     'GB': 1024 * 1024 * 1024,
     'MB': 1024 * 1024,
     'TiB': 1000 * 1000 * 1000 * 1000,
-    'GiB': 1000 * 1000 * 1000,
     'MiB': 1000 * 1000,
     'KiB': 1000,
 }
 
 _XPATH_CACHE: Dict[str, XPath] = {}
 _LANG_TO_LC_CACHE: Dict[str, Dict[str, str]] = {}
-
-_FASTTEXT_MODEL: Optional["fasttext.FastText._FastText"] = None  # type: ignore
-"""fasttext model to predict laguage of a search term"""
-
-SEARCH_LANGUAGE_CODES = frozenset([searxng_locale[0].split('-')[0] for searxng_locale in sxng_locales])
-"""Languages supported by most searxng engines (:py:obj:`searx.sxng_locales.sxng_locales`)."""
 
 
 class _NotSetClass:  # pylint: disable=too-few-public-methods
@@ -79,7 +66,7 @@ def searx_useragent() -> str:
     ).strip()
 
 
-def gen_useragent(os_string: Optional[str] = None) -> str:
+def gen_useragent(os_string: str = None) -> str:
     """Return a random browser User Agent
 
     See searx/data/useragents.json
@@ -91,7 +78,7 @@ class _HTMLTextExtractorException(Exception):
     """Internal exception raised when the HTML is invalid"""
 
 
-class _HTMLTextExtractor(HTMLParser):
+class _HTMLTextExtractor(HTMLParser):  # pylint: disable=W0223  # (see https://bugs.python.org/issue31844)
     """Internal class to extract text from HTML"""
 
     def __init__(self):
@@ -140,11 +127,6 @@ class _HTMLTextExtractor(HTMLParser):
     def get_text(self):
         return ''.join(self.result).strip()
 
-    def error(self, message):
-        # error handle is needed in <py3.10
-        # https://github.com/python/cpython/pull/8562/files
-        raise AssertionError(message)
-
 
 def html_to_text(html_str: str) -> str:
     """Extract text from a HTML string
@@ -161,44 +143,15 @@ def html_to_text(html_str: str) -> str:
 
         >>> html_to_text('<style>.span { color: red; }</style><span>Example</span>')
         'Example'
-
-        >>> html_to_text(r'regexp: (?<![a-zA-Z]')
-        'regexp: (?<![a-zA-Z]'
     """
     html_str = html_str.replace('\n', ' ').replace('\r', ' ')
     html_str = ' '.join(html_str.split())
     s = _HTMLTextExtractor()
     try:
         s.feed(html_str)
-    except AssertionError:
-        s = _HTMLTextExtractor()
-        s.feed(escape(html_str, quote=True))
     except _HTMLTextExtractorException:
         logger.debug("HTMLTextExtractor: invalid HTML\n%s", html_str)
     return s.get_text()
-
-
-def markdown_to_text(markdown_str: str) -> str:
-    """Extract text from a Markdown string
-
-    Args:
-        * markdown_str (str): string Markdown
-
-    Returns:
-        * str: extracted text
-
-    Examples:
-        >>> markdown_to_text('[example](https://example.com)')
-        'example'
-
-        >>> markdown_to_text('## Headline')
-        'Headline'
-    """
-
-    html_str = (
-        MarkdownIt("commonmark", {"typographer": True}).enable(["replacements", "smartquotes"]).render(markdown_str)
-    )
-    return html_to_text(html_str)
 
 
 def extract_text(xpath_results, allow_none: bool = False) -> Optional[str]:
@@ -220,7 +173,7 @@ def extract_text(xpath_results, allow_none: bool = False) -> Optional[str]:
         text: str = html.tostring(xpath_results, encoding='unicode', method='text', with_tail=False)
         text = text.strip().replace('\n', ' ')
         return ' '.join(text.split())
-    if isinstance(xpath_results, (str, Number, bool)):
+    if isinstance(xpath_results, (_ElementStringResult, _ElementUnicodeResult, str, Number, bool)):
         return str(xpath_results)
     if xpath_results is None and allow_none:
         return None
@@ -320,7 +273,7 @@ def extract_url(xpath_results, base_url) -> str:
     raise ValueError('URL not found')
 
 
-def dict_subset(dictionary: MutableMapping, properties: Set[str]) -> Dict:
+def dict_subset(dictionnary: MutableMapping, properties: Set[str]) -> Dict:
     """Extract a subset of a dict
 
     Examples:
@@ -329,19 +282,30 @@ def dict_subset(dictionary: MutableMapping, properties: Set[str]) -> Dict:
         >>> >> dict_subset({'A': 'a', 'B': 'b', 'C': 'c'}, ['A', 'D'])
         {'A': 'a'}
     """
-    return {k: dictionary[k] for k in properties if k in dictionary}
+    return {k: dictionnary[k] for k in properties if k in dictionnary}
 
 
-def humanize_bytes(size, precision=2):
-    """Determine the *human readable* value of bytes on 1024 base (1KB=1024B)."""
-    s = ['B ', 'KB', 'MB', 'GB', 'TB']
+def get_torrent_size(filesize: str, filesize_multiplier: str) -> Optional[int]:
+    """
 
-    x = len(s)
-    p = 0
-    while size > 1024 and p < x:
-        p += 1
-        size = size / 1024.0
-    return "%.*f %s" % (precision, size, s[p])
+    Args:
+        * filesize (str): size
+        * filesize_multiplier (str): TB, GB, .... TiB, GiB...
+
+    Returns:
+        * int: number of bytes
+
+    Example:
+        >>> get_torrent_size('5', 'GB')
+        5368709120
+        >>> get_torrent_size('3.14', 'MiB')
+        3140000
+    """
+    try:
+        multiplier = _STORAGE_UNIT_VALUE.get(filesize_multiplier, 1)
+        return int(float(filesize) * multiplier)
+    except ValueError:
+        return None
 
 
 def convert_str_to_int(number_str: str) -> int:
@@ -349,35 +313,6 @@ def convert_str_to_int(number_str: str) -> int:
     if number_str.isdigit():
         return int(number_str)
     return 0
-
-
-def extr(txt: str, begin: str, end: str, default: str = ""):
-    """Extract the string between ``begin`` and ``end`` from ``txt``
-
-    :param txt:     String to search in
-    :param begin:   First string to be searched for
-    :param end:     Second string to be searched for after ``begin``
-    :param default: Default value if one of ``begin`` or ``end`` is not
-                    found.  Defaults to an empty string.
-    :return: The string between the two search-strings ``begin`` and ``end``.
-             If at least one of ``begin`` or ``end`` is not found, the value of
-             ``default`` is returned.
-
-    Examples:
-      >>> extr("abcde", "a", "e")
-      "bcd"
-      >>> extr("abcde", "a", "z", deafult="nothing")
-      "nothing"
-
-    """
-
-    # From https://github.com/mikf/gallery-dl/blob/master/gallery_dl/text.py#L129
-
-    try:
-        first = txt.index(begin) + len(begin)
-        return txt[first : txt.index(end, first)]
-    except ValueError:
-        return default
 
 
 def int_or_zero(num: Union[List[str], str]) -> int:
@@ -414,14 +349,100 @@ def is_valid_lang(lang) -> Optional[Tuple[bool, str, str]]:
     is_abbr = len(lang) == 2
     lang = lang.lower()
     if is_abbr:
-        for l in sxng_locales:
+        for l in language_codes:
             if l[0][:2] == lang:
                 return (True, l[0][:2], l[3].lower())
         return None
-    for l in sxng_locales:
+    for l in language_codes:
         if l[1].lower() == lang or l[3].lower() == lang:
             return (True, l[0][:2], l[3].lower())
     return None
+
+
+def _get_lang_to_lc_dict(lang_list: List[str]) -> Dict[str, str]:
+    key = str(lang_list)
+    value = _LANG_TO_LC_CACHE.get(key, None)
+    if value is None:
+        value = {}
+        for lang in lang_list:
+            value.setdefault(lang.split('-')[0], lang)
+        _LANG_TO_LC_CACHE[key] = value
+    return value
+
+
+# babel's get_global contains all sorts of miscellaneous locale and territory related data
+# see get_global in: https://github.com/python-babel/babel/blob/master/babel/core.py
+def _get_from_babel(lang_code: str, key):
+    match = get_global(key).get(lang_code.replace('-', '_'))
+    # for some keys, such as territory_aliases, match may be a list
+    if isinstance(match, str):
+        return match.replace('_', '-')
+    return match
+
+
+def _match_language(lang_code: str, lang_list=[], custom_aliases={}) -> Optional[str]:  # pylint: disable=W0102
+    """auxiliary function to match lang_code in lang_list"""
+    # replace language code with a custom alias if necessary
+    if lang_code in custom_aliases:
+        lang_code = custom_aliases[lang_code]
+
+    if lang_code in lang_list:
+        return lang_code
+
+    # try to get the most likely country for this language
+    subtags = _get_from_babel(lang_code, 'likely_subtags')
+    if subtags:
+        if subtags in lang_list:
+            return subtags
+        subtag_parts = subtags.split('-')
+        new_code = subtag_parts[0] + '-' + subtag_parts[-1]
+        if new_code in custom_aliases:
+            new_code = custom_aliases[new_code]
+        if new_code in lang_list:
+            return new_code
+
+    # try to get the any supported country for this language
+    return _get_lang_to_lc_dict(lang_list).get(lang_code)
+
+
+def match_language(  # pylint: disable=W0102
+    locale_code, lang_list=[], custom_aliases={}, fallback: Optional[str] = 'en-US'
+) -> Optional[str]:
+    """get the language code from lang_list that best matches locale_code"""
+    # try to get language from given locale_code
+    language = _match_language(locale_code, lang_list, custom_aliases)
+    if language:
+        return language
+
+    locale_parts = locale_code.split('-')
+    lang_code = locale_parts[0]
+
+    # if locale_code has script, try matching without it
+    if len(locale_parts) > 2:
+        language = _match_language(lang_code + '-' + locale_parts[-1], lang_list, custom_aliases)
+        if language:
+            return language
+
+    # try to get language using an equivalent country code
+    if len(locale_parts) > 1:
+        country_alias = _get_from_babel(locale_parts[-1], 'territory_aliases')
+        if country_alias:
+            language = _match_language(lang_code + '-' + country_alias[0], lang_list, custom_aliases)
+            if language:
+                return language
+
+    # try to get language using an equivalent language code
+    alias = _get_from_babel(lang_code, 'language_aliases')
+    if alias:
+        language = _match_language(alias, lang_list, custom_aliases)
+        if language:
+            return language
+
+    if lang_code != locale_code:
+        # try to get language from given language without giving the country
+        language = _match_language(lang_code, lang_list, custom_aliases)
+
+    return language or fallback
 
 
 def load_module(filename: str, module_dir: str) -> types.ModuleType:
@@ -549,7 +570,7 @@ def eval_xpath(element: ElementBase, xpath_spec: XPathSpecType):
         raise SearxEngineXPathException(xpath_spec, arg) from e
 
 
-def eval_xpath_list(element: ElementBase, xpath_spec: XPathSpecType, min_len: Optional[int] = None):
+def eval_xpath_list(element: ElementBase, xpath_spec: XPathSpecType, min_len: int = None):
     """Same as eval_xpath, check if the result is a list
 
     Args:
@@ -575,7 +596,7 @@ def eval_xpath_list(element: ElementBase, xpath_spec: XPathSpecType, min_len: Op
 
 def eval_xpath_getindex(elements: ElementBase, xpath_spec: XPathSpecType, index: int, default=_NOTSET):
     """Call eval_xpath_list then get one element using the index parameter.
-    If the index does not exist, either raise an exception is default is not set,
+    If the index does not exist, either aise an exception is default is not set,
     other return the default value (can be None).
 
     Args:
@@ -600,155 +621,3 @@ def eval_xpath_getindex(elements: ElementBase, xpath_spec: XPathSpecType, index:
         # to record xpath_spec
         raise SearxEngineXPathException(xpath_spec, 'index ' + str(index) + ' not found')
     return default
-
-
-def _get_fasttext_model() -> "fasttext.FastText._FastText":  # type: ignore
-    global _FASTTEXT_MODEL  # pylint: disable=global-statement
-    if _FASTTEXT_MODEL is None:
-        import fasttext  # pylint: disable=import-outside-toplevel
-
-        # Monkey patch: prevent fasttext from showing a (useless) warning when loading a model.
-        fasttext.FastText.eprint = lambda x: None
-        _FASTTEXT_MODEL = fasttext.load_model(str(data_dir / 'lid.176.ftz'))
-    return _FASTTEXT_MODEL
-
-
-def detect_language(text: str, threshold: float = 0.3, only_search_languages: bool = False) -> Optional[str]:
-    """Detect the language of the ``text`` parameter.
-
-    :param str text: The string whose language is to be detected.
-
-    :param float threshold: Threshold filters the returned labels by a threshold
-        on probability.  A choice of 0.3 will return labels with at least 0.3
-        probability.
-
-    :param bool only_search_languages: If ``True``, returns only supported
-        SearXNG search languages.  see :py:obj:`searx.languages`
-
-    :rtype: str, None
-    :returns:
-        The detected language code or ``None``. See below.
-
-    :raises ValueError: If ``text`` is not a string.
-
-    The language detection is done by using `a fork`_ of the fastText_ library
-    (`python fasttext`_). fastText_ distributes the `language identification
-    model`_, for reference:
-
-    - `FastText.zip: Compressing text classification models`_
-    - `Bag of Tricks for Efficient Text Classification`_
-
-    The `language identification model`_ support the language codes
-    (ISO-639-3)::
-
-        af als am an ar arz as ast av az azb ba bar bcl be bg bh bn bo bpy br bs
-        bxr ca cbk ce ceb ckb co cs cv cy da de diq dsb dty dv el eml en eo es
-        et eu fa fi fr frr fy ga gd gl gn gom gu gv he hi hif hr hsb ht hu hy ia
-        id ie ilo io is it ja jbo jv ka kk km kn ko krc ku kv kw ky la lb lez li
-        lmo lo lrc lt lv mai mg mhr min mk ml mn mr mrj ms mt mwl my myv mzn nah
-        nap nds ne new nl nn no oc or os pa pam pfl pl pms pnb ps pt qu rm ro ru
-        rue sa sah sc scn sco sd sh si sk sl so sq sr su sv sw ta te tg th tk tl
-        tr tt tyv ug uk ur uz vec vep vi vls vo wa war wuu xal xmf yi yo yue zh
-
-    By using ``only_search_languages=True`` the `language identification model`_
-    is harmonized with the SearXNG's language (locale) model.  General
-    conditions of SearXNG's locale model are:
-
-    a. SearXNG's locale of a query is passed to the
-       :py:obj:`searx.locales.get_engine_locale` to get a language and/or region
-       code that is used by an engine.
-
-    b. Most of SearXNG's engines do not support all the languages from `language
-       identification model`_ and there is also a discrepancy in the ISO-639-3
-       (fasttext) and ISO-639-2 (SearXNG)handling.  Further more, in SearXNG the
-       locales like ``zh-TH`` (``zh-CN``) are mapped to ``zh_Hant``
-       (``zh_Hans``) while the `language identification model`_ reduce both to
-       ``zh``.
-
-    .. _a fork: https://github.com/searxng/fasttext-predict
-    .. _fastText: https://fasttext.cc/
-    .. _python fasttext: https://pypi.org/project/fasttext/
-    .. _language identification model: https://fasttext.cc/docs/en/language-identification.html
-    .. _Bag of Tricks for Efficient Text Classification: https://arxiv.org/abs/1607.01759
-    .. _`FastText.zip: Compressing text classification models`: https://arxiv.org/abs/1612.03651
-
-    """
-    if not isinstance(text, str):
-        raise ValueError('text must a str')
-    r = _get_fasttext_model().predict(text.replace('\n', ' '), k=1, threshold=threshold)
-    if isinstance(r, tuple) and len(r) == 2 and len(r[0]) > 0 and len(r[1]) > 0:
-        language = r[0][0].split('__label__')[1]
-        if only_search_languages and language not in SEARCH_LANGUAGE_CODES:
-            return None
-        return language
-    return None
-
-
-def js_variable_to_python(js_variable):
-    """Convert a javascript variable into JSON and then load the value
-
-    It does not deal with all cases, but it is good enough for now.
-    chompjs has a better implementation.
-    """
-    # when in_string is not None, it contains the character that has opened the string
-    # either simple quote or double quote
-    in_string = None
-    # cut the string:
-    # r"""{ a:"f\"irst", c:'sec"ond'}"""
-    # becomes
-    # ['{ a:', '"', 'f\\', '"', 'irst', '"', ', c:', "'", 'sec', '"', 'ond', "'", '}']
-    parts = re.split(r'(["\'])', js_variable)
-    # previous part (to check the escape character antislash)
-    previous_p = ""
-    for i, p in enumerate(parts):
-        # parse characters inside a ECMA string
-        if in_string:
-            # we are in a JS string: replace the colon by a temporary character
-            # so quote_keys_regex doesn't have to deal with colon inside the JS strings
-            parts[i] = parts[i].replace(':', chr(1))
-            if in_string == "'":
-                # the JS string is delimited by simple quote.
-                # This is not supported by JSON.
-                # simple quote delimited string are converted to double quote delimited string
-                # here, inside a JS string, we escape the double quote
-                parts[i] = parts[i].replace('"', r'\"')
-
-        # deal with delimiters and escape character
-        if not in_string and p in ('"', "'"):
-            # we are not in string
-            # but p is double or simple quote
-            # that's the start of a new string
-            # replace simple quote by double quote
-            # (JSON doesn't support simple quote)
-            parts[i] = '"'
-            in_string = p
-            continue
-        if p == in_string:
-            # we are in a string and the current part MAY close the string
-            if len(previous_p) > 0 and previous_p[-1] == '\\':
-                # there is an antislash just before: the ECMA string continue
-                continue
-            # the current p close the string
-            # replace simple quote by double quote
-            parts[i] = '"'
-            in_string = None
-
-        if not in_string:
-            # replace void 0 by null
-            # https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/void
-            # we are sure there is no string in p
-            parts[i] = _JS_VOID_RE.sub("null", p)
-        # update previous_p
-        previous_p = p
-    # join the string
-    s = ''.join(parts)
-    # add quote around the key
-    # { a: 12 }
-    # becomes
-    # { "a": 12 }
-    s = _JS_QUOTE_KEYS_RE.sub(r'\1"\2"\3', s)
-    s = _JS_DECIMAL_RE.sub(":0.", s)
-    # replace the surogate character by colon
-    s = s.replace(chr(1), ':')
-    # load the JSON and return the result
-    return json.loads(s)
