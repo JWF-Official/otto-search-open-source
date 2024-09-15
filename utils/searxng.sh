@@ -254,7 +254,7 @@ searxng.install.all() {
 
     local redis_url
 
-    rst_title "SearXNG"
+    rst_title "Otto"
     searxng.install.packages
     wait_key 10
     searxng.install.user
