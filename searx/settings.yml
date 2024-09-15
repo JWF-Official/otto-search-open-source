@@ -565,7 +565,7 @@ engines:
     title_query: name
     content_query: state
     shortcut: bf
-#    disabled: true
+    disabled: true
     about:
       website: https://www.bahn.de
       wikidata_id: Q22811603
