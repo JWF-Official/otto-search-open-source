@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
 """Mixcloud (Music)
 
 """
@@ -44,7 +45,7 @@ def response(resp):
             'url': r_url,
             'title': result['name'],
             'iframe_src': iframe_src.format(url=r_url),
-            'thumbnail': result['pictures']['medium'],
+            'img_src': result['pictures']['medium'],
             'publishedDate': publishedDate,
             'content': result['user']['name'],
         }

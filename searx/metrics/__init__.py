@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
 # pylint: disable=missing-module-docstring
 
 import typing
@@ -151,19 +152,19 @@ def get_reliabilities(engline_name_list, checker_results):
         errors = engine_errors.get(engine_name) or []
         if counter('engine', engine_name, 'search', 'count', 'sent') == 0:
             # no request
-            reliability = None
+            reliablity = None
         elif checker_success and not errors:
-            reliability = 100
+            reliablity = 100
         elif 'simple' in checker_result.get('errors', {}):
-            # the basic (simple) test doesn't work: the engine is broken according to the checker
+            # the basic (simple) test doesn't work: the engine is broken accoding to the checker
             # even if there is no exception
-            reliability = 0
+            reliablity = 0
         else:
             # pylint: disable=consider-using-generator
-            reliability = 100 - sum([error['percentage'] for error in errors if not error.get('secondary')])
+            reliablity = 100 - sum([error['percentage'] for error in errors if not error.get('secondary')])
 
         reliabilities[engine_name] = {
-            'reliability': reliability,
+            'reliablity': reliablity,
             'errors': errors,
             'checker': checker_results.get(engine_name, {}).get('errors', {}),
         }

@@ -1,5 +1,4 @@
-# SPDX-License-Identifier: AGPL-3.0-or-later
-# pylint: disable=missing-module-docstring
+# -*- coding: utf-8 -*-
 
 from searx.preferences import Preferences
 from searx.engines import engines
@@ -25,19 +24,19 @@ TEST_ENGINES = [
 SEARCHQUERY = [EngineRef(PRIVATE_ENGINE_NAME, 'general')]
 
 
-class ValidateQueryCase(SearxTestCase):  # pylint: disable=missing-class-docstring
+class ValidateQueryCase(SearxTestCase):
     @classmethod
     def setUpClass(cls):
         searx.search.initialize(TEST_ENGINES)
 
-    def test_query_private_engine_without_token(self):  # pylint:disable=invalid-name
+    def test_query_private_engine_without_token(self):
         preferences = Preferences(['simple'], ['general'], engines, [])
         valid, unknown, invalid_token = validate_engineref_list(SEARCHQUERY, preferences)
         self.assertEqual(len(valid), 0)
         self.assertEqual(len(unknown), 0)
         self.assertEqual(len(invalid_token), 1)
 
-    def test_query_private_engine_with_incorrect_token(self):  # pylint:disable=invalid-name
+    def test_query_private_engine_with_incorrect_token(self):
         preferences_with_tokens = Preferences(['simple'], ['general'], engines, [])
         preferences_with_tokens.parse_dict({'tokens': 'bad-token'})
         valid, unknown, invalid_token = validate_engineref_list(SEARCHQUERY, preferences_with_tokens)
@@ -45,7 +44,7 @@ class ValidateQueryCase(SearxTestCase):  # pylint: disable=missing-class-docstri
         self.assertEqual(len(unknown), 0)
         self.assertEqual(len(invalid_token), 1)
 
-    def test_query_private_engine_with_correct_token(self):  # pylint:disable=invalid-name
+    def test_query_private_engine_with_correct_token(self):
         preferences_with_tokens = Preferences(['simple'], ['general'], engines, [])
         preferences_with_tokens.parse_dict({'tokens': 'my-token'})
         valid, unknown, invalid_token = validate_engineref_list(SEARCHQUERY, preferences_with_tokens)

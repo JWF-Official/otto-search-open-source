@@ -1,6 +1,3 @@
-# SPDX-License-Identifier: AGPL-3.0-or-later
-# pylint: disable=missing-module-docstring
-
 from functools import reduce
 from operator import mul
 
@@ -20,27 +17,27 @@ def answer(query):
 
     try:
         args = list(map(float, parts[1:]))
-    except:  # pylint: disable=bare-except
+    except:
         return []
 
     func = parts[0]
-    _answer = None
+    answer = None
 
     if func == 'min':
-        _answer = min(args)
+        answer = min(args)
     elif func == 'max':
-        _answer = max(args)
+        answer = max(args)
     elif func == 'avg':
-        _answer = sum(args) / len(args)
+        answer = sum(args) / len(args)
     elif func == 'sum':
-        _answer = sum(args)
+        answer = sum(args)
     elif func == 'prod':
-        _answer = reduce(mul, args, 1)
+        answer = reduce(mul, args, 1)
 
-    if _answer is None:
+    if answer is None:
         return []
 
-    return [{'answer': str(_answer)}]
+    return [{'answer': str(answer)}]
 
 
 # required answerer function

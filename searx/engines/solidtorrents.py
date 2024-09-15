@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
 """SolidTorrents
-
 """
 
 from datetime import datetime
@@ -14,10 +14,11 @@ from searx.utils import (
     eval_xpath,
     eval_xpath_getindex,
     eval_xpath_list,
+    get_torrent_size,
 )
 
 about = {
-    "website": 'https://www.solidtorrents.to/',
+    "website": 'https://www.solidtorrents.net/',
     "wikidata_id": None,
     "official_api_documentation": None,
     "use_official_api": False,
@@ -29,7 +30,7 @@ categories = ['files']
 paging = True
 
 # base_url can be overwritten by a list of URLs in the settings.yml
-base_url = 'https://solidtorrents.to'
+base_url = 'https://solidtorrents.net'
 
 
 def request(query, params):
@@ -38,7 +39,8 @@ def request(query, params):
     else:
         params['base_url'] = base_url
     search_url = params['base_url'] + '/search?{query}'
-    query = urlencode({'q': query, 'page': params['pageno']})
+    page = (params['pageno'] - 1) * 20
+    query = urlencode({'q': query, 'page': page})
     params['url'] = search_url.format(query=query)
     return params
 
@@ -47,30 +49,38 @@ def response(resp):
     results = []
     dom = html.fromstring(resp.text)
 
-    for result in eval_xpath(dom, '//li[contains(@class, "search-result")]'):
-        torrentfile = eval_xpath_getindex(result, './/a[contains(@class, "dl-torrent")]/@href', 0, None)
-        magnet = eval_xpath_getindex(result, './/a[contains(@class, "dl-magnet")]/@href', 0, None)
-        if torrentfile is None or magnet is None:
-            continue  # ignore anime results that which aren't actually torrents
-        title = eval_xpath_getindex(result, './/h5[contains(@class, "title")]', 0, None)
-        url = eval_xpath_getindex(result, './/h5[contains(@class, "title")]/a/@href', 0, None)
-        categ = eval_xpath(result, './/a[contains(@class, "category")]')
-        stats = eval_xpath_list(result, './/div[contains(@class, "stats")]/div', min_len=5)
+    for result in eval_xpath(dom, '//div[contains(@class, "search-result")]'):
+        a = eval_xpath_getindex(result, './div/h5/a', 0, None)
+        if a is None:
+            continue
+        title = extract_text(a)
+        url = eval_xpath_getindex(a, '@href', 0, None)
+        categ = eval_xpath(result, './div//a[contains(@class, "category")]')
+        metadata = extract_text(categ)
+        stats = eval_xpath_list(result, './div//div[contains(@class, "stats")]/div', min_len=5)
+        n, u = extract_text(stats[1]).split()
+        filesize = get_torrent_size(n, u)
+        leech = extract_text(stats[2])
+        seed = extract_text(stats[3])
+        torrentfile = eval_xpath_getindex(result, './div//a[contains(@class, "dl-torrent")]/@href', 0, None)
+        magnet = eval_xpath_getindex(result, './div//a[contains(@class, "dl-magnet")]/@href', 0, None)
 
         params = {
-            'seed': extract_text(stats[3]),
-            'leech': extract_text(stats[2]),
-            'title': extract_text(title),
+            'seed': seed,
+            'leech': leech,
+            'title': title,
             'url': resp.search_params['base_url'] + url,
-            'filesize': extract_text(stats[1]),
+            'filesize': filesize,
             'magnetlink': magnet,
             'torrentfile': torrentfile,
-            'metadata': extract_text(categ),
+            'metadata': metadata,
             'template': "torrent.html",
         }
 
+        date_str = extract_text(stats[4])
+
         try:
-            params['publishedDate'] = datetime.strptime(extract_text(stats[4]), '%b %d, %Y')
+            params['publishedDate'] = datetime.strptime(date_str, '%b %d, %Y')
         except ValueError:
             pass
 

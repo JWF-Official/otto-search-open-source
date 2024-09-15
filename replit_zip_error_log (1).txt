@@ -1,0 +1,2 @@
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file .cache/replit/modules/replit","time":"2024-09-15T22:10:46Z"}
+{"error":".zip archives do not support non-regular files","level":"error","msg":"unable to write file utils/templates/etc/apache2","time":"2024-09-15T22:10:48Z"}

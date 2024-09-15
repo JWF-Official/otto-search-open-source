@@ -4,19 +4,20 @@ Administrator documentation
 
 .. toctree::
    :maxdepth: 2
+   :caption: Contents
 
-   settings/index
    installation
-   installation-docker
-   installation-scripts
-   installation-searxng
+   installation-Otto
    installation-uwsgi
    installation-nginx
    installation-apache
-   update-searxng
-   answer-captcha
-   searx.limiter
+   installation-docker
+   installation-switch2ng
+   update-Otto
+   engines/index
    api
    architecture
+   filtron
+   morty
    plugins
    buildhosts

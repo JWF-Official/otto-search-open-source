@@ -1,7 +1,5 @@
-# SPDX-License-Identifier: AGPL-3.0-or-later
-# pylint: disable=missing-module-docstring
-
 import os
+
 import aiounittest
 
 os.environ.pop('SEARX_DEBUG', None)
@@ -9,11 +7,11 @@ os.environ.pop('SEARX_DEBUG_LOG_LEVEL', None)
 os.environ.pop('SEARX_DISABLE_ETC_SETTINGS', None)
 os.environ.pop('SEARX_SETTINGS_PATH', None)
 
-os.environ.pop('SEARXNG_SETTINGS_PATH', None)
+os.environ.pop('Otto_SETTINGS_PATH', None)
 
-os.environ['SEARXNG_DEBUG'] = '1'
-os.environ['SEARXNG_DEBUG_LOG_LEVEL'] = 'WARNING'
-os.environ['SEARXNG_DISABLE_ETC_SETTINGS'] = '1'
+os.environ['Otto_DEBUG'] = '1'
+os.environ['Otto_DEBUG_LOG_LEVEL'] = 'WARNING'
+os.environ['Otto_DISABLE_ETC_SETTINGS'] = '1'
 
 
 class SearxTestLayer:

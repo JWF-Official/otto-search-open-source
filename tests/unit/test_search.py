@@ -1,7 +1,4 @@
-# SPDX-License-Identifier: AGPL-3.0-or-later
-# pylint: disable=missing-module-docstring, invalid-name
-
-from copy import copy
+# -*- coding: utf-8 -*-
 
 import searx.search
 from searx.search import SearchQuery, EngineRef
@@ -24,11 +21,11 @@ TEST_ENGINES = [
 ]
 
 
-class SearchQueryTestCase(SearxTestCase):  # pylint: disable=missing-class-docstring
+class SearchQueryTestCase(SearxTestCase):
     def test_repr(self):
         s = SearchQuery('test', [EngineRef('bing', 'general')], 'all', 0, 1, '1', 5.0, 'g')
         self.assertEqual(
-            repr(s), "SearchQuery('test', [EngineRef('bing', 'general')], 'all', 0, 1, '1', 5.0, 'g', None)"
+            repr(s), "SearchQuery('test', [EngineRef('bing', 'general')], 'all', 0, 1, '1', 5.0, 'g')"
         )  # noqa
 
     def test_eq(self):
@@ -37,19 +34,8 @@ class SearchQueryTestCase(SearxTestCase):  # pylint: disable=missing-class-docst
         self.assertEqual(s, s)
         self.assertNotEqual(s, t)
 
-    def test_copy(self):
-        s = SearchQuery('test', [EngineRef('bing', 'general')], 'all', 0, 1, None, None, None)
-        t = copy(s)
-        self.assertEqual(s, t)
 
-
-class SearchTestCase(SearxTestCase):  # pylint: disable=missing-class-docstring
-    def setUp(self):
-
-        from searx import webapp  # pylint: disable=import-outside-toplevel
-
-        self.app = webapp.app
-
+class SearchTestCase(SearxTestCase):
     @classmethod
     def setUpClass(cls):
         searx.search.initialize(TEST_ENGINES)
@@ -60,8 +46,7 @@ class SearchTestCase(SearxTestCase):  # pylint: disable=missing-class-docstring
             'test', [EngineRef(PUBLIC_ENGINE_NAME, 'general')], 'en-US', SAFESEARCH, PAGENO, None, None
         )
         search = searx.search.Search(search_query)
-        with self.app.test_request_context('/search'):
-            search.search()
+        search.search()
         self.assertEqual(search.actual_timeout, 3.0)
 
     def test_timeout_query_above_default_nomax(self):
@@ -70,8 +55,7 @@ class SearchTestCase(SearxTestCase):  # pylint: disable=missing-class-docstring
             'test', [EngineRef(PUBLIC_ENGINE_NAME, 'general')], 'en-US', SAFESEARCH, PAGENO, None, 5.0
         )
         search = searx.search.Search(search_query)
-        with self.app.test_request_context('/search'):
-            search.search()
+        search.search()
         self.assertEqual(search.actual_timeout, 3.0)
 
     def test_timeout_query_below_default_nomax(self):
@@ -80,8 +64,7 @@ class SearchTestCase(SearxTestCase):  # pylint: disable=missing-class-docstring
             'test', [EngineRef(PUBLIC_ENGINE_NAME, 'general')], 'en-US', SAFESEARCH, PAGENO, None, 1.0
         )
         search = searx.search.Search(search_query)
-        with self.app.test_request_context('/search'):
-            search.search()
+        search.search()
         self.assertEqual(search.actual_timeout, 1.0)
 
     def test_timeout_query_below_max(self):
@@ -90,8 +73,7 @@ class SearchTestCase(SearxTestCase):  # pylint: disable=missing-class-docstring
             'test', [EngineRef(PUBLIC_ENGINE_NAME, 'general')], 'en-US', SAFESEARCH, PAGENO, None, 5.0
         )
         search = searx.search.Search(search_query)
-        with self.app.test_request_context('/search'):
-            search.search()
+        search.search()
         self.assertEqual(search.actual_timeout, 5.0)
 
     def test_timeout_query_above_max(self):
@@ -100,8 +82,7 @@ class SearchTestCase(SearxTestCase):  # pylint: disable=missing-class-docstring
             'test', [EngineRef(PUBLIC_ENGINE_NAME, 'general')], 'en-US', SAFESEARCH, PAGENO, None, 15.0
         )
         search = searx.search.Search(search_query)
-        with self.app.test_request_context('/search'):
-            search.search()
+        search.search()
         self.assertEqual(search.actual_timeout, 10.0)
 
     def test_external_bang(self):
@@ -131,7 +112,6 @@ class SearchTestCase(SearxTestCase):  # pylint: disable=missing-class-docstring
         )
 
         search = searx.search.Search(search_query)
-        with self.app.test_request_context('/search'):
-            results = search.search()
+        results = search.search()
         # This should not redirect
         self.assertTrue(results.redirect_url is None)

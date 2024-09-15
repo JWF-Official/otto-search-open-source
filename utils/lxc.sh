@@ -4,9 +4,12 @@
 
 # shellcheck source=utils/lib.sh
 source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
+source_dot_config
+# shellcheck source=utils/brand.env
+source "${REPO_ROOT}/utils/brand.env"
 
 # load environment of the LXC suite
-LXC_ENV="${LXC_ENV:-${REPO_ROOT}/utils/lxc-searxng.env}"
+LXC_ENV="${LXC_ENV:-${REPO_ROOT}/utils/lxc-searx.env}"
 source "$LXC_ENV"
 lxc_set_suite_env
 
@@ -23,17 +26,22 @@ LXC_HOST_PREFIX="${LXC_HOST_PREFIX:-test}"
 LXC_SHARE_FOLDER="/share"
 LXC_REPO_ROOT="${LXC_SHARE_FOLDER}/$(basename "${REPO_ROOT}")"
 
-# shellcheck disable=SC2034
-ubu2004_boilerplate="
+ubu1804_boilerplate="
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -y
 apt-get upgrade -y
 apt-get install -y git curl wget
+"
+ubu1904_boilerplate="$ubu1804_boilerplate"
+
+# shellcheck disable=SC2034
+ubu2004_boilerplate="
+$ubu1904_boilerplate
 echo 'Set disable_coredump false' >> /etc/sudo.conf
 "
 
 # shellcheck disable=SC2034
-ubu2204_boilerplate="$ubu2004_boilerplate"
+ubu2110_boilerplate="$ubu1904_boilerplate"
 
 # shellcheck disable=SC2034
 archlinux_boilerplate="
@@ -101,7 +109,7 @@ show
   :suite:        show services of all (or <name>) containers from the LXC suite
   :images:       show information of local images
 cmd
-  use single quotes to evaluate in container's bash, e.g.: 'echo \$(hostname)'
+  use single qoutes to evaluate in container's bash, e.g.: 'echo \$(hostname)'
   --             run command '...' in all containers of the LXC suite
   :<name>:       run command '...' in container <name>
 install
@@ -172,7 +180,7 @@ main() {
                         lxc_delete_container "$2"
                     fi
                     ;;
-                *) usage "unknown or missing container <name> $2"; exit 42;;
+                *) usage "uknown or missing container <name> $2"; exit 42;;
             esac
             ;;
         start|stop)
@@ -184,7 +192,7 @@ main() {
                     info_msg "lxc $1 $2"
                     lxc "$1" "$2" | prefix_stdout "[${_BBlue}${i}${_creset}] "
                     ;;
-                *) usage "unknown or missing container <name> $2"; exit 42;;
+                *) usage "uknown or missing container <name> $2"; exit 42;;
             esac
             ;;
         show)
@@ -560,7 +568,7 @@ check_connectivity() {
         info_msg "Most often the connectivity is blocked by a docker installation:"
         info_msg "Whenever docker is started (reboot) it sets the iptables policy "
         info_msg "for the FORWARD chain to DROP, see:"
-        info_msg "    https://docs.searxng.org/utils/lxc.sh.html#internet-connectivity-docker"
+        info_msg "    https://docs.Otto.org/utils/lxc.sh.html#internet-connectivity-docker"
         iptables-save | grep ":FORWARD"
     fi
     return $ret_val

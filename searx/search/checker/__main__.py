@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
 # pylint: disable=missing-module-docstring
 
 import sys
@@ -54,7 +55,7 @@ def iter_processor(engine_name_list):
             if processor is not None:
                 yield name, processor
             else:
-                stdout.write(f'{BOLD_SEQ}Engine {name:30}{RESET_SEQ}{RED}Engine does not exist{RESET_SEQ}\n')
+                stdout.write(f'{BOLD_SEQ}Engine {name:30}{RESET_SEQ}{RED}Engine does not exist{RESET_SEQ}')
     else:
         for name, processor in searx.search.PROCESSORS.items():
             yield name, processor
@@ -63,18 +64,13 @@ def iter_processor(engine_name_list):
 # actual check & display
 def run(engine_name_list, verbose):
     searx.search.initialize()
-    name_checker_list = []
     for name, processor in iter_processor(engine_name_list):
         stdout.write(f'{BOLD_SEQ}Engine {name:30}{RESET_SEQ}Checking\n')
         if not sys.stdout.isatty():
             stderr.write(f'{BOLD_SEQ}Engine {name:30}{RESET_SEQ}Checking\n')
         checker = searx.search.checker.Checker(processor)
         checker.run()
-        name_checker_list.append((name, checker))
-
-    stdout.write(f'\n== {BOLD_SEQ}Results{RESET_SEQ} ' + '=' * 70 + '\n')
-    for name, checker in name_checker_list:
-        if checker.test_results.successful:
+        if checker.test_results.succesfull:
             stdout.write(f'{BOLD_SEQ}Engine {name:30}{RESET_SEQ}{GREEN}OK{RESET_SEQ}\n')
             if verbose:
                 stdout.write(f'    {"found languages":15}: {" ".join(sorted(list(checker.test_results.languages)))}\n')

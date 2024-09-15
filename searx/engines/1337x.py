@@ -1,12 +1,11 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# pylint: disable=invalid-name
-"""1337x
-
+"""
+ 1337x
 """
 
 from urllib.parse import quote, urljoin
 from lxml import html
-from searx.utils import extract_text, eval_xpath, eval_xpath_list, eval_xpath_getindex
+from searx.utils import extract_text, get_torrent_size, eval_xpath, eval_xpath_list, eval_xpath_getindex
 
 # about
 about = {
@@ -40,7 +39,9 @@ def response(resp):
         title = extract_text(eval_xpath(result, './td[contains(@class, "name")]/a[2]'))
         seed = extract_text(eval_xpath(result, './/td[contains(@class, "seeds")]'))
         leech = extract_text(eval_xpath(result, './/td[contains(@class, "leeches")]'))
-        filesize = extract_text(eval_xpath(result, './/td[contains(@class, "size")]/text()'))
+        filesize_info = extract_text(eval_xpath(result, './/td[contains(@class, "size")]/text()'))
+        filesize, filesize_multiplier = filesize_info.split()
+        filesize = get_torrent_size(filesize, filesize_multiplier)
 
         results.append(
             {

@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""Spotify (Music)
-
+"""
+ Spotify (Music)
 """
 
 from json import loads
@@ -28,7 +28,6 @@ api_client_secret = None
 # search-url
 url = 'https://api.spotify.com/'
 search_url = url + 'v1/search?{query}&type=track&offset={offset}'
-
 
 # do search-request
 def request(query, params):
@@ -60,13 +59,13 @@ def response(resp):
     for result in search_res.get('tracks', {}).get('items', {}):
         if result['type'] == 'track':
             title = result['name']
-            link = result['external_urls']['spotify']
+            url = result['external_urls']['spotify']
             content = '{} - {} - {}'.format(result['artists'][0]['name'], result['album']['name'], result['name'])
 
             # append result
             results.append(
                 {
-                    'url': link,
+                    'url': url,
                     'title': title,
                     'iframe_src': "https://embed.spotify.com/?uri=spotify:track:" + result['id'],
                     'content': content,

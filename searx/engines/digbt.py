@@ -5,7 +5,7 @@
 
 from urllib.parse import urljoin
 from lxml import html
-from searx.utils import extract_text
+from searx.utils import extract_text, get_torrent_size
 
 # about
 about = {
@@ -37,15 +37,15 @@ def response(resp):
     search_res = dom.xpath('.//td[@class="x-item"]')
 
     if not search_res:
-        return []
+        return list()
 
-    results = []
+    results = list()
     for result in search_res:
         url = urljoin(URL, result.xpath('.//a[@title]/@href')[0])
         title = extract_text(result.xpath('.//a[@title]'))
         content = extract_text(result.xpath('.//div[@class="files"]'))
         files_data = extract_text(result.xpath('.//div[@class="tail"]')).split()
-        filesize = f"{files_data[FILESIZE]} {files_data[FILESIZE_MULTIPLIER]}"
+        filesize = get_torrent_size(files_data[FILESIZE], files_data[FILESIZE_MULTIPLIER])
         magnetlink = result.xpath('.//div[@class="tail"]//a[@class="title"]/@href')[0]
 
         results.append(

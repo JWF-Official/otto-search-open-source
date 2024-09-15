@@ -1,12 +1,10 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""Rumble (Videos)
-
 """
-
-from datetime import datetime
-
+ Rumble (Videos)
+"""
 from urllib.parse import urlencode
 from lxml import html
+from datetime import datetime
 
 # about
 from searx.utils import extract_text
@@ -25,7 +23,9 @@ categories = ['videos']
 paging = True
 
 # search-url
-base_url = 'https://rumble.com/'
+base_url = 'https://rumble.com'
+# https://rumble.com/search/video?q=searx&page=3
+search_url = base_url + '/search/video?{query}&page={pageno}'
 
 url_xpath = './/a[@class="video-item--a"]/@href'
 thumbnail_xpath = './/img[@class="video-item--img"]/@src'
@@ -39,10 +39,7 @@ length_xpath = './/span[@class="video-item--duration"]/@data-value'
 
 
 def request(query, params):
-    args = {"q": query}
-    if params["pageno"] > 1:
-        args['page'] = params["pageno"]
-    params['url'] = f'{base_url}search/video?{urlencode(args)}'
+    params['url'] = search_url.format(pageno=params['pageno'], query=urlencode({'q': query}))
     return params
 
 

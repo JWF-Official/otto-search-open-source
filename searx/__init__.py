@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# pylint: disable=missing-module-docstring, cyclic-import
+# lint: pylint
+# pylint: disable=missing-module-docstring
 
 import sys
 import os
@@ -62,7 +63,7 @@ def logging_config_debug():
     except ImportError:
         coloredlogs = None
 
-    log_level = os.environ.get('SEARXNG_DEBUG_LOG_LEVEL', 'DEBUG')
+    log_level = os.environ.get('Otto_DEBUG_LOG_LEVEL', 'DEBUG')
     if coloredlogs and is_color_terminal():
         level_styles = {
             'spam': {'color': 'green', 'faint': True},
@@ -103,10 +104,3 @@ if max_request_timeout is None:
     logger.info('max_request_timeout=%s', repr(max_request_timeout))
 else:
     logger.info('max_request_timeout=%i second(s)', max_request_timeout)
-
-if settings['server']['public_instance']:
-    logger.warning(
-        "Be aware you have activated features intended only for public instances. "
-        "This force the usage of the limiter and link_token / "
-        "see https://docs.searxng.org/admin/searx.limiter.html"
-    )

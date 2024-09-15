@@ -4,21 +4,22 @@ general:
 
 search:
   safe_search: 0
-  autocomplete: "duckduckgo"
+  autocomplete: ""
   default_lang: ""
   ban_time_on_fail: 5
   max_ban_time_on_fail: 120
 
 server:
   port: 9000
-  bind_address: "54.173.178.205"
-  secret_key: "R5gW2v5zslrJKbtMrk023fdJYepRJ6z5qTBkopAfgppkwBRJ"
+  bind_address: "0.0.0.0"
+  secret_key: "user_settings_secret"
   base_url: false
   image_proxy: false
   http_protocol_version: "1.0"
   method: "POST"
   default_http_headers:
     X-Content-Type-Options: nosniff
+    X-XSS-Protection: 1; mode=block
     X-Download-Options: noopen
     X-Robots-Tag: noindex, nofollow
     Referrer-Policy: no-referrer

@@ -104,8 +104,8 @@ module.exports = function (grunt) {
       },
       dist: {
         files: {
-          'js/searxng.head.min.js': ['src/js/head/*.js'],
-          'js/searxng.min.js': [
+          'js/Otto.head.min.js': ['src/js/head/*.js'],
+          'js/Otto.min.js': [
             'src/js/main/*.js',
             './node_modules/autocomplete-js/dist/autocomplete.js'
           ]
@@ -126,13 +126,13 @@ module.exports = function (grunt) {
         files: [
           {
             src: ['src/less/style-ltr.less'],
-            dest: 'css/searxng.min.css',
+            dest: 'css/Otto.min.css',
             nonull: true,
             filter: file_exists,
           },
           {
             src: ['src/less/style-rtl.less'],
-            dest: 'css/searxng-rtl.min.css',
+            dest: 'css/Otto-rtl.min.css',
             nonull: true,
             filter: file_exists,
           },
@@ -145,8 +145,8 @@ module.exports = function (grunt) {
           svgo: ['--config', 'svg4web.svgo.js']
         },
         files: {
-          '<%= _templates %>/simple/searxng-wordmark.min.svg': '<%= _brand %>/searxng-wordmark.svg',
-          'img/searxng.png': '<%= _brand %>/searxng.png',
+          '<%= _templates %>/simple/OttoSearchBlue.png': '<%= _brand %>/OttoSearchBlue.png',
+          'img/Otto.svg': '<%= _brand %>/Otto.svg',
           'img/img_load_error.svg': '<%= _brand %>/img_load_error.svg'
         }
       },
@@ -155,15 +155,15 @@ module.exports = function (grunt) {
           svgo: ['--config', 'svg4favicon.svgo.js']
         },
         files: {
-          'img/favicon.svg': '<%= _brand %>/searxng-wordmark.svg'
+          'img/favicon.svg': '<%= _brand %>/OttoSearchBlue.png'
         }
       },
     },
     svg2png: {
       favicon: {
         files: {
-          'img/favicon.png': '<%= _brand %>/searxng-wordmark.svg',
-          'img/searxng.png': '<%= _brand %>/searxng.png',
+          'img/favicon.png': '<%= _brand %>/OttoSearchBlue.png',
+          'img/Otto.png': '<%= _brand %>/Otto.svg',
         }
       }
     },
@@ -218,7 +218,7 @@ module.exports = function (grunt) {
               name: "addAttributesToSVGElement",
               params: {
                 attributes: [
-                  { "class": "ionicon", "aria-hidden": "true" }
+                  { "aria-hidden": "true" }
                 ]
               }
             }

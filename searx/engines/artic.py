@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
 """The Art Institute of Chicago
 
 Explore thousands of artworks from The Art Institute of Chicago.
@@ -56,10 +57,11 @@ def response(resp):
         results.append(
             {
                 'url': 'https://artic.edu/artworks/%(id)s' % result,
-                'title': result['title'] + " (%(date_display)s) // %(artist_display)s" % result,
-                'content': "%(medium_display)s // %(dimensions)s" % result,
+                'title': result['title'] + " (%(date_display)s) //  %(artist_display)s" % result,
+                'content': result['medium_display'],
                 'author': ', '.join(result['artist_titles']),
                 'img_src': image_api + '/%(image_id)s/full/843,/0/default.jpg' % result,
+                'img_format': result['dimensions'],
                 'template': 'images.html',
             }
         )

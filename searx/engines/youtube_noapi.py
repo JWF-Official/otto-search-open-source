@@ -1,13 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""Youtube (Videos)
-
+"""
+ Youtube (Videos)
 """
 
+from datetime import datetime
 from functools import reduce
 from json import loads, dumps
 from urllib.parse import quote_plus
-
-from searx.utils import extr
 
 # about
 about = {
@@ -38,7 +37,6 @@ base_youtube_url = 'https://www.youtube.com/watch?v='
 
 # do search-request
 def request(query, params):
-    params['cookies']['CONSENT'] = "YES+"
     if not params['engine_data'].get('next_page_token'):
         params['url'] = search_url.format(query=quote_plus(query), page=params['pageno'])
         if params['time_range'] in time_range_dict:
@@ -54,6 +52,7 @@ def request(query, params):
         )
         params['headers']['Content-Type'] = 'application/json'
 
+    params['headers']['Cookie'] = "CONSENT=YES+cb.%s-17-p0.en+F+941;" % datetime.now().strftime("%Y%m%d")
     return params
 
 
@@ -103,7 +102,7 @@ def parse_next_page_response(response_text):
                 "key": "next_page_token",
             }
         )
-    except:  # pylint: disable=bare-except
+    except:
         pass
 
     return results
@@ -111,8 +110,8 @@ def parse_next_page_response(response_text):
 
 def parse_first_page_response(response_text):
     results = []
-    results_data = extr(response_text, 'ytInitialData = ', ';</script>')
-
+    results_data = response_text[response_text.find('ytInitialData') :]
+    results_data = results_data[results_data.find('{') : results_data.find(';</script>')]
     results_json = loads(results_data) if results_data else {}
     sections = (
         results_json.get('contents', {})
@@ -169,4 +168,5 @@ def parse_first_page_response(response_text):
 def get_text_from_json(element):
     if 'runs' in element:
         return reduce(lambda a, b: a + b.get('text', ''), element.get('runs'), '')
-    return element.get('simpleText', '')
+    else:
+        return element.get('simpleText', '')

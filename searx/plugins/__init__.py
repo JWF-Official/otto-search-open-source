@@ -1,4 +1,5 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
+# lint: pylint
 # pylint: disable=missing-module-docstring, missing-class-docstring
 
 import sys
@@ -165,7 +166,7 @@ def load_plugin(plugin_module_name, external):
         # searx compatibility: plugin.name in settings['enabled_plugins']
         plugin.default_on = plugin.name in settings["enabled_plugins"] or plugin.id in settings["enabled_plugins"]
 
-    # copy resources if this is an external plugin
+    # copy ressources if this is an external plugin
     if external:
         prepare_package_resources(plugin, plugin_module_name)
 
@@ -190,7 +191,8 @@ class PluginStore:
         self.plugins: List[Plugin] = []
 
     def __iter__(self):
-        yield from self.plugins
+        for plugin in self.plugins:
+            yield plugin
 
     def register(self, plugin):
         self.plugins.append(plugin)

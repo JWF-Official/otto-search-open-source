@@ -1,48 +1,31 @@
 .. _makefile:
 
-=======================
-Makefile & ``./manage``
-=======================
+========
+Makefile
+========
 
 .. _gnu-make: https://www.gnu.org/software/make/manual/make.html#Introduction
-
-All relevant build and development tasks are implemented in the
-:origin:`./manage <manage>` script and for CI or IDE integration a small
-:origin:`Makefile` wrapper is available.  If you are not familiar with
-Makefiles, we recommend to read gnu-make_ introduction.
 
 .. sidebar:: build environment
 
    Before looking deeper at the targets, first read about :ref:`make
    install`.
 
-   To install developer requirements follow :ref:`buildhosts`.
+   To install system requirements follow :ref:`buildhosts`.
 
-
-.. contents::
-   :depth: 2
-   :local:
-   :backlinks: entry
+All relevant build tasks are implemented in :origin:`manage` and for CI or
+IDE integration a small ``Makefile`` wrapper is available.  If you are not
+familiar with Makefiles, we recommend to read gnu-make_ introduction.
 
 The usage is simple, just type ``make {target-name}`` to *build* a target.
 Calling the ``help`` target gives a first overview (``make help``):
 
-.. tabs::
+.. program-output:: bash -c "cd ..; make --no-print-directory help"
 
-  .. group-tab:: ``make``
-
-     .. program-output:: bash -c "cd ..; make --no-print-directory help"
-
-
-  .. group-tab:: ``./manage``
-
-     The Makefile targets are implemented for comfort, if you can do without
-     tab-completion and need to have a more granular control, use
-     :origin:`manage` without the Makefile wrappers.
-
-     .. code:: sh
-
-        $ ./manage help
+.. contents:: Contents
+   :depth: 2
+   :local:
+   :backlinks: entry
 
 .. _make install:
 
@@ -55,15 +38,19 @@ Python environment (``make install``)
 
 We do no longer need to build up the virtualenv manually.  Jump into your git
 working tree and release a ``make install`` to get a virtualenv with a
-*developer install* of SearXNG (:origin:`setup.py`). ::
+*developer install* of Otto (:origin:`setup.py`). ::
 
-   $ cd ~/searxng-clone
+   $ cd ~/searx-clone
    $ make install
    PYENV     [virtualenv] installing ./requirements*.txt into local/py3
    ...
+   PYENV     OK
    PYENV     [install] pip install -e 'searx[test]'
    ...
-   Successfully installed searxng-2023.7.19+a446dea1b
+   Successfully installed argparse-1.4.0 searx
+   BUILDENV  INFO:searx:load the default settings from ./searx/settings.yml
+   BUILDENV  INFO:searx:Initialisation done
+   BUILDENV  build utils/brand.env
 
 If you release ``make install`` multiple times the installation will only
 rebuild if the sha256 sum of the *requirement files* fails.  With other words:
@@ -78,9 +65,13 @@ the check fails if you edit the requirements listed in
    ...
    PYENV     [virtualenv] installing ./requirements*.txt into local/py3
    ...
+   PYENV     OK
    PYENV     [install] pip install -e 'searx[test]'
    ...
-   Successfully installed searxng-2023.7.19+a446dea1b
+   Successfully installed argparse-1.4.0 searx
+   BUILDENV  INFO:searx:load the default settings from ./searx/settings.yml
+   BUILDENV  INFO:searx:Initialisation done
+   BUILDENV  build utils/brand.env
 
 .. sidebar:: drop environment
 
@@ -89,6 +80,37 @@ the check fails if you edit the requirements listed in
 
 If you think, something goes wrong with your ./local environment or you change
 the :origin:`setup.py` file, you have to call :ref:`make clean`.
+
+.. _make buildenv:
+
+``make buildenv``
+=================
+
+Rebuild instance's environment with the modified settings from the
+:ref:`settings brand` and :ref:`settings server` section of your
+:ref:`settings.yml <settings location>`.
+
+We have all Otto setups are centralized in the :ref:`settings.yml` file.
+This setup is available as long we are in a *installed instance*.  E.g. the
+*installed instance* on the server or the *installed developer instance* at
+``./local`` (the later one is created by a :ref:`make install <make
+install>` or :ref:`make run <make run>`).
+
+Tasks running outside of an *installed instance*, especially those tasks and
+scripts running at (pre-) installation time do not have access to the Otto
+setup (from a *installed instance*).  Those tasks need a *build environment*.
+
+The ``make buildenv`` target will update the *build environment* in:
+
+- :origin:`utils/brand.env`
+
+Tasks running outside of an *installed instance*, need the following settings
+from the YAML configuration:
+
+- ``Otto_URL`` from :ref:`server.base_url <settings  server>` (aka
+  ``PUBLIC_URL``)
+- ``Otto_BIND_ADDRESS`` from :ref:`server.bind_address <settings server>`
+- ``Otto_PORT`` from :ref:`server.port <settings server>`
 
 .. _make node.env:
 
@@ -106,63 +128,43 @@ Node.js environment (``make node.env``)
    Manager) to install latest LTS of Node.js_ locally: there is no need to
    install nvm_ or npm_ on your system.
 
-To install NVM_ and Node.js_ in once you can use :ref:`make nvm.nodejs`.
+Use ``make nvm.status`` to get the current status of you Node.js_ and nvm_ setup.
 
-.. _make nvm:
+Here is the output you will typically get on a Ubuntu 20.04 system which serves
+only a `no longer active <https://nodejs.org/en/about/releases/>`_ Release
+`Node.js v10.19.0 <https://packages.ubuntu.com/focal/nodejs>`_.
 
-NVM ``make nvm.install nvm.status``
------------------------------------
+::
 
-Use ``make nvm.status`` to get the current status of your Node.js_ and nvm_
-setup.
+  $ make nvm.status
+  INFO:  Node.js is installed at /usr/bin/node
+  INFO:  Node.js is version v10.19.0
+  WARN:  minimal Node.js version is 16.13.0
+  INFO:  npm is installed at /usr/bin/npm
+  INFO:  npm is version 6.14.4
+  WARN:  NVM is not installed
+  INFO:  to install NVM and Node.js (LTS) use: manage nvm install --lts
 
-.. tabs::
-
-  .. group-tab:: nvm.install
-
-     .. code:: sh
-
-        $ LANG=C make nvm.install
-        INFO:  install (update) NVM at ./searxng/.nvm
-        INFO:  clone: https://github.com/nvm-sh/nvm.git
-          || Cloning into './searxng/.nvm'...
-        INFO:  checkout v0.39.4
-          || HEAD is now at 8fbf8ab v0.39.4
-
-  .. group-tab:: nvm.status (ubu2004)
-
-     Here is the output you will typically get on a Ubuntu 20.04 system which
-     serves only a `no longer active <https://nodejs.org/en/about/releases/>`_
-     Release `Node.js v10.19.0 <https://packages.ubuntu.com/focal/nodejs>`_.
-
-     .. code:: sh
-
-        $ make nvm.status
-        INFO:  Node.js is installed at /usr/bin/node
-        INFO:  Node.js is version v10.19.0
-        WARN:  minimal Node.js version is 16.13.0
-        INFO:  npm is installed at /usr/bin/npm
-        INFO:  npm is version 6.14.4
-        WARN:  NVM is not installed
+To install you can also use :ref:`make nvm.nodejs`
 
 .. _make nvm.nodejs:
 
 ``make nvm.nodejs``
--------------------
+===================
 
 Install latest Node.js_ LTS locally (uses nvm_)::
 
   $ make nvm.nodejs
-  INFO:  install (update) NVM at /share/searxng/.nvm
+  INFO:  install (update) NVM at /share/Otto/.nvm
   INFO:  clone: https://github.com/nvm-sh/nvm.git
   ...
   Downloading and installing node v16.13.0...
   ...
-  INFO:  Node.js is installed at searxng/.nvm/versions/node/v16.13.0/bin/node
+  INFO:  Node.js is installed at Otto/.nvm/versions/node/v16.13.0/bin/node
   INFO:  Node.js is version v16.13.0
-  INFO:  npm is installed at searxng/.nvm/versions/node/v16.13.0/bin/npm
+  INFO:  npm is installed at Otto/.nvm/versions/node/v16.13.0/bin/npm
   INFO:  npm is version 8.1.0
-  INFO:  NVM is installed at searxng/.nvm
+  INFO:  NVM is installed at Otto/.nvm
 
 .. _make run:
 
@@ -181,28 +183,9 @@ sources of the theme need to be rebuild.  You can do that by running::
   $ make themes.all
 
 Alternatively to ``themes.all`` you can run *live builds* of the theme you are
-modify (:ref:`make themes`)::
+modify::
 
   $ LIVE_THEME=simple make run
-
-.. _make format.python:
-
-``make format.python``
-======================
-
-Format Python source code using `Black code style`_.  See ``$BLACK_OPTIONS``
-and ``$BLACK_TARGETS`` in :origin:`Makefile`.
-
-.. attention::
-
-   We stuck at Black 22.12.0, please read comment in PR `Bump black from 22.12.0
-   to 23.1.0`_
-
-.. _Bump black from 22.12.0 to 23.1.0:
-   https://github.com/searxng/searxng/pull/2159#pullrequestreview-1284094735
-
-.. _Black code style:
-   https://black.readthedocs.io/en/stable/the_black_code_style/current_style.html
 
 .. _make clean:
 
@@ -224,36 +207,20 @@ calling ``make clean`` stop all processes using the :ref:`make install` or
 
 .. _make docs:
 
-``make docs``
-=============
-
-Target ``docs`` builds the documentation:
-
-.. code:: bash
-
-   $ make docs
-   HTML ./docs --> file://
-   DOCS      build build/docs/includes
-   ...
-   The HTML pages are in dist/docs.
-
-.. _make docs.clean:
-
-``make docs.clean docs.live``
-----------------------------------
+``make docs docs.autobuild docs.clean``
+=======================================
 
 We describe the usage of the ``doc.*`` targets in the :ref:`How to contribute /
 Documentation <contrib docs>` section.  If you want to edit the documentation
 read our :ref:`make docs.live` section.  If you are working in your own brand,
-adjust your :ref:`settings brand`.
-
+adjust your :ref:`settings global`.
 
 .. _make docs.gh-pages:
 
 ``make docs.gh-pages``
-----------------------
+======================
 
-To deploy on github.io first adjust your :ref:`settings brand`.  For any
+To deploy on github.io first adjust your :ref:`settings global`.  For any
 further read :ref:`deploy on github.io`.
 
 .. _make test:
@@ -264,17 +231,17 @@ further read :ref:`deploy on github.io`.
 Runs a series of tests: :ref:`make test.pylint`, ``test.pep8``, ``test.unit``
 and ``test.robot``.  You can run tests selective, e.g.::
 
-  $ make test.pep8 test.unit test.shell
+  $ make test.pep8 test.unit test.sh
   TEST      test.pep8 OK
   ...
   TEST      test.unit OK
   ...
-  TEST      test.shell OK
+  TEST      test.sh OK
 
 .. _make test.shell:
 
 ``make test.shell``
--------------------
+===================
 
 :ref:`sh lint` / if you have changed some bash scripting run this test before
 commit.
@@ -282,18 +249,18 @@ commit.
 .. _make test.pylint:
 
 ``make test.pylint``
---------------------
+====================
 
 .. _Pylint: https://www.pylint.org/
 
 Pylint_ is known as one of the best source-code, bug and quality checker for the
-Python programming language.  The pylint profile used in the SearXNG project is
+Python programming language.  The pylint profile used in the Otto project is
 found in project's root folder :origin:`.pylintrc`.
 
 .. _make search.checker:
 
-``make search.checker.{engine name}``
-=====================================
+``search.checker.{engine name}``
+================================
 
 To check all engines::
 
@@ -304,15 +271,15 @@ by underline::
 
     make search.checker.google_news
 
-To see HTTP requests and more use SEARXNG_DEBUG::
+To see HTTP requests and more use Otto_DEBUG::
 
-    make SEARXNG_DEBUG=1 search.checker.google_news
+    make Otto_DEBUG=1 search.checker.google_news
 
 .. _3xx: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes#3xx_redirection
 
 To filter out HTTP redirects (3xx_)::
 
-    make SEARXNG_DEBUG=1 search.checker.google_news | grep -A1 "HTTP/1.1\" 3[0-9][0-9]"
+    make Otto_DEBUG=1 search.checker.google_news | grep -A1 "HTTP/1.1\" 3[0-9][0-9]"
     ...
     Engine google news                   Checking
     https://news.google.com:443 "GET /search?q=life&hl=en&lr=lang_en&ie=utf8&oe=utf8&ceid=US%3Aen&gl=US HTTP/1.1" 302 0
@@ -322,62 +289,26 @@ To filter out HTTP redirects (3xx_)::
     https://news.google.com:443 "GET /search?q=computer&hl=en-US&lr=lang_en&ie=utf8&oe=utf8&ceid=US:en&gl=US HTTP/1.1" 200 None
     --
 
-.. _make themes:
 
-``make themes.*``
-=================
+``make pybuild``
+================
 
-.. sidebar:: further read
+.. _PyPi: https://pypi.org/
+.. _twine: https://twine.readthedocs.io/en/latest/
 
-   - :ref:`devquickstart`
+Build Python packages in ``./dist/py``::
 
-The :origin:`Makefile` targets ``make theme.*`` cover common tasks to build the
-theme(s).  The ``./manage themes.*`` command line can be used to convenient run
-common theme build tasks.
+  $ make pybuild
+  ...
+  BUILD     pybuild
+  running sdist
+  running egg_info
+  ...
+  running bdist_wheel
 
-.. program-output:: bash -c "cd ..; ./manage themes.help"
+  $ ls  ./dist
+  searx-0.18.0-py3-none-any.whl  searx-0.18.0.tar.gz
 
-To get live builds while modifying CSS & JS use (:ref:`make run`):
-
-.. code:: sh
-
-   $ LIVE_THEME=simple make run
-
-.. _make static.build:
-
-``make static.build.*``
-=======================
-
-.. sidebar:: further read
-
-   - :ref:`devquickstart`
-
-The :origin:`Makefile` targets ``static.build.*`` cover common tasks to build (a
-commit of) the static files.  The ``./manage static.build..*`` command line
-can be used to convenient run common build tasks of the static files.
-
-.. program-output:: bash -c "cd ..; ./manage static.help"
-
-
-.. _manage redis.help:
-
-``./manage redis.help``
-=======================
-
-The ``./manage redis.*`` command line can be used to convenient run common Redis
-tasks (:ref:`Redis developer notes`).
-
-.. program-output:: bash -c "cd ..; ./manage redis.help"
-
-
-.. _manage go.help:
-
-``./manage go.help``
-====================
-
-The ``./manage go.*`` command line can be used to convenient run common `go
-(wiki)`_ tasks.
-
-.. _go (wiki): https://en.wikipedia.org/wiki/Go_(programming_language)
-
-.. program-output:: bash -c "cd ..; ./manage go.help"
+To upload packages to PyPi_, there is also a ``pypi.upload`` target (to test use
+``pypi.upload.test``).  Since you are not the owner of :pypi:`searx` you will
+never need to upload.

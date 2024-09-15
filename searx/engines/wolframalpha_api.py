@@ -1,11 +1,10 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""Wolfram|Alpha (Science)
-
+"""
+ Wolfram|Alpha (Science)
 """
 
-from urllib.parse import urlencode
-
 from lxml import etree
+from urllib.parse import urlencode
 
 # about
 about = {
@@ -51,7 +50,7 @@ def request(query, params):
 # replace private user area characters to make text legible
 def replace_pua_chars(text):
     pua_chars = {
-        '\uf522': '\u2192',  # right arrow
+        '\uf522': '\u2192',  # rigth arrow
         '\uf7b1': '\u2115',  # set of natural numbers
         '\uf7b4': '\u211a',  # set of rational numbers
         '\uf7b5': '\u211d',  # set of real numbers
@@ -80,7 +79,7 @@ def response(resp):
 
     try:
         infobox_title = search_results.xpath(input_xpath)[0].text
-    except:  # pylint: disable=bare-except
+    except:
         infobox_title = ""
 
     pods = search_results.xpath(pods_xpath)

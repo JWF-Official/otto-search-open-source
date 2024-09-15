@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""Processors for engine-type: ``online``
+# lint: pylint
+
+"""Processores for engine-type: ``online``
 
 """
-# pylint: disable=use-dict-literal
 
 from timeit import default_timer
 import asyncio
-import ssl
 import httpx
 
 import searx.network
@@ -29,6 +29,7 @@ def default_request_params():
         'data': {},
         'url': '',
         'cookies': {},
+        'verify': True,
         'auth': None
         # fmt: on
     }
@@ -49,9 +50,6 @@ class OnlineProcessor(EngineProcessor):
         super().initialize()
 
     def get_params(self, search_query, engine_category):
-        """Returns a set of :ref:`request params <engine request online>` or ``None``
-        if request is not supported.
-        """
         params = super().get_params(search_query, engine_category)
         if params is None:
             return None
@@ -62,32 +60,14 @@ class OnlineProcessor(EngineProcessor):
         # add an user agent
         params['headers']['User-Agent'] = gen_useragent()
 
-        # add Accept-Language header
-        if self.engine.send_accept_language_header and search_query.locale:
-            ac_lang = search_query.locale.language
-            if search_query.locale.territory:
-                ac_lang = "%s-%s,%s;q=0.9,*;q=0.5" % (
-                    search_query.locale.language,
-                    search_query.locale.territory,
-                    search_query.locale.language,
-                )
-            params['headers']['Accept-Language'] = ac_lang
-
-        self.logger.debug('HTTP Accept-Language: %s', params['headers'].get('Accept-Language', ''))
         return params
 
     def _send_http_request(self, params):
         # create dictionary which contain all
-        # information about the request
-        request_args = dict(headers=params['headers'], cookies=params['cookies'], auth=params['auth'])
-
-        # verify
-        # if not None, it overrides the verify value defined in the network.
-        # use False to accept any server certificate
-        # use a path to file to specify a server certificate
-        verify = params.get('verify')
-        if verify is not None:
-            request_args['verify'] = params['verify']
+        # informations about the request
+        request_args = dict(
+            headers=params['headers'], cookies=params['cookies'], verify=params['verify'], auth=params['auth']
+        )
 
         # max_redirects
         max_redirects = params.get('max_redirects')
@@ -162,10 +142,6 @@ class OnlineProcessor(EngineProcessor):
             # send requests and parse the results
             search_results = self._search_basic(query, params)
             self.extend_container(result_container, start_time, search_results)
-        except ssl.SSLError as e:
-            # requests timeout (connect or read)
-            self.handle_exception(result_container, e, suspend=True)
-            self.logger.error("SSLError {}, verify={}".format(e, searx.network.get_network(self.engine_name).verify))
         except (httpx.TimeoutException, asyncio.TimeoutError) as e:
             # requests timeout (connect or read)
             self.handle_exception(result_container, e, suspend=True)
@@ -186,11 +162,13 @@ class OnlineProcessor(EngineProcessor):
             self.handle_exception(result_container, e, suspend=True)
             self.logger.exception('CAPTCHA')
         except SearxEngineTooManyRequestsException as e:
+            if "google" in self.engine_name:
+                self.logger.warn("We recommend enabling the use_mobile_ui parameter if google is blocked for you.")
             self.handle_exception(result_container, e, suspend=True)
             self.logger.exception('Too many requests')
         except SearxEngineAccessDeniedException as e:
             self.handle_exception(result_container, e, suspend=True)
-            self.logger.exception('SearXNG is blocked')
+            self.logger.exception('Searx is blocked')
         except Exception as e:  # pylint: disable=broad-except
             self.handle_exception(result_container, e)
             self.logger.exception('exception : {0}'.format(e))
@@ -220,7 +198,7 @@ class OnlineProcessor(EngineProcessor):
                 'test': ['unique_results'],
             }
 
-        if getattr(self.engine, 'traits', False):
+        if getattr(self.engine, 'supported_languages', []):
             tests['lang_fr'] = {
                 'matrix': {'query': 'paris', 'lang': 'fr'},
                 'result_container': ['not_empty', ('has_language', 'fr')],

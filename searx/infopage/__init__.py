@@ -1,5 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-"""Render SearXNG instance documentation.
+# lint: pylint
+# pyright: basic
+"""Render Otto instance documentation.
 
 Usage in a Flask app route:
 
@@ -17,8 +19,6 @@ Usage in a Flask app route:
 
 """
 
-from __future__ import annotations
-
 __all__ = ['InfoPage', 'InfoPageSet']
 
 import os
@@ -27,28 +27,18 @@ import logging
 import typing
 
 import urllib.parse
-from functools import cached_property
 import jinja2
 from flask.helpers import url_for
 from markdown_it import MarkdownIt
 
 from .. import get_setting
+from ..compat import cached_property
 from ..version import GIT_URL
 from ..locales import LOCALE_NAMES
 
 
 logger = logging.getLogger('searx.infopage')
 _INFO_FOLDER = os.path.abspath(os.path.dirname(__file__))
-INFO_PAGES: 'InfoPageSet'
-
-
-def __getattr__(name):
-    if name == 'INFO_PAGES':
-        global INFO_PAGES  # pylint: disable=global-statement
-        INFO_PAGES = InfoPageSet()
-        return INFO_PAGES
-
-    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
 
 class InfoPage:
@@ -65,7 +55,7 @@ class InfoPage:
 
     @cached_property
     def content(self):
-        """Content of the page (rendered in a Jinja context)"""
+        """Content of the page (rendered in a Jinja conntext)"""
         ctx = self.get_ctx()
         template = jinja2.Environment().from_string(self.raw_content)
         return template.render(**ctx)
@@ -115,7 +105,7 @@ class InfoPage:
 
 
 class InfoPageSet:  # pylint: disable=too-few-public-methods
-    """Cached rendering of the online documentation a SearXNG instance has.
+    """Cached rendering of the online documentation a Otto instance has.
 
     :param page_class: render online documentation by :py:obj:`InfoPage` parser.
     :type page_class: :py:obj:`InfoPage`
@@ -129,7 +119,7 @@ class InfoPageSet:  # pylint: disable=too-few-public-methods
     ):
         self.page_class = page_class or InfoPage
         self.folder: str = info_folder or _INFO_FOLDER
-        """location of the Markdown files"""
+        """location of the Markdwon files"""
 
         self.CACHE: typing.Dict[tuple, typing.Optional[InfoPage]] = {}
 
