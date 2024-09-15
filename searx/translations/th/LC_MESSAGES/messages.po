@@ -561,7 +561,7 @@ msgid ""
 msgstr ""
 "ปลั๊กอินนี้จะตรวจสอบว่าที่อยู่ของคำขอเป็นโหนดทางออกของ Tor หรือไม่ "
 "และแจ้งให้ผู้ใช้ทราบว่าเป็นหรือไม่ เช่น check.torproject.org แต่มาจาก "
-"Otto"
+"SearXNG"
 
 #: searx/plugins/tor_check.py:61
 msgid ""

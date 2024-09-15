@@ -1,6 +1,6 @@
 [Unit]
 
-Description=Otto redis service
+Description=SearXNG redis service
 After=syslog.target
 After=network.target
 Documentation=https://redis.io/documentation
