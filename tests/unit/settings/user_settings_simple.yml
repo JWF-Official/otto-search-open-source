@@ -1,0 +1,9 @@
+use_default_settings: true
+server:
+  secret_key: "R5gW2v5zslrJKbtMrk023fdJYepRJ6z5qTBkopAfgppkwBRJ"
+  bind_address: "54.173.178.205"
+  default_http_headers:
+    Custom-Header: Custom-Value
+result_proxy:
+  url: https://localhost/morty
+  key: "$ecretKey"
